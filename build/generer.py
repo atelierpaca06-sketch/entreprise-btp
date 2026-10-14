@@ -203,7 +203,7 @@ def page_index():
         ("Intervenez-vous vraiment pour tous les métiers de la maison ?","Oui : plomberie, chauffage, climatisation, électricité, volets roulants et serrurerie. Un seul numéro, une seule équipe, une seule facture, y compris quand un chantier mêle plusieurs métiers."),
         ("Sous quel délai intervenez-vous ?","Sous 48 h pour une intervention classique, plus vite pour une urgence (fuite, panne de chauffage, porte bloquée) grâce à l'astreinte 24h/24 et 7j/7."),
         ("Le devis est-il vraiment gratuit ?","Oui, le devis et la visite technique sont gratuits et sans engagement. Pour un dépannage, le prix est annoncé avant l'intervention."),
-        ("Quelle zone couvrez-vous ?","Antibes et 20 km autour en priorité (Cagnes-sur-Mer, Villeneuve-Loubet, Cannes, Le Cannet, Mandelieu, Nice, Saint-Laurent-du-Var), les Alpes-Maritimes, et dans le Var : Fréjus, Saint-Raphaël et le pays de Fayence (10 km autour)."),
+        ("Quelle zone couvrez-vous ?","Les Alpes-Maritimes, d'Antibes à Nice et de Cannes à Grasse, et le Var est : Fréjus, Saint-Raphaël et le pays de Fayence. Siège à Antibes, agences à Juan-les-Pins, Cagnes-sur-Mer et Le Cannet."),
         ("Vos travaux sont-ils garantis ?","Oui : garantie décennale sur les travaux, matériel de grandes marques, facture détaillée et équipe joignable après l'intervention."),
     ])
     ld = [ld_business(), {"@context":"https://schema.org","@type":"WebSite","@id":SITE+"#site","url":SITE,"name":"Atelier PACA","inLanguage":"fr-FR","publisher":{"@id":SITE+"#organisation"}}, faq_ld]
@@ -272,7 +272,7 @@ def page_index():
 </div></div></section>
 
 <section class="sec" style="padding-top:0"><div class="wrap">
-<div class="sec-h"><p class="kicker">Zone d'intervention</p><h2>Antibes, 20 km autour, et le proche Var</h2><p>Notre zone prioritaire va de Mandelieu à Nice. Dans le Var, nous couvrons Fréjus, Saint-Raphaël et le pays de Fayence, dans un rayon de 10 km autour de ces villes.</p></div>
+<div class="sec-h"><p class="kicker">Zone d'intervention</p><h2>Nos villes d'intervention dans les Alpes-Maritimes et le Var</h2><p>D'Antibes à Nice, de Cannes à Grasse, et dans le Var de Fréjus à Fayence : une équipe mobile basée à Antibes, avec des agences à Juan-les-Pins, Cagnes-sur-Mer et Le Cannet. Cliquez sur votre ville.</p></div>
 <div class="villes"><div><h3>{ICO["pin"]} Alpes-Maritimes <small>(06)</small></h3><div class="chips">{hubs06}</div></div><div><h3>{ICO["pin"]} Var est <small>(83)</small></h3><div class="chips">{hubs83}</div></div></div>
 </div></section>
 
@@ -544,7 +544,7 @@ def pages_annexes():
     for t in TRADES: allfaq += t["faq"][:3]
     faq_htm, faq_ld = faq_block([("Sous quel délai intervenez-vous ?","Sous 48 h pour une intervention classique, plus vite pour une urgence grâce à l'astreinte 24h/24 et 7j/7."),
                                  ("Le devis est-il gratuit ?","Oui, devis et visite technique sont gratuits et sans engagement. Pour un dépannage, le prix est annoncé avant l'intervention."),
-                                 ("Quelle zone couvrez-vous ?","Antibes et 20 km autour en priorité, les Alpes-Maritimes, et dans le Var : Fréjus, Saint-Raphaël et le pays de Fayence (10 km autour)."),
+                                 ("Quelle zone couvrez-vous ?","Les Alpes-Maritimes, d'Antibes à Nice et de Cannes à Grasse, et le Var est : Fréjus, Saint-Raphaël et le pays de Fayence."),
                                  ("Comment payer ?","Carte bancaire, virement, chèque ou espèces. Facture détaillée remise à chaque intervention."),
                                  ("Travaillez-vous avec les assurances et les syndics ?","Oui : rapport d'intervention et facture détaillée pour les déclarations de sinistre, documents techniques pour les demandes aux syndics.")] + allfaq, "Toutes les questions")
     page_simple("faq.html","Questions fréquentes — Délais, devis, tarifs | Atelier PACA","Les réponses d'Atelier PACA sur les délais, le devis gratuit, les tarifs, les urgences 24h/24, les garanties et la zone d'intervention dans le 06 et le Var.",
