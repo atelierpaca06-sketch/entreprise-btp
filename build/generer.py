@@ -103,9 +103,9 @@ def villes_footer():
     out = []
     for t in TRADES:
         links = "".join(f'<a href="{t["prefix"]}-{v["slug"]}.html">{v["nom"]}</a>' for v in VILLES)
-        out.append(f'<details><summary>{t["nom"]} — 26 villes</summary><div class="chips">{links}</div></details>')
+        out.append(f'<details><summary>{t["nom"]} — {len(VILLES)} villes</summary><div class="chips">{links}</div></details>')
     hubs = "".join(f'<a href="depannage-{v["slug"]}.html">{v["nom"]}</a>' for v in VILLES)
-    out.append(f'<details><summary>Dépannage toutes prestations — 26 villes</summary><div class="chips">{hubs}</div></details>')
+    out.append(f'<details><summary>Dépannage toutes prestations — {len(VILLES)} villes</summary><div class="chips">{hubs}</div></details>')
     return "".join(out)
 
 def footer():
@@ -191,7 +191,7 @@ def write(fn, content, prio="0.6", freq="monthly"):
 def chips_villes(prefix, cur=None):
     def grp(vs, titre, code):
         return f'<div><h3>{ICO["pin"]} {titre} <small>({code})</small></h3><div class="chips">' + "".join(f'<a href="{prefix}-{v["slug"]}.html"{" class=on" if v["slug"]==cur else ""}>{v["nom"]}</a>' for v in vs) + '</div></div>'
-    return '<div class="villes">' + grp(VILLES_06, "Alpes-Maritimes", "06") + grp(VILLES_83, "Var", "83") + '</div>'
+    return '<div class="villes">' + grp(VILLES_06, "Alpes-Maritimes", "06") + grp(VILLES_83, "Var est — Fréjus, Saint-Raphaël, pays de Fayence", "83") + '</div>'
 
 def tarifs_block(t):
     cards = "".join(f'<div class="tarif"><div><b>{esc(n)}</b><p>{esc(d)}</p></div><div class="px"><b>{esc(p)}</b><small>{esc(u)}</small></div></div>' for _,n,d,p,u in t["prestations"])
@@ -203,7 +203,7 @@ def page_index():
         ("Intervenez-vous vraiment pour tous les métiers de la maison ?","Oui : plomberie, chauffage, climatisation, électricité, volets roulants et serrurerie. Un seul numéro, une seule équipe, une seule facture, y compris quand un chantier mêle plusieurs métiers."),
         ("Sous quel délai intervenez-vous ?","Sous 48 h pour une intervention classique, plus vite pour une urgence (fuite, panne de chauffage, porte bloquée) grâce à l'astreinte 24h/24 et 7j/7."),
         ("Le devis est-il vraiment gratuit ?","Oui, le devis et la visite technique sont gratuits et sans engagement. Pour un dépannage, le prix est annoncé avant l'intervention."),
-        ("Quelle zone couvrez-vous ?","Antibes et 20 km autour en priorité (Cagnes-sur-Mer, Villeneuve-Loubet, Cannes, Le Cannet, Mandelieu, Nice, Saint-Laurent-du-Var), et plus largement les Alpes-Maritimes et le Var."),
+        ("Quelle zone couvrez-vous ?","Antibes et 20 km autour en priorité (Cagnes-sur-Mer, Villeneuve-Loubet, Cannes, Le Cannet, Mandelieu, Nice, Saint-Laurent-du-Var), les Alpes-Maritimes, et dans le Var : Fréjus, Saint-Raphaël et le pays de Fayence (10 km autour)."),
         ("Vos travaux sont-ils garantis ?","Oui : garantie décennale sur les travaux, matériel de grandes marques, facture détaillée et équipe joignable après l'intervention."),
     ])
     ld = [ld_business(), {"@context":"https://schema.org","@type":"WebSite","@id":SITE+"#site","url":SITE,"name":"Atelier PACA","inLanguage":"fr-FR","publisher":{"@id":SITE+"#organisation"}}, faq_ld]
@@ -272,8 +272,8 @@ def page_index():
 </div></div></section>
 
 <section class="sec" style="padding-top:0"><div class="wrap">
-<div class="sec-h"><p class="kicker">Zone d'intervention</p><h2>Antibes, 20 km autour, et toute la côte</h2><p>Notre zone prioritaire va de Mandelieu à Nice. Nous couvrons aussi l'est du département et le Var pour les installations, rénovations et contrats d'entretien.</p></div>
-<div class="villes"><div><h3>{ICO["pin"]} Alpes-Maritimes <small>(06)</small></h3><div class="chips">{hubs06}</div></div><div><h3>{ICO["pin"]} Var <small>(83)</small></h3><div class="chips">{hubs83}</div></div></div>
+<div class="sec-h"><p class="kicker">Zone d'intervention</p><h2>Antibes, 20 km autour, et le proche Var</h2><p>Notre zone prioritaire va de Mandelieu à Nice. Dans le Var, nous couvrons Fréjus, Saint-Raphaël et le pays de Fayence, dans un rayon de 10 km autour de ces villes.</p></div>
+<div class="villes"><div><h3>{ICO["pin"]} Alpes-Maritimes <small>(06)</small></h3><div class="chips">{hubs06}</div></div><div><h3>{ICO["pin"]} Var est <small>(83)</small></h3><div class="chips">{hubs83}</div></div></div>
 </div></section>
 
 <section class="sec" style="padding-top:0"><div class="wrap">{faq_htm}</div></section>
@@ -351,7 +351,7 @@ def page_metier_ville(t, v):
     if agence:
         local = f'<div class="loc"><div class="l"><b>Agence Atelier PACA — {agence["nom"]}</b><span>{agence["adresse"]}, {agence["cp"]} {agence["ville"]} · {E["note"]}/5 sur {agence["avis"]} avis · <a href="{maps(agence)}" target="_blank" rel="noopener">voir la fiche Google</a></span></div><div class="l"><b>Délai à {v["nom"]}</b><span>Intervention sous 48 h, souvent le jour même en urgence. Siège et stock à Antibes.</span></div></div>'
     else:
-        local = f'<div class="loc"><div class="l"><b>Depuis Antibes</b><span>{v["nom"]} est à {v["minutes"]} de notre siège (48 chemin des Autrichiens). Stock de pièces et matériel embarqué.</span></div><div class="l"><b>Délai à {v["nom"]}</b><span>{"Intervention sous 48 h, souvent le jour même en urgence." if v["prio"] or v["dept"]=="06" else "Installations, rénovations et contrats d’entretien ; urgences selon disponibilité des équipes."}</span></div></div>'
+        local = f'<div class="loc"><div class="l"><b>Depuis Antibes</b><span>{v["nom"]} est à {v["minutes"]} de notre siège (48 chemin des Autrichiens). Stock de pièces et matériel embarqué.</span></div><div class="l"><b>Délai à {v["nom"]}</b><span>{"Intervention sous 48 h, souvent le jour même en urgence." if v["prio"] or v["dept"]=="06" else "Intervention sous 48 h ; urgences selon la disponibilité des équipes mobiles."}</span></div></div>'
     prio_txt = f'<h2>Atelier PACA à {v["nom"]}</h2><p>{esc(v["intro"])}</p><p>{esc(v["local"])}</p>' if v.get("local") else f'<h2>Atelier PACA à {v["nom"]}</h2><p>{esc(v["intro"])}</p>'
     body = header(t["page"]) + f'''
 <main>
@@ -544,7 +544,7 @@ def pages_annexes():
     for t in TRADES: allfaq += t["faq"][:3]
     faq_htm, faq_ld = faq_block([("Sous quel délai intervenez-vous ?","Sous 48 h pour une intervention classique, plus vite pour une urgence grâce à l'astreinte 24h/24 et 7j/7."),
                                  ("Le devis est-il gratuit ?","Oui, devis et visite technique sont gratuits et sans engagement. Pour un dépannage, le prix est annoncé avant l'intervention."),
-                                 ("Quelle zone couvrez-vous ?","Antibes et 20 km autour en priorité, puis l'ensemble des Alpes-Maritimes et du Var pour les installations et contrats d'entretien."),
+                                 ("Quelle zone couvrez-vous ?","Antibes et 20 km autour en priorité, les Alpes-Maritimes, et dans le Var : Fréjus, Saint-Raphaël et le pays de Fayence (10 km autour)."),
                                  ("Comment payer ?","Carte bancaire, virement, chèque ou espèces. Facture détaillée remise à chaque intervention."),
                                  ("Travaillez-vous avec les assurances et les syndics ?","Oui : rapport d'intervention et facture détaillée pour les déclarations de sinistre, documents techniques pour les demandes aux syndics.")] + allfaq, "Toutes les questions")
     page_simple("faq.html","Questions fréquentes — Délais, devis, tarifs | Atelier PACA","Les réponses d'Atelier PACA sur les délais, le devis gratuit, les tarifs, les urgences 24h/24, les garanties et la zone d'intervention dans le 06 et le Var.",
@@ -592,6 +592,14 @@ def pages_annexes():
     with open(os.path.join(ROOT,"404.html"),"w",encoding="utf-8") as f:
         f.write(head("Page introuvable | Atelier PACA","Page introuvable.","404.html").replace('<meta name="robots" content="index,follow,max-image-preview:large">','<meta name="robots" content="noindex">') + body)
 
+def pages_redirections():
+    """Anciennes URLs des villes hors zone : renvoi immédiat vers la page métier (noindex, canonical métier)."""
+    for slug in VILLES_RETIREES:
+        cibles = [(f'{t["prefix"]}-{slug}.html', t["page"]) for t in TRADES] + [(f'depannage-{slug}.html', 'index.html')]
+        for fn, cible in cibles:
+            htm = f'<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><title>Redirection — Atelier PACA</title><meta name="robots" content="noindex,follow"><link rel="canonical" href="{SITE}{cible if cible!="index.html" else ""}"><meta http-equiv="refresh" content="0;url={cible}"></head><body><p>Cette page a été déplacée : <a href="{cible}">continuer</a>.</p></body></html>'
+            with open(os.path.join(ROOT, fn), "w", encoding="utf-8") as f: f.write(htm)
+
 def page_plan():
     sec = f'<h2>Pages principales</h2><ul class="liste"><li><a href="index.html">Accueil</a></li>' + "".join(f'<li><a href="{t["page"]}">{t["nom"]}</a></li>' for t in TRADES) + '<li><a href="urgence-depannage-24h.html">Dépannage urgent 24h/24</a></li><li><a href="contrat-entretien.html">Contrats d\'entretien</a></li><li><a href="avis-clients.html">Avis clients</a></li><li><a href="a-propos.html">Qui sommes-nous</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="marques.html">Marques</a></li><li><a href="faq.html">Questions fréquentes</a></li><li><a href="blog.html">Conseils</a></li>' + "".join(f'<li><a href="{a["slug"]}">{esc(a["titre"])}</a></li>' for a in ARTICLES) + '<li><a href="contact.html">Contact</a></li><li><a href="mentions-legales.html">Mentions légales</a></li></ul>'
     sec += '<h2>Villes (toutes prestations)</h2><div class="chips">' + "".join(f'<a href="depannage-{v["slug"]}.html">{v["nom"]}</a>' for v in VILLES) + '</div>'
@@ -620,5 +628,6 @@ if __name__ == "__main__":
         for v in VILLES: page_metier_ville(t, v)
     pages_annexes()
     page_plan()
+    pages_redirections()
     sitemap()
     print(f"{len(PAGES)} pages générées (+ 404).")
