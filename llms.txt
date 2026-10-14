@@ -1,0 +1,41 @@
+# Atelier PACA
+
+> Entreprise artisanale d'Antibes (Alpes-Maritimes, France) fondée en 2015 : plombier, chauffagiste, installateur de climatisation, électricien, volets roulants et serrurier. Dépannage 24h/24, entretien et installation dans les Alpes-Maritimes (30 km autour d'Antibes) et le Var est (Fréjus, Saint-Raphaël, pays de Fayence). Un seul numéro pour les six métiers : 04 92 14 14 14.
+
+## Faits clés
+- Nom : Atelier PACA (SASU, SIREN 814 736 781), siège 48 chemin des Autrichiens, 06600 Antibes
+- Téléphone : 04 92 14 14 14 (astreinte 24h/24, 7j/7) — e-mail : contact@atelierpaca.fr — site : https://atelierpaca.fr/
+- Métiers : plomberie, chauffage (chaudière, pompe à chaleur), climatisation, électricité, volets roulants, serrurerie
+- Tarif minimum d'intervention : 110 € HT ; prix annoncé avant toute intervention ; devis et visite technique gratuits
+- Délais : intervention sous 48 h, souvent le jour même en urgence
+- Contrat d'entretien (chaudière, climatisation) : visite annuelle dès 110 € HT, dépannage sous 48 h, 10 % de remise sur les pièces détachées
+- Garanties : garantie décennale, responsabilité civile professionnelle, facture détaillée
+- Avis : 4,9/5 sur 178 avis Google (siège), plus de 450 avis sur 4 fiches
+- Clients : particuliers, syndics de copropriété, agences immobilières, commerces et bureaux
+
+## Agences
+- Antibes — siège : 48 chemin des Autrichiens, 06600 Antibes — fiche Google 4,9/5 (178 avis) : https://maps.google.com/?cid=1924635026442992730
+- Juan-les-Pins : 64 boulevard Raymond Poincaré, 06160 Antibes — fiche Google 4,9/5 (79 avis) : https://maps.google.com/?cid=6209263345142262725
+- Cagnes-sur-Mer : 9 rue Pasteur, 06800 Cagnes-sur-Mer — fiche Google 4,6/5 (126 avis) : https://maps.google.com/?cid=10961677029958084837
+- Le Cannet : 32 chemin de l'Olivet, 06110 Le Cannet — fiche Google 4,9/5 (68 avis) : https://maps.google.com/?cid=10969175745018834336
+
+## Pages principales
+- [Climatisation](https://atelierpaca.fr/climatisation.html) : Pose mono-split, multi-split et gainable, entretien annuel dès 110 € HT par split, dépannage toutes marques sous 48 h. Visite technique gratuite.
+- [Plomberie](https://atelierpaca.fr/plomberie.html) : Fuite d'eau, débouchage, chauffe-eau, robinetterie et rénovation de salle de bain. Dépannage plomberie 24h/24, prix annoncé avant intervention.
+- [Électricité](https://atelierpaca.fr/electricite.html) : Panne de courant, tableau électrique, mise aux normes NF C 15-100, prises, éclairage, borne de recharge. Électriciens habilités, dépannage 7j/7.
+- [Chauffage](https://atelierpaca.fr/chauffage.html) : Dépannage et entretien de chaudière avec attestation, pompe à chaleur, radiateurs et ballons d'eau chaude. Intervention prioritaire en hiver.
+- [Serrurerie](https://atelierpaca.fr/serrurerie.html) : Porte claquée, serrure bloquée, effraction : ouverture sans casse, remplacement de serrure et blindage. Prix annoncé au téléphone, 24h/24.
+- [Volets roulants](https://atelierpaca.fr/volets-roulants.html) : Volet bloqué, moteur Somfy en panne, lames cassées, motorisation d'un volet manuel. Réparation 7j/7 toutes marques, pose sur mesure.
+- [Dépannage urgent 24h/24](https://atelierpaca.fr/urgence-depannage-24h.html)
+- [Contrats d'entretien](https://atelierpaca.fr/contrat-entretien.html)
+- [Syndics, copropriétés et professionnels](https://atelierpaca.fr/professionnels-syndics.html)
+- [Avis clients](https://atelierpaca.fr/avis-clients.html)
+- [Villes d'intervention](https://atelierpaca.fr/depannage-antibes.html) — une page par ville : https://atelierpaca.fr/depannage-<ville>.html et https://atelierpaca.fr/<metier>-<ville>.html
+- [Qui sommes-nous](https://atelierpaca.fr/a-propos.html) · [Contact](https://atelierpaca.fr/contact.html) · [Plan du site](https://atelierpaca.fr/plan-du-site.html)
+
+## Zone d'intervention
+- Alpes-Maritimes (06) : Antibes, Juan-les-Pins, Cagnes-sur-Mer, Villeneuve-Loubet, Cannes, Mandelieu-la-Napoule, Le Cannet, Nice, Saint-Laurent-du-Var, Vallauris, Mougins, Grasse, Vence, Carros, Menton, Biot, Valbonne, Mouans-Sartoux, Pégomas, La Trinité, La Roquette-sur-Siagne, Auribeau-sur-Siagne, Peymeinade, Théoule-sur-Mer, Roquefort-les-Pins, Le Rouret, Opio, Châteauneuf-Grasse, Le Bar-sur-Loup, La Colle-sur-Loup, Saint-Paul-de-Vence, Tourrettes-sur-Loup, La Gaude, Saint-Jeannet, Gattières, Saint-Martin-du-Var, Colomars, Villefranche-sur-Mer, Beaulieu-sur-Mer, Saint-Jean-Cap-Ferrat, Èze, Cap-d'Ail
+- Var est (83) : Fréjus, Saint-Raphaël, Roquebrune-sur-Argens, Puget-sur-Argens, Les Adrets-de-l'Estérel, Bagnols-en-Forêt, Fayence, Montauroux, Callian, Tourrettes, Seillans, Saint-Paul-en-Forêt
+
+## Fiche complète
+https://atelierpaca.fr/llms-full.txt

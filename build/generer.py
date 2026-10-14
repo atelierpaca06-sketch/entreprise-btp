@@ -143,7 +143,10 @@ def ld_business(extra_type=None, agence=None):
     if extra_type and extra_type not in types: types.insert(1, extra_type)
     return {"@context":"https://schema.org","@type":types,"@id":SITE+"#organisation","name":"Atelier PACA",
       "url":SITE,"telephone":E["tel_intl"],"email":E["email"],"image":SITE+"images/og-atelier-paca.jpg","logo":SITE+"images/logo-atelier-paca.svg",
-      "foundingDate":E["depuis"],"priceRange":"€€","currenciesAccepted":"EUR","paymentAccepted":"Carte bancaire, virement, chèque, espèces",
+      "foundingDate":E["depuis"],"legalName":"Atelier PACA","slogan":"Un seul numéro pour toute votre maison",
+      "description":"Atelier PACA est une entreprise artisanale d'Antibes (Alpes-Maritimes) fondée en 2015, qui regroupe six métiers du bâtiment : plomberie, chauffage, climatisation, électricité, volets roulants et serrurerie. Dépannage 24h/24, entretien et installation dans les Alpes-Maritimes (rayon de 30 km autour d'Antibes) et le Var est (Fréjus, Saint-Raphaël, pays de Fayence). Quatre agences : Antibes, Juan-les-Pins, Cagnes-sur-Mer, Le Cannet. Tarif minimum d'intervention 110 € HT, devis gratuit, garantie décennale.",
+      "knowsAbout":["Plomberie","Dépannage plomberie","Chauffage","Entretien de chaudière","Pompe à chaleur","Climatisation réversible","Entretien de climatisation","Électricité","Mise aux normes électrique","Tableau électrique","Volets roulants","Motorisation de volets","Serrurerie","Ouverture de porte","Contrat d'entretien","Dépannage d'urgence 24h/24"],
+      "priceRange":"€€","currenciesAccepted":"EUR","paymentAccepted":"Carte bancaire, virement, chèque, espèces",
       "address":{"@type":"PostalAddress","streetAddress":a["adresse"],"addressLocality":a["ville"],"postalCode":a["cp"],"addressRegion":"Provence-Alpes-Côte d'Azur","addressCountry":"FR"},
       "geo":{"@type":"GeoCoordinates","latitude":a["lat"],"longitude":a["lng"]},
       "hasMap":maps(a),
@@ -649,6 +652,8 @@ def pages_annexes():
 <div class="t"><b>Grandes marques</b><p>Daikin, Mitsubishi Electric, Atlantic, Somfy, Legrand, Schneider, Vaillant : des pièces disponibles dans dix ans.</p></div>
 <div class="t"><b>Fournisseurs locaux</b><p>Stock au siège d'Antibes et partenaires de proximité pour les pièces : la plupart des dépannages se terminent en une visite.</p></div>
 </div>
+<h2>Atelier PACA en bref</h2>
+<ul class="liste"><li><b>Qui :</b> entreprise artisanale d'Antibes (SASU, SIREN {E["siren"]}) fondée en {E["depuis"]}</li><li><b>Quoi :</b> six métiers du bâtiment, plomberie, chauffage, climatisation, électricité, volets roulants, serrurerie, en dépannage, entretien et installation</li><li><b>Où :</b> Alpes-Maritimes dans un rayon de 30 km autour d'Antibes (Cannes, Nice, Cagnes-sur-Mer, Grasse, Menton…) et Var est (Fréjus, Saint-Raphaël, pays de Fayence) ; quatre agences : Antibes, Juan-les-Pins, Cagnes-sur-Mer, Le Cannet</li><li><b>Quand :</b> astreinte 24h/24 et 7j/7, intervention sous 48 h, souvent le jour même en urgence</li><li><b>Combien :</b> tarif minimum d'intervention 110 € HT, prix annoncé avant toute intervention, devis et visite technique gratuits, contrat d'entretien dès 110 € HT par an</li><li><b>Garanties :</b> garantie décennale, responsabilité civile professionnelle, facture détaillée, {E["note"]}/5 sur {E["avis"]} avis Google</li><li><b>Contact :</b> {E["tel"]}, {E["email"]}, {E["adresse"]}, {E["cp"]} {E["ville"]}</li></ul>
 <h2>Nos clients : particuliers, copropriétés, professionnels</h2>
 <p>Propriétaires et locataires en appartement ou en villa, résidences secondaires gérées à distance avec un gardien ou une agence, syndics de copropriété pour les colonnes d'eau, la serrurerie des parties communes et les contrats d'entretien, commerces et bureaux pour l'électricité et la climatisation tertiaire. Dans tous les cas : prix annoncé, facture détaillée, rapport d'intervention sur demande. Syndics et gestionnaires : voir notre <a href="professionnels-syndics.html">offre professionnelle</a>.</p>
 <h2>Nos agences</h2>
@@ -753,7 +758,61 @@ def sitemap():
         out.append(f'<url><loc>{loc}</loc><lastmod>{DATE_MAJ}</lastmod><changefreq>{freq}</changefreq><priority>{prio}</priority></url>')
     out.append('</urlset>')
     with open(os.path.join(ROOT,"sitemap.xml"),"w",encoding="utf-8") as f: f.write("\n".join(out))
-    with open(os.path.join(ROOT,"robots.txt"),"w",encoding="utf-8") as f: f.write(f"User-agent: *\nAllow: /\nDisallow: /build/\n\nSitemap: {SITE}sitemap.xml\n")
+    # robots.txt : tout autorisé, avec autorisation explicite des robots des moteurs IA (ChatGPT, Claude, Gemini, Perplexity, Bing/Copilot, Apple, Meta)
+    bots = ["GPTBot","OAI-SearchBot","ChatGPT-User","ClaudeBot","Claude-SearchBot","Claude-User","anthropic-ai","Google-Extended","Googlebot","Bingbot","PerplexityBot","Perplexity-User","Applebot","Applebot-Extended","Meta-ExternalAgent","Meta-ExternalFetcher","Amazonbot","DuckAssistBot","MistralAI-User","CCBot","YouBot"]
+    rb = "".join(f"User-agent: {b}\nAllow: /\n\n" for b in bots)
+    with open(os.path.join(ROOT,"robots.txt"),"w",encoding="utf-8") as f: f.write(f"# Atelier PACA — contenu ouvert aux moteurs de recherche et aux assistants IA\nUser-agent: *\nAllow: /\nDisallow: /build/\n\n{rb}Sitemap: {SITE}sitemap.xml\n")
+    llms()
+
+def llms():
+    """llms.txt (résumé) et llms-full.txt (fiche complète) : fiche d'identité lisible par les assistants IA."""
+    villes06 = ", ".join(v["nom"] for v in VILLES_06); villes83 = ", ".join(v["nom"] for v in VILLES_83)
+    agences = "\n".join(f"- {a['nom']} : {a['adresse']}, {a['cp']} {a['ville']} — fiche Google {a['note']}/5 ({a['avis']} avis) : {maps(a)}" for a in AGENCES)
+    metiers = "\n".join(f"- [{t['nom']}]({SITE}{t['page']}) : {t['desc_court']}" for t in TRADES)
+    court = f"""# Atelier PACA
+
+> Entreprise artisanale d'Antibes (Alpes-Maritimes, France) fondée en {E['depuis']} : plombier, chauffagiste, installateur de climatisation, électricien, volets roulants et serrurier. Dépannage 24h/24, entretien et installation dans les Alpes-Maritimes (30 km autour d'Antibes) et le Var est (Fréjus, Saint-Raphaël, pays de Fayence). Un seul numéro pour les six métiers : {E['tel']}.
+
+## Faits clés
+- Nom : Atelier PACA (SASU, SIREN {E['siren']}), siège {E['adresse']}, {E['cp']} {E['ville']}
+- Téléphone : {E['tel']} (astreinte 24h/24, 7j/7) — e-mail : {E['email']} — site : {SITE}
+- Métiers : plomberie, chauffage (chaudière, pompe à chaleur), climatisation, électricité, volets roulants, serrurerie
+- Tarif minimum d'intervention : 110 € HT ; prix annoncé avant toute intervention ; devis et visite technique gratuits
+- Délais : intervention sous 48 h, souvent le jour même en urgence
+- Contrat d'entretien (chaudière, climatisation) : visite annuelle dès 110 € HT, dépannage sous 48 h, 10 % de remise sur les pièces détachées
+- Garanties : garantie décennale, responsabilité civile professionnelle, facture détaillée
+- Avis : {E['note']}/5 sur {E['avis']} avis Google (siège), plus de 450 avis sur 4 fiches
+- Clients : particuliers, syndics de copropriété, agences immobilières, commerces et bureaux
+
+## Agences
+{agences}
+
+## Pages principales
+{metiers}
+- [Dépannage urgent 24h/24]({SITE}urgence-depannage-24h.html)
+- [Contrats d'entretien]({SITE}contrat-entretien.html)
+- [Syndics, copropriétés et professionnels]({SITE}professionnels-syndics.html)
+- [Avis clients]({SITE}avis-clients.html)
+- [Villes d'intervention]({SITE}depannage-antibes.html) — une page par ville : {SITE}depannage-<ville>.html et {SITE}<metier>-<ville>.html
+- [Qui sommes-nous]({SITE}a-propos.html) · [Contact]({SITE}contact.html) · [Plan du site]({SITE}plan-du-site.html)
+
+## Zone d'intervention
+- Alpes-Maritimes (06) : {villes06}
+- Var est (83) : {villes83}
+
+## Fiche complète
+{SITE}llms-full.txt
+"""
+    with open(os.path.join(ROOT,"llms.txt"),"w",encoding="utf-8") as f: f.write(court)
+    # version complète : prestations et tarifs par métier, FAQ
+    blocs = []
+    for t in TRADES:
+        prest = "\n".join(f"- {n} : {p} {u} — {d}" for _,n,d,p,u in t["prestations"])
+        faq = "\n".join(f"**{q}** {r}" for q,r in t["faq"])
+        blocs.append(f"## {t['nom']} — {SITE}{t['page']}\n{t['intro'][0]}\n\n### Prestations et prix indicatifs 2026\n{prest}\n\n### Questions fréquentes\n{faq}\n")
+    arts = "\n".join(f"- [{a['titre']}]({SITE}{a['slug']}) — {a['resume']}" for a in ARTICLES)
+    full = court.replace("## Fiche complète\n"+SITE+"llms-full.txt\n","") + "\n# Détail par métier\n\n" + "\n".join(blocs) + f"\n# Conseils d'artisans\n{arts}\n\nDernière mise à jour : {DATE_MAJ}. Contenu publié par Atelier PACA, {SITE}\n"
+    with open(os.path.join(ROOT,"llms-full.txt"),"w",encoding="utf-8") as f: f.write(full)
     with open(os.path.join(ROOT,"favicon.svg"),"w",encoding="utf-8") as f: f.write(FAVICON_SVG)
     with open(os.path.join(ROOT,"images","logo-atelier-paca.svg"),"w",encoding="utf-8") as f: f.write(LOGO_SVG.replace('<svg ','<svg xmlns="http://www.w3.org/2000/svg" ',1))
     os.makedirs(os.path.join(ROOT,".well-known"),exist_ok=True)
