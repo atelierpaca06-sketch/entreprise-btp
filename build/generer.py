@@ -190,6 +190,32 @@ def chips_villes(prefix, cur=None):
         return f'<div><h3>{ICO["pin"]} {titre} <small>({code})</small></h3><div class="chips">' + "".join(f'<a href="{prefix}-{v["slug"]}.html"{" class=on" if v["slug"]==cur else ""}>{v["nom"]}</a>' for v in vs) + '</div></div>'
     return '<div class="villes">' + grp(VILLES_06, "Alpes-Maritimes", "06") + grp(VILLES_83, "Var est — Fréjus, Saint-Raphaël, pays de Fayence", "83") + '</div>'
 
+def date_fr(iso):
+    m = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"]
+    y, mo, d = iso.split("-"); return f"{int(d)} {m[int(mo)-1]} {y}"
+
+def de_(x):
+    """« de » + lieu avec élision/contraction : d'Antibes, du Suquet, des Semboules, de la Bocca."""
+    low = x.lower()
+    if low.startswith("haut"): return "du " + x
+    for pre, rep in (("le ", "du "), ("les ", "des "), ("la ", "de la "), ("l'", "de l'")):
+        if low.startswith(pre): return rep + x[len(pre):]
+    return ("d'" if low[0] in "aeiouyéèêàâîôûœ" else "de ") + x
+
+def a_(x):
+    """« à » + lieu : à Juan-les-Pins, au Suquet, aux Prés, à la Bocca."""
+    low = x.lower()
+    if low.startswith("haut"): return "au " + x
+    for pre, rep in (("le ", "au "), ("les ", "aux ")):
+        if low.startswith(pre): return rep + x[len(pre):]
+    return "à " + x
+
+def local_paras(v):
+    """Texte local d'une ville : chaîne (1 paragraphe) ou liste de paragraphes."""
+    loc = v.get("local")
+    if not loc: return []
+    return [loc] if isinstance(loc, str) else list(loc)
+
 def tarifs_block(t):
     cards = "".join(f'<div class="tarif"><div><b>{esc(n)}</b><p>{esc(d)}</p></div><div class="px"><b>{esc(p)}</b><small>{esc(u)}</small></div></div>' for _,n,d,p,u in t["prestations"])
     return f'<div class="tarifs">{cards}</div><p class="note">Tarif minimum d\'intervention : 110 € HT (TVA à 10 % ou 20 % selon la nature des travaux et l\'ancienneté du logement). Autres prix indicatifs 2026. Majoration possible la nuit, le week-end et les jours fériés, toujours annoncée avant le déplacement. Tarif définitif communiqué avant toute intervention.</p>'
@@ -197,14 +223,15 @@ def tarifs_block(t):
 # ---------------------------------------------------------------- ACCUEIL
 def page_index():
     faq_htm, faq_ld = faq_block([
-        ("Intervenez-vous vraiment pour tous les métiers de la maison ?","Oui : plomberie, chauffage, climatisation, électricité, volets roulants et serrurerie. Un seul numéro, une seule équipe, une seule facture, y compris quand un chantier mêle plusieurs métiers."),
-        ("Sous quel délai intervenez-vous ?","Sous 48 h pour une intervention classique, plus vite pour une urgence (fuite, panne de chauffage, porte bloquée) grâce à l'astreinte 24h/24 et 7j/7."),
-        ("Le devis est-il vraiment gratuit ?","Oui, le devis et la visite technique sont gratuits et sans engagement. Pour un dépannage, le prix est annoncé avant l'intervention."),
-        ("Quelle zone couvrez-vous ?","Les Alpes-Maritimes, d'Antibes à Nice et de Cannes à Grasse, et le Var est : Fréjus, Saint-Raphaël et le pays de Fayence. Siège à Antibes, agences à Juan-les-Pins, Cagnes-sur-Mer et Le Cannet."),
-        ("Vos travaux sont-ils garantis ?","Oui : garantie décennale sur les travaux, matériel de grandes marques, facture détaillée et équipe joignable après l'intervention."),
+        ("Quels métiers Atelier PACA couvre-t-il à Antibes et sur la Côte d'Azur ?","Plombier, chauffagiste, installateur de climatisation, électricien, technicien volets roulants et serrurier : six métiers, une seule équipe basée à Antibes. Un seul numéro et une seule facture, y compris quand un chantier mêle plusieurs métiers, par exemple une salle de bain ou une pompe à chaleur."),
+        ("En combien de temps intervient un plombier ou un électricien à Antibes ?","Sous 48 h pour une intervention classique, souvent le jour même en urgence : fuite d'eau, panne de courant, chaudière en sécurité, porte claquée, volet bloqué ouvert. L'astreinte fonctionne 24h/24 et 7j/7, et le prix est annoncé au téléphone avant le déplacement."),
+        ("Faites-vous le dépannage à Cagnes-sur-Mer, Cannes, Nice ou Villeneuve-Loubet ?","Oui. Nos agences d'Antibes, Juan-les-Pins, Cagnes-sur-Mer et Le Cannet couvrent toute la bande côtière de Mandelieu à Nice et Saint-Laurent-du-Var, l'arrière-pays jusqu'à Grasse et Vence, et le Var est : Fréjus, Saint-Raphaël et le pays de Fayence. Chaque ville a sa page avec nos délais."),
+        ("Le devis est-il vraiment gratuit ?","Oui, le devis et la visite technique sont gratuits et sans engagement, pour une climatisation, une pompe à chaleur, un tableau électrique ou une salle de bain. Pour un dépannage, le prix est annoncé avant l'intervention, majoration de nuit ou de week-end comprise."),
+        ("Combien coûte une intervention Atelier PACA ?","Le tarif minimum d'intervention est de 110 € HT (dépannage simple, pose de prise, entretien de clim ou de chaudière). Les autres prix sont indicatifs et affichés sur chaque page métier ; le tarif définitif est toujours communiqué avant de commencer."),
+        ("Vos travaux sont-ils garantis ?","Oui : garantie décennale sur les travaux, matériel de grandes marques (Daikin, Mitsubishi Electric, Atlantic, Somfy, Legrand), facture détaillée utilisable pour votre assurance et une équipe joignable après l'intervention."),
     ])
     ld = [ld_business(), {"@context":"https://schema.org","@type":"WebSite","@id":SITE+"#site","url":SITE,"name":"Atelier PACA","inLanguage":"fr-FR","publisher":{"@id":SITE+"#organisation"}}, faq_ld]
-    metiers = "".join(f'''<a class="metier" href="{t["page"]}"><img src="images/{t["img"]}-480.webp" srcset="images/{t["img"]}-480.webp 480w, images/{t["img"]}.webp 900w" sizes="(max-width:560px) 100vw, (max-width:900px) 50vw, 380px" alt="{esc(t["metier"])} Atelier PACA en intervention" loading="lazy" width="743" height="586">
+    metiers = "".join(f'''<a class="metier" href="{t["page"]}"><img src="images/{t["img"]}-480.webp" srcset="images/{t["img"]}-480.webp 480w, images/{t["img"]}.webp 900w" sizes="(max-width:560px) 100vw, (max-width:900px) 50vw, 380px" alt="{esc(t["alt"])}" loading="lazy" width="743" height="586">
 <div class="in"><div class="ic">{ICO_METIER[t["cle"]]}</div><h3>{t["nom"]}</h3><p>{t["desc_court"]}</p></div><span class="go">{ICO["arrow"]}</span></a>''' for t in TRADES)
     avis = "".join(f'<div class="avis"><div class="st">★★★★★</div><p>« {esc(a)} »</p><div class="qui">{esc(n)}<span>{esc(w)}</span></div></div>' for a,n,w in AVIS)
     fiches = "".join(f'<div class="fiche"><b>{a["nom"]}</b><span>{a["adresse"]}, {a["cp"]} {a["ville"]}</span><span>{E["note"]}/5 · {a["avis"]} avis</span><div class="l"><a href="{maps(a)}" target="_blank" rel="noopener">Voir la fiche</a><a href="{avis_url(a)}" target="_blank" rel="noopener">Laisser un avis</a></div></div>' for a in AGENCES)
@@ -214,9 +241,9 @@ def page_index():
 <main>
 <section class="hero"><div class="wrap">
 <div>
-<span class="badge247"><i></i> Astreinte 24h/24 · 7j/7 — Antibes et Côte d'Azur</span>
-<h1>Un seul numéro pour <span class="neon">toute votre maison</span>.</h1>
-<p class="lead">Plomberie, chauffage, climatisation, électricité, volets roulants et serrurerie : une équipe locale basée à Antibes qui dépanne, entretient et installe dans les Alpes-Maritimes et le Var. Intervention sous 48 h, plus vite en urgence.</p>
+<span class="badge247"><i></i> Dépannage 24h/24 · 7j/7 — Antibes, Alpes-Maritimes et Var est</span>
+<h1><span class="pre">Plombier, chauffagiste, électricien à Antibes</span><span class="neon">Un seul numéro</span> pour toute votre maison.</h1>
+<p class="lead">Plomberie, chauffage, climatisation, électricité, volets roulants et serrurerie : une équipe locale basée à Antibes, avec des agences à Juan-les-Pins, Cagnes-sur-Mer et Le Cannet, qui dépanne, entretient et installe dans les Alpes-Maritimes et le Var est. Intervention sous 48 h, urgences 24h/24, devis gratuit.</p>
 <div class="btns"><a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]} {E["tel"]}</a><a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]} Devis gratuit</a></div>
 <div class="proof"><span>{ICO["star"]}<b>{E["note"]}/5</b> — {E["avis"]} avis Google</span><span>{ICO["shield"]}<b>Garantie décennale</b></span><span>{ICO["clock"]}<b>Prix annoncé</b> avant intervention</span></div>
 </div>
@@ -231,7 +258,7 @@ def page_index():
 </div></section>
 
 <section class="sec"><div class="wrap">
-<div class="sec-h"><p class="kicker">Nos métiers</p><h2>Six métiers, une seule équipe</h2><p>Chaque technicien est spécialisé dans son métier. Ensemble, ils couvrent tout ce qui peut tomber en panne chez vous, sans que vous ayez à coordonner trois artisans.</p></div>
+<div class="sec-h"><p class="kicker">Nos métiers</p><h2>Dépannage et travaux dans les Alpes-Maritimes : six métiers, une seule équipe</h2><p>Chaque technicien est spécialisé dans son métier : plombier, chauffagiste, frigoriste, électricien, technicien volets, serrurier. Ensemble, ils couvrent tout ce qui peut tomber en panne chez vous, sans que vous ayez à coordonner trois artisans.</p></div>
 <div class="metiers">{metiers}</div>
 </div></section>
 
@@ -241,14 +268,14 @@ def page_index():
 </div></div></section>
 
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="pourquoi">
-<div><div class="sec-h"><p class="kicker">Pourquoi Atelier PACA</p><h2>Ce qui change par rapport à un dépanneur classique</h2></div>
+<div><div class="sec-h"><p class="kicker">Pourquoi Atelier PACA</p><h2>Pourquoi choisir un artisan d'Antibes plutôt qu'un dépanneur anonyme</h2></div>
 <div class="raisons">
-<div class="raison"><div class="ic">{ICO["one"]}</div><div><b>Un numéro, six métiers</b><p>Fuite, panne de chauffage, clim, tableau électrique, volet bloqué, porte claquée : le même numéro, la même équipe, et une seule facture quand plusieurs métiers sont nécessaires.</p></div></div>
-<div class="raison"><div class="ic">{ICO["euro"]}</div><div><b>Le prix avant, pas après</b><p>Tarif annoncé au téléphone ou sur devis avant toute intervention, nuit et week-end compris. Pas de surprise à la fin.</p></div></div>
-<div class="raison"><div class="ic">{ICO["pin"]}</div><div><b>Une entreprise d'ici</b><p>Siège à Antibes, agences à Juan-les-Pins, Cagnes-sur-Mer et Le Cannet : nos techniciens connaissent les copropriétés, les villas et les contraintes de la côte.</p></div></div>
-<div class="raison"><div class="ic">{ICO["shield"]}</div><div><b>Garantie décennale et grandes marques</b><p>Daikin, Mitsubishi Electric, Atlantic, Somfy, Legrand, Schneider : du matériel qui dure, posé par des techniciens formés, et garanti 10 ans.</p></div></div>
+<div class="raison"><div class="ic">{ICO["one"]}</div><div><b>Un numéro, six métiers</b><p>Fuite d'eau, panne de chauffage, clim en panne, tableau électrique, volet bloqué, porte claquée : le même numéro, la même équipe, et une seule facture quand plusieurs métiers sont nécessaires.</p></div></div>
+<div class="raison"><div class="ic">{ICO["euro"]}</div><div><b>Le prix avant, pas après</b><p>Tarif annoncé au téléphone ou sur devis avant toute intervention, nuit et week-end compris. Tarif minimum 110 € HT, majoration éventuelle dite avant le déplacement. Pas de surprise à la fin.</p></div></div>
+<div class="raison"><div class="ic">{ICO["pin"]}</div><div><b>Une entreprise d'ici, depuis {E["depuis"]}</b><p>Siège à Antibes, agences à Juan-les-Pins, Cagnes-sur-Mer et Le Cannet, plus de {E["interventions"]} interventions : nos techniciens connaissent les copropriétés, les villas, l'air salin et l'eau calcaire de la côte.</p></div></div>
+<div class="raison"><div class="ic">{ICO["shield"]}</div><div><b>Garantie décennale et grandes marques</b><p>Daikin, Mitsubishi Electric, Atlantic, Somfy, Legrand, Schneider : du matériel qui dure, posé par des techniciens formés, garanti 10 ans, avec une facture détaillée pour votre assurance.</p></div></div>
 </div></div>
-<div><div class="frame auto"><img src="images/hero-nuit.webp" srcset="images/hero-nuit-480.webp 480w, images/hero-nuit.webp 529w" sizes="(max-width:900px) 100vw, 520px" alt="Technicien Atelier PACA en intervention de nuit sur une climatisation" loading="lazy" width="529" height="774" style="max-height:560px;object-fit:cover"></div></div>
+<div><div class="frame auto"><img src="images/hero-nuit.webp" srcset="images/hero-nuit-480.webp 480w, images/hero-nuit.webp 529w" sizes="(max-width:900px) 100vw, 520px" alt="Technicien Atelier PACA en dépannage de nuit sur une climatisation, astreinte 24h/24 à Antibes" loading="lazy" width="529" height="774" style="max-height:560px;object-fit:cover"></div></div>
 </div></div></section>
 
 <section class="sec" id="avis" style="padding-top:0"><div class="wrap">
@@ -258,23 +285,23 @@ def page_index():
 </div></section>
 
 <section class="sec" style="padding-top:0"><div class="wrap">
-<div class="sec-h"><p class="kicker">Comment ça se passe</p><h2>Votre intervention en quatre étapes</h2></div>
+<div class="sec-h"><p class="kicker">Comment ça se passe</p><h2>Votre dépannage ou vos travaux en quatre étapes</h2></div>
 <div class="etapes">
-<div class="etape"><span class="n">1</span><b>Vous appelez ou écrivez</b><p>Téléphone, WhatsApp ou formulaire. Premier retour sous 2 h en journée, immédiat pour les urgences.</p></div>
-<div class="etape"><span class="n">2</span><b>Diagnostic et prix</b><p>Un technicien évalue le besoin et fixe un prix ferme, validé avant de commencer. Devis gratuit pour les travaux.</p></div>
-<div class="etape"><span class="n">3</span><b>Intervention soignée</b><p>Protection des lieux, travail dans les règles de l'art, chantier laissé propre.</p></div>
-<div class="etape"><span class="n">4</span><b>Facture et garantie</b><p>Facture détaillée, garantie décennale, et une équipe joignable après l'intervention.</p></div>
+<div class="etape"><span class="n">1</span><b>Vous appelez ou écrivez</b><p>Téléphone, WhatsApp ou formulaire. Un technicien vous répond sous 2 h en journée, immédiatement pour une urgence, et vous donne les premiers gestes à faire.</p></div>
+<div class="etape"><span class="n">2</span><b>Diagnostic et prix annoncé</b><p>Le technicien évalue le besoin et fixe un prix ferme, validé avant de commencer. Pour les travaux, visite technique et devis gratuits sous 24 h.</p></div>
+<div class="etape"><span class="n">3</span><b>Intervention soignée</b><p>Pièces courantes en stock pour finir en une visite, protection des lieux, travail dans les règles de l'art, chantier laissé propre.</p></div>
+<div class="etape"><span class="n">4</span><b>Facture et garantie</b><p>Facture détaillée pour votre assurance ou votre syndic, garantie décennale, et une équipe joignable après l'intervention.</p></div>
 </div></div></section>
 
 <section class="sec" style="padding-top:0"><div class="wrap">
-<div class="sec-h"><p class="kicker">Zone d'intervention</p><h2>Nos villes d'intervention dans les Alpes-Maritimes et le Var</h2><p>Dépannage, entretien et installation dans toutes les communes ci-dessous, avec le même numéro et les mêmes tarifs. Choisissez votre ville pour voir nos délais et nos prestations sur place.</p></div>
+<div class="sec-h"><p class="kicker">Zone d'intervention</p><h2>Dépannage à Antibes, Cagnes-sur-Mer, Cannes, Nice et dans tout le 06</h2><p>Plombier, chauffagiste, électricien, climatisation, volets et serrurier dans toutes les communes ci-dessous, avec le même numéro et les mêmes tarifs, de Mandelieu à Menton et jusqu'au Var est. Choisissez votre ville pour voir nos délais et nos prestations sur place.</p></div>
 <div class="villes"><div><h3>{ICO["pin"]} Alpes-Maritimes <small>(06)</small></h3><div class="chips">{hubs06}</div></div><div><h3>{ICO["pin"]} Var est <small>(83)</small></h3><div class="chips">{hubs83}</div></div></div>
 </div></section>
 
 <section class="sec" style="padding-top:0"><div class="wrap">{faq_htm}</div></section>
 
 <section class="sec" id="devis" style="padding-top:0"><div class="wrap">
-<div class="sec-h"><p class="kicker">Contact</p><h2>Demandez un devis gratuit</h2><p>Réponse sous 2 h en journée. Pour une urgence, appelez directement : {E["tel"]}.</p></div>
+<div class="sec-h"><p class="kicker">Contact</p><h2>Demandez un devis gratuit à Antibes ou près de chez vous</h2><p>Réponse sous 2 h en journée, visite technique gratuite. Pour un dépannage urgent, appelez directement : {E["tel"]}.</p></div>
 <div class="contact">{coord_block()}{form_devis()}</div>
 </div></section>
 </main>
@@ -296,31 +323,31 @@ def page_metier(t):
     autres = "".join(f'<a href="{x["page"]}">{x["nom"]}</a>' for x in TRADES if x is not t)
     body = header(t["page"]) + f'''
 <main>
-<section class="hero hero-mini"><div class="wrap">{c_htm}<p class="kicker">{t["accroche"]}</p><h1>{t["nom"]} dans les Alpes-Maritimes et le Var</h1>
+<section class="hero hero-mini"><div class="wrap">{c_htm}<p class="kicker">{t["accroche"]}</p><h1>{t["h1"]}</h1>
 <p class="lead">{esc(t["intro"][0])}</p>
 <div class="btns" style="margin-top:22px"><a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]} {E["tel"]}</a><a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]} Devis gratuit</a></div>
 <div class="proof"><span>{ICO["star"]}<b>{E["note"]}/5</b> — {E["avis"]} avis</span><span>{ICO["clock"]}<b>Sous 48 h</b>, moins en urgence</span><span>{ICO["shield"]}<b>Décennale</b></span></div>
 </div></section>
 <section class="sec" style="padding-top:28px"><div class="wrap"><div class="page">
 <div class="main">
-<div class="photo-p"><img src="images/{t["img"]}.webp" srcset="images/{t["img"]}-480.webp 480w, images/{t["img"]}.webp 900w" sizes="(max-width:960px) 100vw, 780px" alt="{esc(t["metier"])} Atelier PACA en intervention dans les Alpes-Maritimes" width="886" height="481" loading="eager" decoding="async"></div>
-<h2>Prestations et tarifs indicatifs</h2>
+<div class="photo-p"><img src="images/{t["img"]}.webp" srcset="images/{t["img"]}-480.webp 480w, images/{t["img"]}.webp 900w" sizes="(max-width:960px) 100vw, 780px" alt="{esc(t["alt"])}, Alpes-Maritimes" width="886" height="481" loading="eager" decoding="async"></div>
+<h2>Tarifs {t["nom"].lower()} dans les Alpes-Maritimes et le Var</h2>
 {tarifs_block(t)}
-<h2>Ce que nous faisons en {t["nom"].lower()}</h2>
+<h2>Dépannage {t["nom"].lower()} et travaux : ce que nous faisons</h2>
 <p>{esc(t["intro"][1])}</p>
 <ul class="liste">{services}</ul>
-<h2>Notre façon de travailler</h2>
+<h2>Pourquoi choisir Atelier PACA comme {t["metier_min"]}</h2>
 <div class="trio">{exp}</div>
 <h2>Marques installées et dépannées</h2>
 <div class="marques">{marques}</div>
 <div class="encart"><div><b>Besoin d'un autre métier sur le même chantier ?</b><span>Nos plombiers, électriciens, chauffagistes et frigoristes travaillent ensemble : un interlocuteur, une facture.</span></div><a href="contact.html#devis" class="btn btn-rouge btn-sm">Demander un devis</a></div>
 {faq_htm}
-<h2>{t["nom"]} ville par ville</h2>
-<p>Retrouvez nos délais, nos tarifs et nos conseils adaptés à votre commune : plus de 50 villes dans les Alpes-Maritimes et le proche Var.</p>
+<h2>{t["metier"]} à Antibes, Cagnes-sur-Mer, Cannes, Nice… ville par ville</h2>
+<p>Retrouvez nos délais, nos tarifs et nos conseils adaptés à votre commune : plus de 50 villes dans les Alpes-Maritimes, de Mandelieu à Menton, et dans le Var est. Dépannage {t["nom"].lower()} sous 48 h, plus vite en urgence.</p>
 {chips_villes(t["prefix"])}
 </div>
 <aside class="side">
-<div class="card"><h3>Appeler un {t["metier_min"]}</h3><p>Astreinte 24h/24, prix annoncé avant le déplacement.</p><a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]} {E["tel"]}</a><a href="{E["wa"]}" class="btn btn-wa" target="_blank" rel="noopener">{ICO["wa"]} WhatsApp</a><a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]} Devis gratuit</a></div>
+<div class="card"><h3>Appeler un {t["metier_min"]}</h3><p>Astreinte 24h/24, prix annoncé avant le déplacement, devis gratuit pour les travaux.</p><a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]} {E["tel"]}</a><a href="{E["wa"]}" class="btn btn-wa" target="_blank" rel="noopener">{ICO["wa"]} WhatsApp</a><a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]} Devis gratuit</a></div>
 <div class="card"><h3>Atelier PACA</h3><p class="nap"><b>Siège Antibes</b><br>{E["adresse"]}<br>{E["cp"]} {E["ville"]}<br>{E["email"]}</p><p class="nap">{E["note"]}/5 — {E["avis"]} avis Google<br>Depuis {E["depuis"]} · {E["interventions"]}+ interventions</p></div>
 <div class="card"><h3>Autres métiers</h3><div class="liens">{autres}<a href="urgence-depannage-24h.html">Urgence 24h/24</a><a href="contrat-entretien.html">Contrats d'entretien</a></div></div>
 </aside>
@@ -333,7 +360,10 @@ def page_metier(t):
 # ---------------------------------------------------------------- PAGES MÉTIER × VILLE
 def page_metier_ville(t, v):
     fn = f'{t["prefix"]}-{v["slug"]}.html'
-    ctx = {"ville": v["nom"], "cp": v["cp"], "minutes": v["minutes"]}
+    depuis = "à deux pas de notre siège, chemin des Autrichiens" if v["slug"] == "antibes" else f'à {v["minutes"]} de notre siège d\'Antibes'
+    ctx = {"ville": v["nom"], "cp": v["cp"], "minutes": v["minutes"], "depuis": depuis,
+           "q0": v["quartiers"][0], "q1": v["quartiers"][1] if len(v["quartiers"]) > 1 else "ses environs", "habitat": v["habitat"]}
+    ctx["de_q0"] = de_(ctx["q0"]); ctx["a_q1"] = a_(ctx["q1"])
     agence = next((a for a in AGENCES if a["cle"] == v.get("agence")), None)
     c_htm, c_ld = crumb([("Accueil","index.html"),(t["nom"],t["page"]),(v["nom"],fn)])
     faq_htm, faq_ld = faq_block(t["faq_ville"], f"Questions fréquentes — {t['nom'].lower()} à {v['nom']}", ctx)
@@ -347,34 +377,37 @@ def page_metier_ville(t, v):
         local = f'<div class="loc"><div class="l"><b>Agence Atelier PACA — {agence["nom"]}</b><span>{agence["adresse"]}, {agence["cp"]} {agence["ville"]} · {E["note"]}/5 sur {agence["avis"]} avis · <a href="{maps(agence)}" target="_blank" rel="noopener">voir la fiche Google</a></span></div><div class="l"><b>Délai à {v["nom"]}</b><span>Intervention sous 48 h, souvent le jour même en urgence. Siège et stock à Antibes.</span></div></div>'
     else:
         local = f'<div class="loc"><div class="l"><b>Depuis Antibes</b><span>{v["nom"]} est à {v["minutes"]} de notre siège (48 chemin des Autrichiens). Stock de pièces et matériel embarqué.</span></div><div class="l"><b>Délai à {v["nom"]}</b><span>{"Intervention sous 48 h, souvent le jour même en urgence." if v["prio"] or v["dept"]=="06" else "Intervention sous 48 h ; urgences selon la disponibilité des équipes mobiles."}</span></div></div>'
-    prio_txt = f'<h2>Atelier PACA à {v["nom"]}</h2><p>{esc(v["intro"])}</p><p>{esc(v["local"])}</p>' if v.get("local") else f'<h2>Atelier PACA à {v["nom"]}</h2><p>{esc(v["intro"])}</p>'
+    loc_p = "".join(f'<p>{esc(x)}</p>' for x in local_paras(v))
+    prio_txt = f'<h2>Atelier PACA, {t["metier_min"]} à {v["nom"]} depuis {E["depuis"]}</h2>{loc_p or "<p>" + esc(v["intro"]) + "</p>"}'
+    intro_v = "".join(f'<p>{esc(x.format(**ctx))}</p>' for x in t["intro_ville"])
     body = header(t["page"]) + f'''
 <main>
 <section class="hero hero-mini"><div class="wrap">{c_htm}<p class="kicker">{t["sous_ville"]}</p><h1>{t["h1_ville"].format(**ctx)}</h1>
-<p class="lead">{esc(t["metier"])} à {v["nom"]} ({v["cp"]}) : {t["accroche"].lower()} par l'équipe Atelier PACA, basée à Antibes. Prix annoncé avant intervention, devis gratuit, astreinte 24h/24.</p>
+<p class="lead">{esc(t["metier"])} à {v["nom"]} ({v["cp"]}) : {t["accroche"].lower()} par l'équipe Atelier PACA, {depuis}. Dépannage sous 48 h, plus vite en urgence, prix annoncé avant intervention, devis gratuit.</p>
 <div class="btns" style="margin-top:22px"><a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]} {E["tel"]}</a><a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]} Devis gratuit</a></div>
-<div class="proof"><span>{ICO["star"]}<b>{E["note"]}/5</b> — {E["avis"]} avis</span><span>{ICO["pin"]}<b>{v["nom"]}</b> et {v["quartiers"][1] if len(v["quartiers"])>1 else "ses environs"}</span><span>{ICO["shield"]}<b>Décennale</b></span></div>
+<div class="proof"><span>{ICO["star"]}<b>{E["note"]}/5</b> — {E["avis"]} avis</span><span>{ICO["pin"]}<b>{v["nom"]}</b> et {ctx["q1"]}</span><span>{ICO["shield"]}<b>Décennale</b></span></div>
 </div></section>
 <section class="sec" style="padding-top:28px"><div class="wrap"><div class="page">
 <div class="main">
-<div class="photo-p"><img src="images/{t["img"]}.webp" srcset="images/{t["img"]}-480.webp 480w, images/{t["img"]}.webp 900w" sizes="(max-width:960px) 100vw, 780px" alt="{esc(t["metier"])} Atelier PACA à {esc(v["nom"])}" width="886" height="481" loading="eager" decoding="async"></div>
-{prio_txt}
-{local}
-<h2>Nos prestations {t["nom"].lower()} à {v["nom"]}</h2>
-<p>{esc(t["intro"][0])}</p>
+<div class="photo-p"><img src="images/{t["img"]}.webp" srcset="images/{t["img"]}-480.webp 480w, images/{t["img"]}.webp 900w" sizes="(max-width:960px) 100vw, 780px" alt="{esc(t["alt"])}, intervention à {esc(v["nom"])}" width="886" height="481" loading="eager" decoding="async"></div>
+<h2>{esc(t["h2_ville"].format(**ctx))}</h2>
+{intro_v}
 <ul class="liste">{services}</ul>
-<h2>Tarifs indicatifs à {v["nom"]}</h2>
+{local}
+{prio_txt}
+<h2>Tarifs {t["nom"].lower()} à {v["nom"]}</h2>
 {tarifs_block(t)}
 <h3>Quartiers couverts à {v["nom"]}</h3>
-<p>Nous intervenons dans toute la commune : {esc(quartiers)}. Habitat le plus fréquent : {esc(v["habitat"])}.</p>
+<p>Nous intervenons dans toute la commune : {esc(quartiers)}. {esc(t["habitat_ville"].format(**ctx))}</p>
 {faq_htm}
 <h2>Les autres métiers Atelier PACA à {v["nom"]}</h2>
+<p>Un seul numéro pour toute la maison : si votre {t["nom"].lower()} s'accompagne d'un autre besoin, la même équipe s'en charge.</p>
 <div class="chips">{autres}<a href="depannage-{v["slug"]}.html" class="on">Tout le dépannage à {v["nom"]}</a></div>
-<h3>{t["nom"]} dans les villes voisines</h3>
-<div class="chips">{voisines}<a href="{t["page"]}">Toutes les villes</a></div>
+<h3>{t["metier"]} dans les villes voisines de {v["nom"]}</h3>
+<div class="chips">{voisines}<a href="{t["page"]}">{t["metier"]} dans tout le 06 et le Var</a></div>
 </div>
 <aside class="side">
-<div class="card"><h3>{t["metier"]} à {v["nom"]}</h3><p>Astreinte 24h/24, prix annoncé avant le déplacement.</p><a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]} {E["tel"]}</a><a href="{E["wa"]}" class="btn btn-wa" target="_blank" rel="noopener">{ICO["wa"]} WhatsApp</a><a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]} Devis gratuit</a></div>
+<div class="card"><h3>{t["metier"]} à {v["nom"]}</h3><p>Astreinte 24h/24, prix annoncé avant le déplacement, devis gratuit.</p><a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]} {E["tel"]}</a><a href="{E["wa"]}" class="btn btn-wa" target="_blank" rel="noopener">{ICO["wa"]} WhatsApp</a><a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]} Devis gratuit</a></div>
 <div class="card"><h3>{"Agence " + agence["nom"] if agence else "Atelier PACA — siège"}</h3><p class="nap">{(agence["adresse"] + "<br>" + agence["cp"] + " " + agence["ville"]) if agence else (E["adresse"] + "<br>" + E["cp"] + " " + E["ville"])}<br><a href="{maps(agence or AGENCES[0])}" target="_blank" rel="noopener">Itinéraire et avis Google</a></p><p class="nap">{E["note"]}/5 — {E["avis"]} avis Google<br>Depuis {E["depuis"]} · {E["interventions"]}+ interventions</p></div>
 <div class="card"><h3>À lire</h3><div class="liens">{"".join(f'<a href="{a["slug"]}">{esc(a["titre"])}</a>' for a in ARTICLES)}</div></div>
 </aside>
@@ -391,45 +424,51 @@ def page_hub(v):
     fn = f'depannage-{v["slug"]}.html'
     agence = next((a for a in AGENCES if a["cle"] == v.get("agence")), None)
     c_htm, c_ld = crumb([("Accueil","index.html"),("Villes","depannage-antibes.html"),(v["nom"],fn)])
+    depuis = "notre siège et nos stocks sont à Antibes même, chemin des Autrichiens" if v["slug"] == "antibes" else f"{v['nom']} est à {v['minutes']} de notre siège d'Antibes"
     faq_htm, faq_ld = faq_block([
-        (f"Quels métiers Atelier PACA couvre-t-il à {v['nom']} ?", "Plomberie, chauffage, climatisation, électricité, volets roulants et serrurerie, en dépannage, entretien et installation. Un seul numéro pour toute la maison."),
-        (f"Sous quel délai intervenez-vous à {v['nom']} ?", f"Sous 48 h pour une intervention classique ; plus vite en urgence grâce à l'astreinte 24h/24. {v['nom']} est à {v['minutes']} de notre siège d'Antibes." if v["slug"]!="antibes" else "Sous 48 h pour une intervention classique, souvent le jour même en urgence : notre siège et nos stocks sont à Antibes."),
-        (f"Le devis est-il gratuit à {v['nom']} ?", "Oui, devis et visite technique sont gratuits et sans engagement. Pour un dépannage, le prix est annoncé avant l'intervention, nuit et week-end compris."),
-    ], f"Questions fréquentes — {v['nom']}")
+        (f"Quel artisan appeler pour un dépannage à {v['nom']} ?", f"Le même numéro pour tout : plombier, chauffagiste, climatisation, électricien, volets roulants et serrurier à {v['nom']}, en dépannage, entretien et installation. Un technicien de garde répond 24h/24 et annonce le prix avant de se déplacer."),
+        (f"Sous quel délai intervenez-vous à {v['nom']} ?", f"Sous 48 h pour une intervention classique ; plus vite en urgence (fuite d'eau, panne de courant, porte claquée, chaudière en sécurité) grâce à l'astreinte 24h/24 : {depuis}, et nos équipes mobiles ont les pièces courantes en stock."),
+        (f"Le devis est-il gratuit à {v['nom']} ?", f"Oui, devis et visite technique sont gratuits et sans engagement à {v['nom']}, pour une climatisation, une pompe à chaleur, un tableau électrique ou une salle de bain. Pour un dépannage, le prix est annoncé avant l'intervention, nuit et week-end compris."),
+        (f"Combien coûte un dépannage à {v['nom']} ?", f"Le tarif minimum d'intervention est de 110 € HT, pour un dépannage simple, une petite réparation ou un entretien. Les autres prix indicatifs sont détaillés sur chaque page métier de {v['nom']} ; le tarif définitif est toujours communiqué avant de commencer, majoration éventuelle comprise."),
+    ], f"Questions fréquentes — dépannage à {v['nom']}")
     ld = [ld_business(None, agence), c_ld, faq_ld]
     hub = "".join(f'<a href="{t["prefix"]}-{v["slug"]}.html"><span class="ic">{ICO_METIER[t["cle"]]}</span><span><b>{t["metier"]} {v["nom"]}</b><span>{t["accroche"]}</span></span></a>' for t in TRADES)
-    voisines = "".join(f'<a href="depannage-{s}.html">{VILLE_BY_SLUG[s]["nom"]}</a>' for s in v["voisines"])
-    local = f'<p>{esc(v["local"])}</p>' if v.get("local") else ""
+    voisines = "".join(f'<a href="depannage-{s}.html">Dépannage {VILLE_BY_SLUG[s]["nom"]}</a>' for s in v["voisines"])
+    local = "".join(f'<p>{esc(x)}</p>' for x in local_paras(v))
     agence_htm = f'<div class="loc"><div class="l"><b>Agence Atelier PACA — {agence["nom"]}</b><span>{agence["adresse"]}, {agence["cp"]} {agence["ville"]} · {E["note"]}/5 sur {agence["avis"]} avis · <a href="{maps(agence)}" target="_blank" rel="noopener">fiche Google</a> · <a href="{avis_url(agence)}" target="_blank" rel="noopener">laisser un avis</a></span></div><div class="l"><b>Quartiers</b><span>{esc(", ".join(v["quartiers"]))}</span></div></div>' if agence else f'<div class="loc"><div class="l"><b>Depuis notre siège d\'Antibes</b><span>{v["nom"]} est à {v["minutes"]}. Équipes mobiles avec stock embarqué.</span></div><div class="l"><b>Quartiers</b><span>{esc(", ".join(v["quartiers"]))}</span></div></div>'
     body = header("depannage-antibes.html") + f'''
 <main>
-<section class="hero hero-mini"><div class="wrap">{c_htm}<p class="kicker">Dépannage, entretien, installation</p><h1>Artisan à {v["nom"]} : six métiers, un numéro</h1>
-<p class="lead">Plombier, chauffagiste, climatisation, électricien, volets roulants et serrurier à {v["nom"]} ({v["cp"]}). {esc(v["intro"])}</p>
+<section class="hero hero-mini"><div class="wrap">{c_htm}<p class="kicker">Dépannage, entretien, installation</p><h1>Dépannage et artisan à {v["nom"]} : six métiers, un seul numéro</h1>
+<p class="lead">Plombier, chauffagiste, climatisation, électricien, volets roulants et serrurier à {v["nom"]} ({v["cp"]}), 24h/24 pour les urgences. {esc(v["intro"])}</p>
 <div class="btns" style="margin-top:22px"><a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]} {E["tel"]}</a><a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]} Devis gratuit</a></div>
+<div class="proof"><span>{ICO["star"]}<b>{E["note"]}/5</b> — {E["avis"]} avis</span><span>{ICO["clock"]}<b>Sous 48 h</b>, moins en urgence</span><span>{ICO["shield"]}<b>Décennale</b></span></div>
 </div></section>
 <section class="sec" style="padding-top:28px"><div class="wrap"><div class="page">
 <div class="main">
-<h2>Six métiers à {v["nom"]}, un seul numéro</h2>
+<h2>Dépannage à {v["nom"]} : choisissez votre métier</h2>
+<p>Fuite d'eau, chaudière en panne, clim qui ne refroidit plus, panne de courant, volet bloqué, porte claquée : un seul numéro, {E["tel"]}, et le prix annoncé avant le déplacement.</p>
 <div class="hub">{hub}</div>
 {agence_htm}
-<h2>Atelier PACA à {v["nom"]}</h2>
+<h2>Atelier PACA à {v["nom"]} : ce que nous y faisons</h2>
 {local}
 <p>Habitat le plus fréquent à {v["nom"]} : {esc(v["habitat"])}. Nos techniciens adaptent le matériel aux contraintes locales (air salin, eau calcaire, copropriétés, résidences secondaires) et arrivent avec les pièces courantes pour finir en une visite.</p>
-<ul class="liste"><li>Intervention sous 48 h, plus vite en urgence (astreinte 24h/24, 7j/7)</li><li>Prix annoncé avant intervention, devis gratuit pour les travaux</li><li>Garantie décennale, grandes marques, facture détaillée pour votre assurance</li><li>Plus de {E["interventions"]} interventions depuis {E["depuis"]}, {E["note"]}/5 sur {E["avis"]} avis Google</li></ul>
+<h2>Pourquoi appeler Atelier PACA à {v["nom"]}</h2>
+<ul class="liste"><li>Intervention sous 48 h, plus vite en urgence (astreinte 24h/24, 7j/7)</li><li>Prix annoncé avant intervention, tarif minimum 110 € HT, devis gratuit pour les travaux</li><li>Garantie décennale, grandes marques, facture détaillée pour votre assurance ou votre syndic</li><li>Entreprise d'Antibes depuis {E["depuis"]} : plus de {E["interventions"]} interventions, {E["note"]}/5 sur {E["avis"]} avis Google</li></ul>
 {faq_htm}
-<h3>Villes voisines</h3><div class="chips">{voisines}</div>
+<h3>Dépannage dans les villes voisines de {v["nom"]}</h3><div class="chips">{voisines}</div>
 </div>
 <aside class="side">
-<div class="card"><h3>Dépannage à {v["nom"]}</h3><p>Un technicien vous répond et annonce le prix avant de se déplacer.</p><a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]} {E["tel"]}</a><a href="{E["wa"]}" class="btn btn-wa" target="_blank" rel="noopener">{ICO["wa"]} WhatsApp</a><a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]} Devis gratuit</a></div>
+<div class="card"><h3>Dépannage à {v["nom"]}</h3><p>Un technicien vous répond et annonce le prix avant de se déplacer. Devis gratuit pour les travaux.</p><a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]} {E["tel"]}</a><a href="{E["wa"]}" class="btn btn-wa" target="_blank" rel="noopener">{ICO["wa"]} WhatsApp</a><a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]} Devis gratuit</a></div>
 <div class="card"><h3>Urgence</h3><p>Fuite, panne de chauffage, porte claquée, volet bloqué ouvert : l'astreinte fonctionne 24h/24.</p><div class="liens"><a href="urgence-depannage-24h.html">Dépannage urgent 24h/24</a><a href="contrat-entretien.html">Contrats d'entretien</a><a href="avis-clients.html">Avis clients</a></div></div>
 </aside>
 </div></div></section>
 {cta_final(f"Un artisan à {v['nom']} ?")}
 </main>
 ''' + footer()
-    tt = f"Artisan {v['nom']} — Plombier, électricien, clim | Atelier PACA"
-    if len(tt) > 60: tt = f"Artisan {v['nom']} | Atelier PACA"
-    write(fn, head(tt, f"Dépannage et travaux à {v['nom']} ({v['cp']}) : plomberie, chauffage, climatisation, électricité, volets, serrurerie. Un numéro, devis gratuit, 4,9/5.", fn, ld) + body, "0.8" if v["prio"] else "0.6", "monthly")
+    tt = f"Dépannage {v['nom']} : plombier, électricien | Atelier PACA"
+    if len(tt) > 60: tt = f"Dépannage & artisan {v['nom']} | Atelier PACA"
+    if len(tt) > 60: tt = f"Dépannage {v['nom']} | Atelier PACA"
+    write(fn, head(tt, f"Dépannage et travaux à {v['nom']} ({v['cp']}) : plombier, chauffagiste, climatisation, électricien, volets, serrurier. 24h/24, un numéro, devis gratuit, 4,9/5.", fn, ld) + body, "0.8" if v["prio"] else "0.6", "monthly")
 
 # ---------------------------------------------------------------- PAGES ANNEXES
 def page_simple(fn, title, desc, h1, kicker, contenu, side=None, ld_extra=None, cta=True, prio="0.5", crumbs=None, lead=""):
@@ -447,39 +486,46 @@ def page_simple(fn, title, desc, h1, kicker, contenu, side=None, ld_extra=None, 
 def pages_annexes():
     # Urgence
     faq_htm, faq_ld = faq_block([
-        ("Qu'est-ce qui est considéré comme une urgence ?","Une fuite que vous ne pouvez pas stopper, une absence totale de chauffage ou d'eau chaude en hiver, une panne électrique générale, une porte claquée ou une serrure forcée, un volet bloqué ouvert. Dans ces cas, nous intervenons sans attendre, 24h/24."),
-        ("Combien coûte un dépannage de nuit ou le week-end ?","Le tarif de base est majoré hors horaires ouvrés. Cette majoration vous est annoncée au téléphone avant tout déplacement : vous décidez en connaissance de cause."),
-        ("Que faire en attendant le technicien ?","Fuite : fermez le robinet d'arrêt général. Électricité : coupez le disjoncteur si l'eau est proche. Gaz : aérez, ne touchez à aucun interrupteur, sortez. Nous vous guidons au téléphone."),
-    ], "Questions sur les urgences")
-    urg = "".join(f'<a href="{t["page"]}"><span class="ic">{ICO_METIER[t["cle"]]}</span><span><b>{t["nom"]}</b><span>{t["accroche"]}</span></span></a>' for t in TRADES)
-    page_simple("urgence-depannage-24h.html","Dépannage urgent 24h/24 Antibes, 06 & Var | Atelier PACA","Dépannage d'urgence 24h/24 dans le 06 et le Var : fuite d'eau, panne de chauffage, panne électrique, porte claquée, volet bloqué. Prix annoncé avant déplacement.",
-        "Dépannage urgent 24h/24 dans les Alpes-Maritimes et le Var","Astreinte 7j/7",
-        f'''<p>Une astreinte répond à toute heure. Le technicien de garde évalue la situation, vous donne les gestes de sécurité et annonce le prix avant de partir. Objectif : stopper les dégâts, puis réparer proprement.</p>
+        ("Qu'est-ce qui est considéré comme une urgence ?","Une fuite d'eau que vous ne pouvez pas stopper, une absence totale de chauffage ou d'eau chaude en hiver, une panne électrique générale ou une odeur de brûlé, une porte claquée ou une serrure forcée, un volet bloqué ouvert. Dans ces cas, nous intervenons sans attendre, 24h/24, à Antibes et dans tout le 06."),
+        ("Combien coûte un dépannage de nuit ou le week-end ?","Le tarif minimum d'intervention est de 110 € HT en journée ; hors horaires ouvrés, une majoration s'applique. Elle vous est annoncée au téléphone avant tout déplacement, avec le tarif de base : vous décidez en connaissance de cause, et rien n'est ajouté sur place."),
+        ("Que faire en attendant le technicien ?","Fuite : fermez le robinet d'arrêt général près du compteur. Électricité : coupez le disjoncteur si l'eau est proche des prises. Gaz : aérez, ne touchez à aucun interrupteur, sortez. Porte claquée : n'essayez pas de forcer, vous abîmeriez la serrure. Nous vous guidons au téléphone."),
+        ("Dans quelles villes intervenez-vous en urgence ?","Dans toutes les Alpes-Maritimes, en priorité autour de nos quatre agences : Antibes, Juan-les-Pins, Cagnes-sur-Mer et Le Cannet, puis Villeneuve-Loubet, Cannes, Mandelieu, Nice, Saint-Laurent-du-Var et jusqu'à Grasse, Vence et Menton. Dans le Var est (Fréjus, Saint-Raphaël, pays de Fayence), selon la disponibilité des équipes mobiles."),
+    ], "Questions sur le dépannage d'urgence")
+    urg = "".join(f'<a href="{t["page"]}"><span class="ic">{ICO_METIER[t["cle"]]}</span><span><b>Urgence {t["nom"].lower()}</b><span>{t["accroche"]}</span></span></a>' for t in TRADES)
+    page_simple("urgence-depannage-24h.html","Dépannage urgent 24h/24 Antibes, 06 & Var | Atelier PACA","Dépannage d'urgence 24h/24 à Antibes, dans le 06 et le Var est : fuite d'eau, panne de chauffage, panne électrique, porte claquée, volet bloqué. Prix annoncé avant déplacement.",
+        "Dépannage urgent 24h/24 à Antibes et dans les Alpes-Maritimes","Astreinte 7j/7",
+        f'''<p>Un technicien de garde répond à toute heure au {E["tel"]}. Il évalue la situation, vous donne les gestes de sécurité et annonce le prix avant de partir. Objectif : stopper les dégâts dans l'heure, puis réparer proprement. Plombier, chauffagiste, électricien, serrurier, climatisation ou volets : choisissez le métier concerné.</p>
 <div class="hub">{urg}</div>
-<h2>Comment se passe une urgence</h2>
-<div class="etapes"><div class="etape"><span class="n">1</span><b>Vous appelez</b><p>{E["tel"]}, 24h/24. Décrivez la panne : nous vous indiquons tout de suite les gestes à faire.</p></div><div class="etape"><span class="n">2</span><b>Prix annoncé</b><p>Déplacement et tarif de base annoncés au téléphone, majoration incluse si hors horaires.</p></div><div class="etape"><span class="n">3</span><b>Mise en sécurité</b><p>Le technicien stoppe le problème (fuite, court-circuit, porte) et sécurise les lieux.</p></div><div class="etape"><span class="n">4</span><b>Réparation</b><p>Réparation immédiate quand c'est possible, sinon devis gratuit pour la suite, sous 24 h.</p></div></div>
-{faq_htm}''', ld_extra=[faq_ld], prio="0.8", lead="Fuite d'eau, chaudière en panne, coupure de courant, porte claquée, volet bloqué : un technicien de garde répond jour et nuit, week-end et jours fériés.")
+<h2>Comment se passe un dépannage d'urgence</h2>
+<div class="etapes"><div class="etape"><span class="n">1</span><b>Vous appelez</b><p>{E["tel"]}, 24h/24. Décrivez la panne : nous vous indiquons tout de suite les gestes à faire pour limiter les dégâts.</p></div><div class="etape"><span class="n">2</span><b>Prix annoncé</b><p>Déplacement et tarif de base annoncés au téléphone, majoration incluse si hors horaires. Vous validez avant que le technicien parte.</p></div><div class="etape"><span class="n">3</span><b>Mise en sécurité</b><p>Le technicien stoppe le problème (fuite, court-circuit, porte, volet) et sécurise les lieux, avec les pièces courantes en stock.</p></div><div class="etape"><span class="n">4</span><b>Réparation</b><p>Réparation immédiate quand c'est possible, sinon devis gratuit pour la suite, sous 24 h, et facture détaillée pour votre assurance.</p></div></div>
+<h2>Les urgences les plus fréquentes sur la Côte d'Azur</h2>
+<ul class="liste"><li><a href="plomberie.html">Fuite d'eau</a>, canalisation bouchée avec refoulement, chauffe-eau qui fuit</li><li><a href="chauffage.html">Chaudière en sécurité</a>, plus d'eau chaude, pompe à chaleur en défaut en plein hiver</li><li><a href="electricite.html">Panne de courant</a>, disjoncteur qui saute en boucle, odeur de brûlé au tableau</li><li><a href="serrurerie.html">Porte claquée</a>, clés perdues, serrure forcée après une effraction</li><li><a href="volets-roulants.html">Volet roulant bloqué ouvert</a> en rez-de-chaussée ou dans une résidence secondaire</li><li><a href="climatisation.html">Climatisation en panne</a> en période de canicule</li></ul>
+{faq_htm}''', ld_extra=[faq_ld], prio="0.8", lead="Fuite d'eau, chaudière en panne, coupure de courant, porte claquée, volet bloqué : un technicien de garde répond jour et nuit, week-end et jours fériés, à Antibes, Cagnes-sur-Mer, Cannes, Nice et dans tout le 06.")
 
     # Contrat d'entretien
     faq_htm, faq_ld = faq_block([
-        ("Que comprend le contrat d'entretien ?","Une visite annuelle programmée (nettoyage, contrôles, réglages, attestation pour les chaudières), le dépannage sous 48 h en cas de panne, et 10 % de remise sur les pièces détachées."),
-        ("Puis-je regrouper plusieurs équipements ?","Oui : chaudière + climatisation, ou plusieurs splits, sur un même contrat. Le tarif est dégressif à partir du deuxième équipement."),
-        ("Comment résilier ?","Le contrat est annuel, sans reconduction forcée : vous restez libre chaque année."),
-    ], "Questions sur les contrats")
-    page_simple("contrat-entretien.html","Contrat d'entretien clim & chaudière Antibes | Atelier PACA","Contrat d'entretien annuel clim et chaudière dans le 06 et le Var : visite programmée, attestation, dépannage sous 48 h, 10 % de remise sur les pièces.",
-        "Contrats d'entretien climatisation et chaudière","Vous n'y pensez plus, on s'en occupe",
-        f'''<p>L'entretien annuel est la différence entre un appareil qui dure quinze ans et un appareil remplacé au bout de sept. Avec un contrat, la visite est programmée chaque année à la bonne saison, et vous passez en priorité en cas de panne.</p>
-<h2>Les formules</h2>
+        ("Que comprend le contrat d'entretien ?","Une visite annuelle programmée (nettoyage, contrôles, réglages, attestation pour les chaudières), le dépannage sous 48 h en cas de panne, et 10 % de remise sur les pièces détachées. Le technicien vous appelle pour fixer la date : vous n'avez rien à retenir."),
+        ("Combien coûte un contrat d'entretien de chaudière ou de climatisation ?","À partir de 110 € HT par an pour une chaudière gaz, et 110 € HT par an et par split pour une climatisation, visite annuelle comprise. Le tarif est dégressif à partir du deuxième équipement, et le devis est gratuit pour une pompe à chaleur air/eau ou un parc de copropriété."),
+        ("Puis-je regrouper plusieurs équipements ?","Oui : chaudière + climatisation, plusieurs splits, ou chaudière + chauffe-eau, sur un même contrat avec une seule visite quand c'est possible. Le tarif est dégressif à partir du deuxième équipement."),
+        ("Le contrat est-il valable dans toute votre zone ?","Oui, dans toutes les Alpes-Maritimes, d'Antibes et Cagnes-sur-Mer à Cannes, Nice ou Grasse, et dans le Var est. Pour les communes éloignées, nous groupons les visites d'entretien par tournées afin de tenir la date prévue."),
+        ("Comment résilier ?","Le contrat est annuel, sans reconduction forcée : vous restez libre chaque année. Si vous vendez le logement, le contrat et l'historique d'entretien peuvent être transmis à l'acheteur."),
+    ], "Questions sur les contrats d'entretien")
+    page_simple("contrat-entretien.html","Contrat d'entretien clim & chaudière Antibes | Atelier PACA","Contrat d'entretien annuel clim et chaudière à Antibes, dans le 06 et le Var est : visite programmée dès 110 € HT, attestation, dépannage sous 48 h, 10 % sur les pièces.",
+        "Contrat d'entretien climatisation et chaudière à Antibes et dans le 06","Vous n'y pensez plus, on s'en occupe",
+        f'''<p>L'entretien annuel est la différence entre un appareil qui dure quinze ans et un appareil remplacé au bout de sept. Avec un contrat d'entretien Atelier PACA, la visite est programmée chaque année à la bonne saison (automne pour la chaudière, printemps pour la climatisation), vous recevez l'attestation, et vous passez en priorité en cas de panne, avec dépannage sous 48 h et 10 % de remise sur les pièces.</p>
+<h2>Les formules de contrat d'entretien</h2>
 <div class="tarifs">
-<div class="tarif"><div><b>Chaudière gaz</b><p>Visite annuelle avant l'hiver, contrôle de combustion et de CO, attestation d'entretien, dépannage sous 48 h, 10 % de remise sur les pièces.</p></div><div class="px"><b>dès 110 € HT</b><small>TTC / an</small></div></div>
-<div class="tarif"><div><b>Climatisation</b><p>Visite annuelle au printemps, nettoyage et désinfection, contrôle du circuit et des pressions, dépannage sous 48 h, 10 % de remise sur les pièces.</p></div><div class="px"><b>dès 110 € HT</b><small>TTC / an / split</small></div></div>
+<div class="tarif"><div><b>Chaudière gaz</b><p>Visite annuelle avant l'hiver, nettoyage du corps de chauffe, contrôle de combustion et de CO, attestation d'entretien, dépannage sous 48 h, 10 % de remise sur les pièces.</p></div><div class="px"><b>dès 110 € HT</b><small>par an</small></div></div>
+<div class="tarif"><div><b>Climatisation</b><p>Visite annuelle au printemps, nettoyage des filtres et désinfection, contrôle du circuit et des pressions, dépannage sous 48 h, 10 % de remise sur les pièces.</p></div><div class="px"><b>dès 110 € HT</b><small>par an et par split</small></div></div>
 <div class="tarif"><div><b>Pompe à chaleur air/eau</b><p>Visite annuelle, contrôle d'étanchéité, filtres, régulation, dépannage sous 48 h, 10 % de remise sur les pièces.</p></div><div class="px"><b>Sur devis</b><small>gratuit</small></div></div>
-<div class="tarif"><div><b>Copropriétés et professionnels</b><p>Parc d'équipements, plusieurs sites, interlocuteur dédié et reporting annuel.</p></div><div class="px"><b>Sur devis</b><small>gratuit</small></div></div>
+<div class="tarif"><div><b>Copropriétés et professionnels</b><p>Parc d'équipements, plusieurs sites, interlocuteur dédié et reporting annuel. Syndics, agences, commerces et bureaux.</p></div><div class="px"><b>Sur devis</b><small>gratuit</small></div></div>
 </div>
-<p class="note">Tarif dégressif à partir du deuxième équipement. Contrat annuel sans reconduction forcée.</p>
-<h2>Ce que vous gagnez</h2>
-<ul class="liste"><li>La visite est programmée par nos soins, à la bonne saison : vous n'avez rien à retenir</li><li>Dépannage sous 48 h en cas de panne</li><li>10 % de remise sur les pièces détachées</li><li>Attestation d'entretien pour votre assureur ou votre propriétaire (chaudière)</li><li>Historique des interventions conservé : utile à la revente ou pour un sinistre</li></ul>
-{faq_htm}''', ld_extra=[faq_ld], prio="0.8", lead="Visite annuelle programmée, dépannage sous 48 h et 10 % de remise sur les pièces détachées, pour votre chaudière ou votre climatisation.")
+<p class="note">Tarif dégressif à partir du deuxième équipement. Contrat annuel sans reconduction forcée. TVA à 10 % ou 20 % selon l'ancienneté du logement.</p>
+<h2>Ce que vous gagnez avec un contrat d'entretien</h2>
+<ul class="liste"><li>La visite est programmée par nos soins, à la bonne saison : vous n'avez rien à retenir</li><li>Dépannage sous 48 h en cas de panne, avant les clients sans contrat</li><li>10 % de remise sur les pièces détachées</li><li>Attestation d'entretien pour votre assureur ou votre propriétaire (chaudière)</li><li>Historique des interventions conservé : utile à la revente ou pour un sinistre</li><li>Pour les résidences secondaires : visite coordonnée avec le gardien ou l'agence, compte rendu envoyé à distance</li></ul>
+<h2>Comment souscrire</h2>
+<p>Appelez le {E["tel"]}, écrivez sur WhatsApp ou remplissez le <a href="contact.html#devis">formulaire de devis</a> en indiquant votre équipement (marque, année si vous la connaissez) et votre ville. Nous vous confirmons le tarif et la première date de visite sous 24 h. Si votre appareil est en panne aujourd'hui, nous commençons par le <a href="urgence-depannage-24h.html">dépannage</a>.</p>
+{faq_htm}''', ld_extra=[faq_ld], prio="0.8", lead="Visite annuelle programmée dès 110 € HT, dépannage sous 48 h et 10 % de remise sur les pièces détachées, pour votre chaudière ou votre climatisation, dans les Alpes-Maritimes et le Var est.")
 
     # Avis clients
     avis = "".join(f'<div class="avis"><div class="st">★★★★★</div><p>« {esc(a)} »</p><div class="qui">{esc(n)}<span>{esc(w)}</span></div></div>' for a,n,w in AVIS)
@@ -494,39 +540,41 @@ def pages_annexes():
 <p>Un avis prend deux minutes et aide les habitants de votre ville à choisir un artisan sérieux. Choisissez la fiche de l'agence la plus proche de chez vous ci-dessus et cliquez sur « Laisser un avis ».</p>''', prio="0.7", lead="Quatre fiches Google, plus de 450 avis publics. Nous n'offrons rien contre un avis et ne trions pas les clients.")
 
     # À propos
-    page_simple("a-propos.html","Artisans à Antibes depuis 2015 | Atelier PACA","Atelier PACA, entreprise artisanale d'Antibes depuis 2015 : six métiers de la maison, garantie décennale, 10 800 interventions, 4,9/5 sur Google.",
-        "Une entreprise d'Antibes, six métiers, depuis 2015","Qui sommes-nous",
-        f'''<div class="photo-p"><img src="images/equipe-camion.webp" alt="Technicien Atelier PACA et camion d'intervention sur la Côte d'Azur" width="904" height="459" loading="eager"></div>
-<p>Atelier PACA est née à Antibes en {E["depuis"]} avec une idée simple : les habitants de la côte n'ont pas envie de chercher un plombier, puis un électricien, puis un frigoriste. Ils veulent un numéro, un interlocuteur qui connaît leur logement, et une facture claire.</p>
-<p>Dix ans plus tard, l'équipe a réalisé plus de {E["interventions"]} interventions dans les Alpes-Maritimes et le Var, et quatre fiches Google (Antibes, Juan-les-Pins, Cagnes-sur-Mer, Le Cannet) cumulent plus de 450 avis à {E["note"]}/5.</p>
-<h2>Ce qui nous distingue</h2>
+    page_simple("a-propos.html","Artisans à Antibes depuis 2015 | Atelier PACA","Atelier PACA, entreprise artisanale d'Antibes depuis 2015 : plombiers, chauffagistes, électriciens, serruriers, garantie décennale, 10 800 interventions, 4,9/5.",
+        "Atelier PACA : une entreprise d'artisans à Antibes, six métiers, depuis 2015","Qui sommes-nous",
+        f'''<div class="photo-p"><img src="images/equipe-camion.webp" alt="Technicien Atelier PACA et camion d'intervention équipé pour six métiers, Antibes" width="904" height="459" loading="eager"></div>
+<p>Atelier PACA est née à Antibes en {E["depuis"]} avec une idée simple : les habitants de la côte n'ont pas envie de chercher un plombier, puis un électricien, puis un frigoriste. Ils veulent un numéro, un interlocuteur qui connaît leur logement, et une facture claire. C'est devenu notre promesse : un seul numéro pour toute votre maison.</p>
+<p>Dix ans plus tard, l'équipe a réalisé plus de {E["interventions"]} interventions dans les Alpes-Maritimes et le Var est, de Juan-les-Pins à Nice et de Cannes à Grasse, et quatre fiches Google (Antibes, Juan-les-Pins, Cagnes-sur-Mer, Le Cannet) cumulent plus de 450 avis à {E["note"]}/5. Le siège, le stock de pièces et l'atelier sont toujours chemin des Autrichiens, à Antibes.</p>
+<h2>Ce qui nous distingue d'un dépanneur classique</h2>
 <div class="trio">
-<div class="t"><b>Garantie décennale</b><p>Tous nos travaux sont couverts dix ans. Attestation fournie sur demande.</p></div>
-<div class="t"><b>Prix avant intervention</b><p>Tarif annoncé au téléphone ou sur devis, majoration de nuit annoncée aussi.</p></div>
-<div class="t"><b>Astreinte 24h/24</b><p>Un technicien de garde chaque nuit, chaque week-end, chaque jour férié.</p></div>
-<div class="t"><b>Techniciens spécialisés</b><p>Chacun exerce son métier ; l'équipe couvre les six.</p></div>
-<div class="t"><b>Grandes marques</b><p>Daikin, Mitsubishi Electric, Atlantic, Somfy, Legrand, Schneider, Vaillant.</p></div>
-<div class="t"><b>Fournisseurs locaux</b><p>Stock au siège d'Antibes et partenaires de proximité pour les pièces.</p></div>
+<div class="t"><b>Garantie décennale</b><p>Tous nos travaux sont couverts dix ans. Attestation d'assurance fournie sur demande, avant le chantier.</p></div>
+<div class="t"><b>Prix avant intervention</b><p>Tarif annoncé au téléphone ou sur devis, majoration de nuit ou de week-end annoncée aussi. Tarif minimum 110 € HT.</p></div>
+<div class="t"><b>Astreinte 24h/24</b><p>Un technicien de garde chaque nuit, chaque week-end, chaque jour férié, pour les urgences de plomberie, chauffage, électricité et serrurerie.</p></div>
+<div class="t"><b>Techniciens spécialisés</b><p>Chacun exerce son métier (électriciens habilités, frigoristes, plombiers, serruriers) ; l'équipe couvre les six et se coordonne en interne.</p></div>
+<div class="t"><b>Grandes marques</b><p>Daikin, Mitsubishi Electric, Atlantic, Somfy, Legrand, Schneider, Vaillant : des pièces disponibles dans dix ans.</p></div>
+<div class="t"><b>Fournisseurs locaux</b><p>Stock au siège d'Antibes et partenaires de proximité pour les pièces : la plupart des dépannages se terminent en une visite.</p></div>
 </div>
+<h2>Nos clients : particuliers, copropriétés, professionnels</h2>
+<p>Propriétaires et locataires en appartement ou en villa, résidences secondaires gérées à distance avec un gardien ou une agence, syndics de copropriété pour les colonnes d'eau, la serrurerie des parties communes et les contrats d'entretien, commerces et bureaux pour l'électricité et la climatisation tertiaire. Dans tous les cas : prix annoncé, facture détaillée, rapport d'intervention sur demande.</p>
 <h2>Nos agences</h2>
 <div class="fiches" style="grid-template-columns:1fr 1fr">{"".join(f'<div class="fiche"><b>{a["nom"]}</b><span>{a["adresse"]}, {a["cp"]} {a["ville"]}</span><span>{E["note"]}/5 · {a["avis"]} avis</span><div class="l"><a href="{maps(a)}" target="_blank" rel="noopener">Fiche Google</a></div></div>' for a in AGENCES)}</div>
 <h2>Informations légales</h2>
 <p>Atelier PACA, SASU — SIREN {E["siren"]} — siège : {E["adresse"]}, {E["cp"]} {E["ville"]}. Assurance responsabilité civile et décennale. <a href="mentions-legales.html">Mentions légales</a>.</p>''', prio="0.6")
 
     # Réalisations
-    gal = [("chantier-clim-interieur","Pose d'une unité intérieure de climatisation, appartement à Antibes","Climatisation"),
-           ("chantier-clim-groupe-exterieur","Unité extérieure sur supports antivibratiles, villa du Cap d'Antibes","Climatisation"),
-           ("chantier-douche-italienne","Douche à l'italienne, rénovation complète de salle de bain","Plomberie"),
-           ("chantier-salle-de-bain","Salle de bain rénovée : plomberie, électricité et finitions","Plomberie et électricité"),
-           ("chantier-wc-suspendu","WC suspendu avec bâti-support, Cagnes-sur-Mer","Plomberie"),
-           ("volets-cote-azur","Volets roulants motorisés sur façade azuréenne","Volets roulants"),
-           ("serrurerie-porte-blindee","Serrure multipoints haute sécurité sur porte blindée","Serrurerie"),
-           ("entretien-clim-avant-apres","Entretien de climatisation : avant / après nettoyage des filtres et de l'échangeur","Climatisation"),
-           ("camion-fondu","Le camion d'intervention Atelier PACA, équipé pour six métiers","Équipe")]
+    gal = [("chantier-clim-interieur","Pose d'une unité intérieure de climatisation murale, appartement à Antibes","Climatisation"),
+           ("chantier-clim-groupe-exterieur","Unité extérieure de climatisation sur supports antivibratiles, villa du Cap d'Antibes","Climatisation"),
+           ("chantier-douche-italienne","Douche à l'italienne carrelée, rénovation complète de salle de bain dans les Alpes-Maritimes","Plomberie"),
+           ("chantier-salle-de-bain","Salle de bain rénovée par Atelier PACA : plomberie, électricité et finitions","Plomberie et électricité"),
+           ("chantier-wc-suspendu","WC suspendu avec bâti-support posé à Cagnes-sur-Mer","Plomberie"),
+           ("volets-cote-azur","Volets roulants motorisés posés sur une façade de la Côte d'Azur","Volets roulants"),
+           ("serrurerie-porte-blindee","Serrure multipoints haute sécurité installée sur une porte blindée","Serrurerie"),
+           ("entretien-clim-avant-apres","Entretien de climatisation : filtres et échangeur avant et après nettoyage","Climatisation"),
+           ("camion-fondu","Camion d'intervention Atelier PACA équipé pour six métiers, Antibes","Équipe")]
     galerie = "".join(f'<figure><img src="images/{i}.webp" alt="{esc(c)}" loading="lazy" width="800" height="600"><figcaption><strong>{m}</strong> — {esc(c)}</figcaption></figure>' for i,c,m in gal)
     page_simple("realisations.html","Réalisations Atelier PACA — Chantiers dans le 06 et le Var","Photos de chantiers Atelier PACA : climatisation, salle de bain, électricité, volets roulants et serrurerie dans les Alpes-Maritimes et le Var.",
-        "Nos réalisations sur la Côte d'Azur","Chantiers récents",
-        f'<p>Quelques chantiers récents, photographiés par nos techniciens. Nous ajoutons de nouvelles photos chaque semaine sur nos fiches Google et nos réseaux.</p><div class="galerie">{galerie}</div>', prio="0.6")
+        "Nos réalisations à Antibes et sur la Côte d'Azur","Chantiers récents",
+        f'<p>Quelques chantiers récents de climatisation, salle de bain, électricité, volets et serrurerie, photographiés par nos techniciens à Antibes, Cagnes-sur-Mer, Cannes et dans les Alpes-Maritimes. Nous ajoutons de nouvelles photos chaque semaine sur nos fiches Google et nos réseaux. Un projet similaire ? <a href="contact.html#devis">Demandez un devis gratuit</a>.</p><div class="galerie">{galerie}</div>', prio="0.6")
 
     # Marques
     marques = "".join(f'<h3>{t["nom"]}</h3><div class="marques">{"".join(f"<span>{esc(m)}</span>" for m in t["marques"])}</div>' for t in TRADES)
@@ -537,37 +585,38 @@ def pages_annexes():
     # FAQ générale
     allfaq = []
     for t in TRADES: allfaq += t["faq"][:3]
-    faq_htm, faq_ld = faq_block([("Sous quel délai intervenez-vous ?","Sous 48 h pour une intervention classique, plus vite pour une urgence grâce à l'astreinte 24h/24 et 7j/7."),
-                                 ("Le devis est-il gratuit ?","Oui, devis et visite technique sont gratuits et sans engagement. Pour un dépannage, le prix est annoncé avant l'intervention."),
-                                 ("Quelle zone couvrez-vous ?","Les Alpes-Maritimes, d'Antibes à Nice et de Cannes à Grasse, et le Var est : Fréjus, Saint-Raphaël et le pays de Fayence."),
-                                 ("Comment payer ?","Carte bancaire, virement, chèque ou espèces. Facture détaillée remise à chaque intervention."),
-                                 ("Travaillez-vous avec les assurances et les syndics ?","Oui : rapport d'intervention et facture détaillée pour les déclarations de sinistre, documents techniques pour les demandes aux syndics.")] + allfaq, "Toutes les questions")
-    page_simple("faq.html","Questions fréquentes — Délais, devis, tarifs | Atelier PACA","Les réponses d'Atelier PACA sur les délais, le devis gratuit, les tarifs, les urgences 24h/24, les garanties et la zone d'intervention dans le 06 et le Var.",
-        "Questions fréquentes","Délais, prix, garanties", faq_htm, ld_extra=[faq_ld], prio="0.5")
+    faq_htm, faq_ld = faq_block([("Sous quel délai intervenez-vous à Antibes et dans les Alpes-Maritimes ?","Sous 48 h pour une intervention classique, souvent le jour même pour une urgence (fuite, panne de courant, porte claquée, chaudière en sécurité) grâce à l'astreinte 24h/24 et 7j/7. Le délai exact vous est donné au téléphone, selon votre ville et l'heure."),
+                                 ("Le devis est-il gratuit ?","Oui, devis et visite technique sont gratuits et sans engagement, pour tous nos métiers. Pour un dépannage, le prix est annoncé avant l'intervention, majoration de nuit ou de week-end comprise ; le tarif minimum d'intervention est de 110 € HT."),
+                                 ("Quelle zone couvrez-vous ?","Les Alpes-Maritimes, d'Antibes à Nice et de Cannes à Grasse (Mandelieu, Le Cannet, Vallauris, Villeneuve-Loubet, Cagnes-sur-Mer, Saint-Laurent-du-Var, Vence, jusqu'à Menton), et le Var est : Fréjus, Saint-Raphaël et le pays de Fayence. Chaque commune a sa page avec nos délais."),
+                                 ("Comment payer ?","Carte bancaire, virement, chèque ou espèces, à la fin de l'intervention ou selon l'échéancier du devis pour les travaux. Facture détaillée remise à chaque intervention, par e-mail ou sur place."),
+                                 ("Travaillez-vous avec les assurances et les syndics ?","Oui : rapport d'intervention avec photos et facture détaillée pour les déclarations de sinistre (dégât des eaux, effraction), documents techniques pour les demandes aux syndics (climatisation, borne de recharge), contrats d'entretien pour les copropriétés."),
+                                 ("Qui intervient chez moi ?","Un technicien Atelier PACA, spécialisé dans le métier concerné et identifiable : tenue, véhicule, nom de société et SIREN 814 736 781 sur la facture. Vous pouvez vérifier nos avis sur nos quatre fiches Google.")] + allfaq, "Toutes les questions")
+    page_simple("faq.html","Questions fréquentes — Délais, devis, tarifs | Atelier PACA","Les réponses d'Atelier PACA sur les délais, le devis gratuit, les tarifs, les urgences 24h/24, les garanties et la zone d'intervention à Antibes, dans le 06 et le Var.",
+        "Questions fréquentes sur nos dépannages et travaux","Délais, prix, garanties", f'<p>Les questions que nos clients d\'Antibes, Cagnes-sur-Mer, Cannes et Nice nous posent le plus souvent, par téléphone ou sur nos fiches Google. Vous ne trouvez pas la vôtre ? Appelez le {E["tel"]} ou écrivez-nous sur WhatsApp : un technicien répond.</p>{faq_htm}', ld_extra=[faq_ld], prio="0.5")
 
     # Contact
     cp_ld = {"@context":"https://schema.org","@type":"ContactPage","url":SITE+"contact.html","name":"Contact Atelier PACA"}
     agences = "".join(f'<div class="fiche"><b>{a["nom"]}</b><span>{a["adresse"]}, {a["cp"]} {a["ville"]}</span><span>{E["note"]}/5 · {a["avis"]} avis</span><div class="l"><a href="{maps(a)}" target="_blank" rel="noopener">Itinéraire</a></div></div>' for a in AGENCES)
     c_htm, c_ld = crumb([("Accueil","index.html"),("Contact","contact.html")])
     body = header("contact.html") + f'''<main>
-<section class="hero hero-mini"><div class="wrap">{c_htm}<p class="kicker">Devis gratuit, réponse sous 2 h</p><h1>Contactez Atelier PACA</h1><p class="lead">Pour une urgence, appelez : un technicien de garde répond 24h/24. Pour un devis, laissez vos coordonnées et nous vous rappelons sous 2 h en journée.</p></div></section>
+<section class="hero hero-mini"><div class="wrap">{c_htm}<p class="kicker">Devis gratuit, réponse sous 2 h</p><h1>Contactez Atelier PACA, artisans à Antibes</h1><p class="lead">Pour un dépannage urgent, appelez le {E["tel"]} : un technicien de garde répond 24h/24 et annonce le prix avant de se déplacer. Pour un devis (climatisation, chaudière, électricité, salle de bain, serrurerie, volets), laissez vos coordonnées et nous vous rappelons sous 2 h en journée.</p></div></section>
 <section class="sec" style="padding-top:28px" id="devis"><div class="wrap"><div class="contact">{coord_block()}{form_devis()}</div>
-<h2 style="margin-top:50px">Nos agences</h2><div class="fiches">{agences}</div></div></section>
+<h2 style="margin-top:50px">Nos agences à Antibes, Juan-les-Pins, Cagnes-sur-Mer et Le Cannet</h2><p>Quatre fiches Google, un seul numéro. Les visites se font chez vous : pas besoin de passer à l'agence.</p><div class="fiches">{agences}</div></div></section>
 </main>''' + footer()
     write("contact.html", head("Contact — Devis gratuit, 04 92 14 14 14 | Atelier PACA","Contactez Atelier PACA : 04 92 14 14 14 (24h/24), WhatsApp, formulaire de devis gratuit. Agences à Antibes, Juan-les-Pins, Cagnes-sur-Mer et Le Cannet.","contact.html",[ld_business(),cp_ld,c_ld]) + body, "0.8")
 
     # Blog + articles
-    posts = "".join(f'<a class="post" href="{a["slug"]}"><img src="images/{a["img"]}-480.webp" alt="" loading="lazy" width="480" height="300"><div class="in"><h3>{esc(a["titre"])}</h3><p>{esc(a["resume"])}</p><small>Lire l\'article</small></div></a>' for a in ARTICLES)
+    posts = "".join(f'<a class="post" href="{a["slug"]}"><img src="images/{a["img"]}-480.webp" alt="{esc(TRADE_BY_KEY[a["metier"]]["alt"])}" loading="lazy" width="480" height="300"><div class="in"><h3>{esc(a["titre"])}</h3><p>{esc(a["resume"])}</p><small>Lire le conseil</small></div></a>' for a in ARTICLES)
     page_simple("blog.html","Conseils clim, chauffage, plomberie | Atelier PACA","Les conseils d'Atelier PACA : entretien de chaudière, prix d'une climatisation dans le 06, gestes en cas de fuite d'eau. Écrits par nos techniciens d'Antibes.",
-        "Conseils d'artisans","Le blog Atelier PACA", f'<p>Des articles courts, écrits par nos techniciens, pour vous aider à décider et à éviter les pannes.</p><div class="posts" style="grid-template-columns:1fr">{posts}</div>', prio="0.6")
+        "Conseils d'artisans d'Antibes : chauffage, climatisation, plomberie","Le blog Atelier PACA", f'<p>Des articles courts, écrits par nos techniciens d\'Antibes, pour vous aider à décider, à comparer les devis et à éviter les pannes dans les Alpes-Maritimes.</p><div class="posts" style="grid-template-columns:1fr">{posts}</div>', prio="0.6")
     for a in ARTICLES:
         c_htm, c_ld = crumb([("Accueil","index.html"),("Conseils","blog.html"),(a["titre"],a["slug"])])
         art_ld = {"@context":"https://schema.org","@type":"Article","headline":a["titre"],"description":a["desc"],"datePublished":a["date"],"dateModified":a["date"],"inLanguage":"fr-FR","image":SITE+f"images/{a['img']}.webp","author":{"@type":"Organization","name":"Atelier PACA","url":SITE},"publisher":{"@id":SITE+"#organisation"},"mainEntityOfPage":SITE+a["slug"]}
         body = header("blog.html") + f'''<main>
-<section class="hero hero-mini"><div class="wrap">{c_htm}<p class="kicker">Conseil d'artisan</p><h1>{esc(a["titre"])}</h1><p class="meta" style="color:var(--mut2);font-size:13.5px;margin-top:10px">Publié le 14 octobre 2026 par l'équipe Atelier PACA, Antibes</p></div></section>
-<section class="sec" style="padding-top:28px"><div class="wrap"><div class="page"><div class="main article"><div class="photo-p"><img src="images/{a["img"]}.webp" alt="" width="886" height="481" loading="eager"></div>{a["corps"]}
-<div class="encart"><div><b>Une question sur votre installation ?</b><span>Devis gratuit, réponse sous 2 h en journée.</span></div><a href="contact.html#devis" class="btn btn-rouge btn-sm">Demander un devis</a></div>
-<h3>Autres conseils</h3><div class="chips">{"".join(f'<a href="{x["slug"]}">{esc(x["titre"])}</a>' for x in ARTICLES if x is not a)}</div></div>
+<section class="hero hero-mini"><div class="wrap">{c_htm}<p class="kicker">Conseil d'artisan</p><h1>{esc(a["titre"])}</h1><p class="meta" style="color:var(--mut2);font-size:13.5px;margin-top:10px">Publié le {date_fr(a["date"])} par l'équipe Atelier PACA, Antibes · {esc(a["resume"])}</p></div></section>
+<section class="sec" style="padding-top:28px"><div class="wrap"><div class="page"><div class="main article"><div class="photo-p"><img src="images/{a["img"]}.webp" alt="{esc(TRADE_BY_KEY[a["metier"]]["alt"])}" width="886" height="481" loading="eager"></div>{a["corps"]}
+<div class="encart"><div><b>Une question sur votre installation ?</b><span>Devis gratuit, réponse sous 2 h en journée, dans tout le 06 et le Var est.</span></div><a href="{TRADE_BY_KEY[a["metier"]]["page"]}" class="btn btn-rouge btn-sm">Voir nos prestations {TRADE_BY_KEY[a["metier"]]["nom"].lower()}</a></div>
+<h3>Autres conseils de nos techniciens</h3><div class="chips">{"".join(f'<a href="{x["slug"]}">{esc(x["titre"])}</a>' for x in ARTICLES if x is not a)}</div></div>
 <aside class="side"><div class="card"><h3>Besoin d'un artisan ?</h3><p>Astreinte 24h/24, prix annoncé avant le déplacement.</p><a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]} {E["tel"]}</a><a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]} Devis gratuit</a></div><div class="card"><h3>Nos métiers</h3><div class="liens">{"".join(f'<a href="{t["page"]}">{t["nom"]}</a>' for t in TRADES)}</div></div></aside>
 </div></div></section>{cta_final()}</main>''' + footer()
         write(a["slug"], head(a["titre_court"], a["desc"], a["slug"], [ld_business(), c_ld, art_ld], og_img=f"images/{a['img']}.webp") + body, "0.6")
