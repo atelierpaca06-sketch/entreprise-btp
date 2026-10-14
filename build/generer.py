@@ -276,8 +276,16 @@ def page_index():
     accueil = [a for a in AVIS_GOOGLE if a["auteur"] in ("Lial H.", "Merissa G.", "Foued B.")]
     avis = "".join(avis_card(a) for a in accueil)
     fiches = "".join(f'<div class="fiche"><b>{a["nom"]}</b><span>{a["adresse"]}, {a["cp"]} {a["ville"]}</span><span>{a["note"]}/5 · {a["avis"]} avis</span><div class="l"><a href="{maps(a)}" target="_blank" rel="noopener">Voir la fiche</a><a href="{avis_url(a)}" target="_blank" rel="noopener">Laisser un avis</a></div></div>' for a in AGENCES)
-    hubs06 = "".join(f'<a href="depannage-{v["slug"]}.html">{v["nom"]}</a>' for v in VILLES_06)
-    hubs83 = "".join(f'<a href="depannage-{v["slug"]}.html">{v["nom"]}</a>' for v in VILLES_83)
+    def hubs_replies(vs, n_visibles, label):
+        """Accueil : les villes principales visibles, le reste replié (liens toujours dans le HTML pour le référencement)."""
+        a = lambda v: f'<a href="depannage-{v["slug"]}.html">{v["nom"]}</a>'
+        vis, rest = vs[:n_visibles], vs[n_visibles:]
+        htm = "".join(a(v) for v in vis)
+        if rest:
+            htm += f'</div><details class="plus"><summary>Voir les {len(vs)} villes {label}</summary><div class="chips">' + "".join(a(v) for v in rest) + '</div></details><div class="chips" hidden>'
+        return htm
+    hubs06 = hubs_replies(VILLES_06, 9, "des Alpes-Maritimes")
+    hubs83 = hubs_replies(VILLES_83, 3, "du Var est")
     body = header("index.html") + f'''
 <main>
 <section class="hero"><div class="wrap">

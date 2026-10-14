@@ -201,7 +201,7 @@ p{max-width:70ch}
 .villes h3 small{font-family:var(--inter);font-weight:400;color:var(--mut);font-size:14px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .villes .chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
-.villes .chips a{text-align:center;white-space:normal;line-height:1.3;font-size:13px;padding:7px 10px}
+.villes .chips a{text-align:center;white-space:normal;line-height:1.3;font-size:13px;padding:7px 10px}.villes .chips[hidden]{display:none}.villes details.plus{margin-top:10px}.villes details.plus summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--neon2);padding:8px 14px;border:1px dashed rgba(47,176,255,.45);border-radius:999px}.villes details.plus summary::-webkit-details-marker{display:none}.villes details.plus summary::after{content:'+';font-size:16px}.villes details.plus[open] summary::after{content:'−'}.villes details.plus .chips{margin-top:12px}
 .chips a{font-size:13.5px;color:#dfe8f7;background:rgba(255,255,255,.045);border:1px solid var(--line);padding:8px 14px;border-radius:30px;text-decoration:none!important;transition:border-color .15s,background .15s}
 .chips a:hover{border-color:var(--line2);background:rgba(47,176,255,.12);color:#fff}
 .chips a.on{border-color:rgba(255,46,76,.6);background:rgba(255,46,76,.14);color:#fff}
