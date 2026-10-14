@@ -96,7 +96,7 @@ def header(cur=""):
 <div class="hdr-cta"><a href="{E["tel_href"]}" class="tel-hdr">{ICO["tel"]}<span>{E["tel"]}</span></a>
 <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu-m">{ICO["menu"]}</button></div>
 </div></header>
-<div class="menu-m" id="menu-m">{menu}<a href="urgence-depannage-24h.html">Urgence 24h/24</a><a href="contrat-entretien.html">Contrats d'entretien</a><a href="depannage-antibes.html">Villes d'intervention</a><a href="avis-clients.html">Avis clients</a><a href="realisations.html">Réalisations</a><a href="blog.html">Conseils</a><a href="contact.html">Contact</a><p class="sub">{E["tel"]} · {E["email"]}</p></div>
+<div class="menu-m" id="menu-m">{menu}<a href="urgence-depannage-24h.html">Urgence 24h/24</a><a href="contrat-entretien.html">Contrats d'entretien</a><a href="professionnels-syndics.html">Syndics et professionnels</a><a href="depannage-antibes.html">Villes d'intervention</a><a href="avis-clients.html">Avis clients</a><a href="realisations.html">Réalisations</a><a href="blog.html">Conseils</a><a href="contact.html">Contact</a><p class="sub">{E["tel"]} · {E["email"]}</p></div>
 '''
 
 def villes_footer():
@@ -112,7 +112,7 @@ def footer():
 <p style="margin-top:14px;max-width:360px">Plomberie, chauffage, climatisation, électricité, volets roulants et serrurerie dans les Alpes-Maritimes et le Var, depuis {E["depuis"]}. Un seul numéro pour toute la maison.</p>
 <p><strong>{E["note"]}/5</strong> sur {E["avis"]} avis Google · garantie décennale · astreinte 24h/24</p>
 <div class="soc"><a href="{E["facebook"]}" target="_blank" rel="noopener" aria-label="Facebook Atelier PACA">{ICO["fb"]}</a><a href="{E["instagram"]}" target="_blank" rel="noopener" aria-label="Instagram Atelier PACA">{ICO["ig"]}</a><a href="{maps(AGENCES[0])}" target="_blank" rel="noopener" aria-label="Fiche Google Atelier PACA">{ICO["g"]}</a></div></div>
-<div><h4>Nos métiers</h4>{"".join(f'<a href="{t["page"]}">{t["nom"]}</a>' for t in TRADES)}<a href="urgence-depannage-24h.html">Urgence 24h/24</a><a href="contrat-entretien.html">Contrats d'entretien</a></div>
+<div><h4>Nos métiers</h4>{"".join(f'<a href="{t["page"]}">{t["nom"]}</a>' for t in TRADES)}<a href="urgence-depannage-24h.html">Urgence 24h/24</a><a href="contrat-entretien.html">Contrats d'entretien</a><a href="professionnels-syndics.html">Syndics et professionnels</a></div>
 <div><h4>Atelier PACA</h4><a href="a-propos.html">Qui sommes-nous</a><a href="avis-clients.html">Avis clients</a><a href="realisations.html">Réalisations</a><a href="marques.html">Marques installées</a><a href="blog.html">Conseils d'artisans</a><a href="faq.html">Questions fréquentes</a><a href="contact.html">Contact et devis</a></div>
 <div><h4>Nos agences</h4>{"".join(f'<a href="{maps(a)}" target="_blank" rel="noopener">{a["nom"]} — {a["adresse"]}, {a["cp"]} {a["ville"]}</a>' for a in AGENCES)}<p style="margin-top:10px"><a href="{E["tel_href"]}"><strong>{E["tel"]}</strong></a><a href="mailto:{E["email"]}">{E["email"]}</a></p></div>
 </div>
@@ -216,6 +216,45 @@ def local_paras(v):
     if not loc: return []
     return [loc] if isinstance(loc, str) else list(loc)
 
+# ---------------------------------------------------------------- AVIS GOOGLE RÉELS
+AGENCE_BY_KEY = {a["cle"]: a for a in AGENCES}
+def agence_proche(v):
+    """Agence (fiche Google) la plus proche d'une ville : son agence déclarée, sinon la plus proche à vol d'oiseau."""
+    if v.get("agence"): return AGENCE_BY_KEY[v["agence"]]
+    return min(AGENCES, key=lambda a: (a["lat"]-v["lat"])**2 + (a["lng"]-v["lng"])**2)
+def mois_fr(aaaa_mm):
+    m = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"]
+    y, mo = aaaa_mm.split("-"); return f"{m[int(mo)-1]} {y}"
+def avis_google_pour(agence, metier=None, n=2, exclure=()):
+    """Sélection d'avis réels : d'abord la fiche de l'agence et le métier demandé, puis le métier sur les autres fiches, puis les avis généraux de la fiche."""
+    pris, vus = [], set(exclure)
+    def ajoute(cands):
+        for a in cands:
+            if len(pris) >= n: return
+            k = (a["auteur"], a["texte"][:30])
+            if k in vus: continue
+            vus.add(k); pris.append(a)
+    if metier:
+        ajoute([a for a in AVIS_GOOGLE if a["agence"] == agence["cle"] and a["metier"] == metier])
+        ajoute([a for a in AVIS_GOOGLE if a["metier"] == metier])
+    ajoute([a for a in AVIS_GOOGLE if a["agence"] == agence["cle"] and a["metier"] is None])
+    ajoute([a for a in AVIS_GOOGLE if a["metier"] is None])
+    ajoute([a for a in AVIS_GOOGLE if a["agence"] == agence["cle"]])
+    return pris
+def avis_metier(agence, t, n, titre_metier, titre_general):
+    """Bloc d'avis pour un métier ; si aucun avis ne concerne ce métier (ex. serrurerie), titre général."""
+    items = avis_google_pour(agence, t["cle"], n)
+    titre = titre_metier if any(a["metier"] == t["cle"] for a in items) else titre_general
+    return avis_block(items, titre, agence, min(n, 3))
+def avis_card(a):
+    ag = AGENCE_BY_KEY[a["agence"]]
+    return f'<div class="avis"><div class="st" aria-label="5 étoiles sur 5">★★★★★</div><p>« {esc(a["texte"])} »</p><div class="qui">{esc(a["auteur"])}<span>Avis Google · fiche {esc(ag["nom"])} · {mois_fr(a["date"])}</span></div></div>'
+def avis_block(items, titre, agence, cols=None):
+    if not items: return ""
+    cols = cols or min(len(items), 3)
+    cards = "".join(avis_card(a) for a in items)
+    return f'<h2>{titre}</h2><p>Avis publiés par nos clients sur Google, repris tels quels (texte et notation inchangés). <a href="{maps(agence)}" target="_blank" rel="noopener">Lire tous les avis de la fiche {esc(agence["nom"])}</a> ou <a href="avis-clients.html">voir nos avis par agence</a>.</p><div class="avis-wrap c{cols}">{cards}</div>'
+
 def tarifs_block(t):
     cards = "".join(f'<div class="tarif"><div><b>{esc(n)}</b><p>{esc(d)}</p></div><div class="px"><b>{esc(p)}</b><small>{esc(u)}</small></div></div>' for _,n,d,p,u in t["prestations"])
     return f'<div class="tarifs">{cards}</div><p class="note">Tarif minimum d\'intervention : 110 € HT (TVA à 10 % ou 20 % selon la nature des travaux et l\'ancienneté du logement). Autres prix indicatifs 2026. Majoration possible la nuit, le week-end et les jours fériés, toujours annoncée avant le déplacement. Tarif définitif communiqué avant toute intervention.</p>'
@@ -233,8 +272,10 @@ def page_index():
     ld = [ld_business(), {"@context":"https://schema.org","@type":"WebSite","@id":SITE+"#site","url":SITE,"name":"Atelier PACA","inLanguage":"fr-FR","publisher":{"@id":SITE+"#organisation"}}, faq_ld]
     metiers = "".join(f'''<a class="metier" href="{t["page"]}"><img src="images/{t["img"]}-480.webp" srcset="images/{t["img"]}-480.webp 480w, images/{t["img"]}.webp 900w" sizes="(max-width:560px) 100vw, (max-width:900px) 50vw, 380px" alt="{esc(t["alt"])}" loading="lazy" width="743" height="586">
 <div class="in"><div class="ic">{ICO_METIER[t["cle"]]}</div><h3>{t["nom"]}</h3><p>{t["desc_court"]}</p></div><span class="go">{ICO["arrow"]}</span></a>''' for t in TRADES)
-    avis = "".join(f'<div class="avis"><div class="st">★★★★★</div><p>« {esc(a)} »</p><div class="qui">{esc(n)}<span>{esc(w)}</span></div></div>' for a,n,w in AVIS)
-    fiches = "".join(f'<div class="fiche"><b>{a["nom"]}</b><span>{a["adresse"]}, {a["cp"]} {a["ville"]}</span><span>{E["note"]}/5 · {a["avis"]} avis</span><div class="l"><a href="{maps(a)}" target="_blank" rel="noopener">Voir la fiche</a><a href="{avis_url(a)}" target="_blank" rel="noopener">Laisser un avis</a></div></div>' for a in AGENCES)
+    # Accueil : 3 avis Google réels récents (clim Antibes, plomberie Le Cannet, électricité Cagnes)
+    accueil = [a for a in AVIS_GOOGLE if a["auteur"] in ("Lial H.", "Merissa G.", "Foued B.")]
+    avis = "".join(avis_card(a) for a in accueil)
+    fiches = "".join(f'<div class="fiche"><b>{a["nom"]}</b><span>{a["adresse"]}, {a["cp"]} {a["ville"]}</span><span>{a["note"]}/5 · {a["avis"]} avis</span><div class="l"><a href="{maps(a)}" target="_blank" rel="noopener">Voir la fiche</a><a href="{avis_url(a)}" target="_blank" rel="noopener">Laisser un avis</a></div></div>' for a in AGENCES)
     hubs06 = "".join(f'<a href="depannage-{v["slug"]}.html">{v["nom"]}</a>' for v in VILLES_06)
     hubs83 = "".join(f'<a href="depannage-{v["slug"]}.html">{v["nom"]}</a>' for v in VILLES_83)
     body = header("index.html") + f'''
@@ -265,7 +306,9 @@ def page_index():
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="offres">
 <div class="offre r"><div><span class="tag">Avant l'hiver</span><h3>Entretien de chaudière avec attestation</h3><p>Nettoyage, réglage, contrôle sécurité et CO. Obligatoire chaque année pour le gaz, et la meilleure assurance contre la panne du premier soir froid.</p></div><div class="prix"><b>110 € HT</b><small>à partir de</small><a href="chauffage.html" class="btn btn-rouge btn-sm">Programmer l'entretien</a></div></div>
 <div class="offre b"><div><span class="tag">Toute l'année</span><h3>Contrat d'entretien clim ou chaudière</h3><p>Visite annuelle programmée, dépannage sous 48 h, 10 % de remise sur les pièces détachées. Vous n'y pensez plus, on s'en occupe.</p></div><div class="prix"><b>1 visite</b><small>par an, programmée</small><a href="contrat-entretien.html" class="btn btn-bleu btn-sm">Voir les contrats</a></div></div>
-</div></div></section>
+</div>
+<div class="encart" style="margin-top:18px"><div><b>Syndic, agence immobilière, commerce ou bureaux ?</b><span>Six métiers, un interlocuteur, contrats d'entretien multi-sites, facture détaillée par immeuble, astreinte 24h/24.</span></div><a href="professionnels-syndics.html" class="btn btn-bleu btn-sm">Offre professionnelle</a></div>
+</div></section>
 
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="pourquoi">
 <div><div class="sec-h"><p class="kicker">Pourquoi Atelier PACA</p><h2>Pourquoi choisir un artisan d'Antibes plutôt qu'un dépanneur anonyme</h2></div>
@@ -279,7 +322,7 @@ def page_index():
 </div></div></section>
 
 <section class="sec" id="avis" style="padding-top:0"><div class="wrap">
-<div class="sec-h c"><p class="kicker" style="justify-content:center">Avis clients</p><h2>{E["note"]}/5 sur {E["avis"]} avis Google</h2><p>Quatre fiches Google, plus de 450 avis au total. Les avis sont publics et vérifiables sur chaque fiche.</p></div>
+<div class="sec-h c"><p class="kicker" style="justify-content:center">Avis clients</p><h2>{E["note"]}/5 sur {E["avis"]} avis Google</h2><p>Quatre fiches Google, plus de 450 avis au total, repris tels quels. Les avis sont publics et vérifiables sur chaque fiche. <a href="avis-clients.html">Voir nos avis par agence</a>.</p></div>
 <div class="avis-wrap">{avis}</div>
 <div class="fiches">{fiches}</div>
 </div></section>
@@ -340,6 +383,7 @@ def page_metier(t):
 <div class="trio">{exp}</div>
 <h2>Marques installées et dépannées</h2>
 <div class="marques">{marques}</div>
+{avis_metier(AGENCES[0], t, 3, f"Avis Google de nos clients en {t['nom'].lower()}", "Avis Google de nos clients")}
 <div class="encart"><div><b>Besoin d'un autre métier sur le même chantier ?</b><span>Nos plombiers, électriciens, chauffagistes et frigoristes travaillent ensemble : un interlocuteur, une facture.</span></div><a href="contact.html#devis" class="btn btn-rouge btn-sm">Demander un devis</a></div>
 {faq_htm}
 <h2>{t["metier"]} à Antibes, Cagnes-sur-Mer, Cannes, Nice… ville par ville</h2>
@@ -374,7 +418,7 @@ def page_metier_ville(t, v):
     autres = "".join(f'<a href="{x["prefix"]}-{v["slug"]}.html">{x["nom"]} {v["nom"]}</a>' for x in TRADES if x is not t)
     voisines = "".join(f'<a href="{t["prefix"]}-{s}.html">{VILLE_BY_SLUG[s]["nom"]}</a>' for s in v["voisines"])
     if agence:
-        local = f'<div class="loc"><div class="l"><b>Agence Atelier PACA — {agence["nom"]}</b><span>{agence["adresse"]}, {agence["cp"]} {agence["ville"]} · {E["note"]}/5 sur {agence["avis"]} avis · <a href="{maps(agence)}" target="_blank" rel="noopener">voir la fiche Google</a></span></div><div class="l"><b>Délai à {v["nom"]}</b><span>Intervention sous 48 h, souvent le jour même en urgence. Siège et stock à Antibes.</span></div></div>'
+        local = f'<div class="loc"><div class="l"><b>Agence Atelier PACA — {agence["nom"]}</b><span>{agence["adresse"]}, {agence["cp"]} {agence["ville"]} · {agence["note"]}/5 sur {agence["avis"]} avis · <a href="{maps(agence)}" target="_blank" rel="noopener">voir la fiche Google</a></span></div><div class="l"><b>Délai à {v["nom"]}</b><span>Intervention sous 48 h, souvent le jour même en urgence. Siège et stock à Antibes.</span></div></div>'
     else:
         local = f'<div class="loc"><div class="l"><b>Depuis Antibes</b><span>{v["nom"]} est à {v["minutes"]} de notre siège (48 chemin des Autrichiens). Stock de pièces et matériel embarqué.</span></div><div class="l"><b>Délai à {v["nom"]}</b><span>{"Intervention sous 48 h, souvent le jour même en urgence." if v["prio"] or v["dept"]=="06" else "Intervention sous 48 h ; urgences selon la disponibilité des équipes mobiles."}</span></div></div>'
     loc_p = "".join(f'<p>{esc(x)}</p>' for x in local_paras(v))
@@ -397,6 +441,7 @@ def page_metier_ville(t, v):
 {prio_txt}
 <h2>Tarifs {t["nom"].lower()} à {v["nom"]}</h2>
 {tarifs_block(t)}
+{avis_metier(agence_proche(v), t, 2, f"Avis Google — {t['nom'].lower()} près de {v['nom']}", f"Avis Google de nos clients près de {v['nom']}")}
 <h3>Quartiers couverts à {v["nom"]}</h3>
 <p>Nous intervenons dans toute la commune : {esc(quartiers)}. {esc(t["habitat_ville"].format(**ctx))}</p>
 {faq_htm}
@@ -408,7 +453,7 @@ def page_metier_ville(t, v):
 </div>
 <aside class="side">
 <div class="card"><h3>{t["metier"]} à {v["nom"]}</h3><p>Astreinte 24h/24, prix annoncé avant le déplacement, devis gratuit.</p><a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]} {E["tel"]}</a><a href="{E["wa"]}" class="btn btn-wa" target="_blank" rel="noopener">{ICO["wa"]} WhatsApp</a><a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]} Devis gratuit</a></div>
-<div class="card"><h3>{"Agence " + agence["nom"] if agence else "Atelier PACA — siège"}</h3><p class="nap">{(agence["adresse"] + "<br>" + agence["cp"] + " " + agence["ville"]) if agence else (E["adresse"] + "<br>" + E["cp"] + " " + E["ville"])}<br><a href="{maps(agence or AGENCES[0])}" target="_blank" rel="noopener">Itinéraire et avis Google</a></p><p class="nap">{E["note"]}/5 — {E["avis"]} avis Google<br>Depuis {E["depuis"]} · {E["interventions"]}+ interventions</p></div>
+<div class="card"><h3>{"Agence " + agence["nom"] if agence else "Atelier PACA — siège"}</h3><p class="nap">{(agence["adresse"] + "<br>" + agence["cp"] + " " + agence["ville"]) if agence else (E["adresse"] + "<br>" + E["cp"] + " " + E["ville"])}<br><a href="{maps(agence or AGENCES[0])}" target="_blank" rel="noopener">Itinéraire et avis Google</a></p><p class="nap">{(agence or AGENCES[0])["note"]}/5 — {(agence or AGENCES[0])["avis"]} avis Google sur cette fiche<br>Depuis {E["depuis"]} · {E["interventions"]}+ interventions</p></div>
 <div class="card"><h3>À lire</h3><div class="liens">{"".join(f'<a href="{a["slug"]}">{esc(a["titre"])}</a>' for a in ARTICLES)}</div></div>
 </aside>
 </div></div></section>
@@ -435,7 +480,7 @@ def page_hub(v):
     hub = "".join(f'<a href="{t["prefix"]}-{v["slug"]}.html"><span class="ic">{ICO_METIER[t["cle"]]}</span><span><b>{t["metier"]} {v["nom"]}</b><span>{t["accroche"]}</span></span></a>' for t in TRADES)
     voisines = "".join(f'<a href="depannage-{s}.html">Dépannage {VILLE_BY_SLUG[s]["nom"]}</a>' for s in v["voisines"])
     local = "".join(f'<p>{esc(x)}</p>' for x in local_paras(v))
-    agence_htm = f'<div class="loc"><div class="l"><b>Agence Atelier PACA — {agence["nom"]}</b><span>{agence["adresse"]}, {agence["cp"]} {agence["ville"]} · {E["note"]}/5 sur {agence["avis"]} avis · <a href="{maps(agence)}" target="_blank" rel="noopener">fiche Google</a> · <a href="{avis_url(agence)}" target="_blank" rel="noopener">laisser un avis</a></span></div><div class="l"><b>Quartiers</b><span>{esc(", ".join(v["quartiers"]))}</span></div></div>' if agence else f'<div class="loc"><div class="l"><b>Depuis notre siège d\'Antibes</b><span>{v["nom"]} est à {v["minutes"]}. Équipes mobiles avec stock embarqué.</span></div><div class="l"><b>Quartiers</b><span>{esc(", ".join(v["quartiers"]))}</span></div></div>'
+    agence_htm = f'<div class="loc"><div class="l"><b>Agence Atelier PACA — {agence["nom"]}</b><span>{agence["adresse"]}, {agence["cp"]} {agence["ville"]} · {agence["note"]}/5 sur {agence["avis"]} avis · <a href="{maps(agence)}" target="_blank" rel="noopener">fiche Google</a> · <a href="{avis_url(agence)}" target="_blank" rel="noopener">laisser un avis</a></span></div><div class="l"><b>Quartiers</b><span>{esc(", ".join(v["quartiers"]))}</span></div></div>' if agence else f'<div class="loc"><div class="l"><b>Depuis notre siège d\'Antibes</b><span>{v["nom"]} est à {v["minutes"]}. Équipes mobiles avec stock embarqué.</span></div><div class="l"><b>Quartiers</b><span>{esc(", ".join(v["quartiers"]))}</span></div></div>'
     body = header("depannage-antibes.html") + f'''
 <main>
 <section class="hero hero-mini"><div class="wrap">{c_htm}<p class="kicker">Dépannage, entretien, installation</p><h1>Dépannage et artisan à {v["nom"]} : six métiers, un seul numéro</h1>
@@ -454,6 +499,7 @@ def page_hub(v):
 <p>Habitat le plus fréquent à {v["nom"]} : {esc(v["habitat"])}. Nos techniciens adaptent le matériel aux contraintes locales (air salin, eau calcaire, copropriétés, résidences secondaires) et arrivent avec les pièces courantes pour finir en une visite.</p>
 <h2>Pourquoi appeler Atelier PACA à {v["nom"]}</h2>
 <ul class="liste"><li>Intervention sous 48 h, plus vite en urgence (astreinte 24h/24, 7j/7)</li><li>Prix annoncé avant intervention, tarif minimum 110 € HT, devis gratuit pour les travaux</li><li>Garantie décennale, grandes marques, facture détaillée pour votre assurance ou votre syndic</li><li>Entreprise d'Antibes depuis {E["depuis"]} : plus de {E["interventions"]} interventions, {E["note"]}/5 sur {E["avis"]} avis Google</li></ul>
+{avis_block(avis_google_pour(agence_proche(v), None, 3), f"Avis Google de nos clients près de {v['nom']}", agence_proche(v))}
 {faq_htm}
 <h3>Dépannage dans les villes voisines de {v["nom"]}</h3><div class="chips">{voisines}</div>
 </div>
@@ -518,7 +564,7 @@ def pages_annexes():
 <div class="tarif"><div><b>Chaudière gaz</b><p>Visite annuelle avant l'hiver, nettoyage du corps de chauffe, contrôle de combustion et de CO, attestation d'entretien, dépannage sous 48 h, 10 % de remise sur les pièces.</p></div><div class="px"><b>dès 110 € HT</b><small>par an</small></div></div>
 <div class="tarif"><div><b>Climatisation</b><p>Visite annuelle au printemps, nettoyage des filtres et désinfection, contrôle du circuit et des pressions, dépannage sous 48 h, 10 % de remise sur les pièces.</p></div><div class="px"><b>dès 110 € HT</b><small>par an et par split</small></div></div>
 <div class="tarif"><div><b>Pompe à chaleur air/eau</b><p>Visite annuelle, contrôle d'étanchéité, filtres, régulation, dépannage sous 48 h, 10 % de remise sur les pièces.</p></div><div class="px"><b>Sur devis</b><small>gratuit</small></div></div>
-<div class="tarif"><div><b>Copropriétés et professionnels</b><p>Parc d'équipements, plusieurs sites, interlocuteur dédié et reporting annuel. Syndics, agences, commerces et bureaux.</p></div><div class="px"><b>Sur devis</b><small>gratuit</small></div></div>
+<div class="tarif"><div><b>Copropriétés et professionnels</b><p>Parc d'équipements, plusieurs sites, interlocuteur dédié. Syndics, agences, commerces et bureaux : voir notre <a href="professionnels-syndics.html">offre professionnelle</a>.</p></div><div class="px"><b>Sur devis</b><small>gratuit</small></div></div>
 </div>
 <p class="note">Tarif dégressif à partir du deuxième équipement. Contrat annuel sans reconduction forcée. TVA à 10 % ou 20 % selon l'ancienneté du logement.</p>
 <h2>Ce que vous gagnez avec un contrat d'entretien</h2>
@@ -527,13 +573,54 @@ def pages_annexes():
 <p>Appelez le {E["tel"]}, écrivez sur WhatsApp ou remplissez le <a href="contact.html#devis">formulaire de devis</a> en indiquant votre équipement (marque, année si vous la connaissez) et votre ville. Nous vous confirmons le tarif et la première date de visite sous 24 h. Si votre appareil est en panne aujourd'hui, nous commençons par le <a href="urgence-depannage-24h.html">dépannage</a>.</p>
 {faq_htm}''', ld_extra=[faq_ld], prio="0.8", lead="Visite annuelle programmée dès 110 € HT, dépannage sous 48 h et 10 % de remise sur les pièces détachées, pour votre chaudière ou votre climatisation, dans les Alpes-Maritimes et le Var est.")
 
-    # Avis clients
-    avis = "".join(f'<div class="avis"><div class="st">★★★★★</div><p>« {esc(a)} »</p><div class="qui">{esc(n)}<span>{esc(w)}</span></div></div>' for a,n,w in AVIS)
-    fiches = "".join(f'<div class="fiche"><b>{a["nom"]}</b><span>{a["adresse"]}, {a["cp"]} {a["ville"]}</span><span>{E["note"]}/5 · {a["avis"]} avis</span><div class="l"><a href="{maps(a)}" target="_blank" rel="noopener">Voir la fiche</a><a href="{avis_url(a)}" target="_blank" rel="noopener">Laisser un avis</a></div></div>' for a in AGENCES)
+    # Professionnels, syndics, copropriétés
+    faq_htm, faq_ld = faq_block([
+        ("Travaillez-vous avec les syndics de copropriété ?","Oui. Nous intervenons pour les syndics et les conseils syndicaux sur les parties communes (colonnes d'eau, chaufferie, éclairage et tableaux des communs, serrurerie des halls, volets et stores collectifs) et chez les copropriétaires qui le souhaitent. Devis gratuit, facture détaillée, rapport d'intervention avec photos, coordination avec le gardien."),
+        ("Proposez-vous un contrat d'entretien pour plusieurs sites ou plusieurs équipements ?","Oui. Le contrat couvre un parc de climatisations, de chaudières ou de chauffe-eau sur un ou plusieurs immeubles, avec un calendrier de visites, le dépannage sous 48 h et 10 % de remise sur les pièces détachées. Tarif dégressif à partir du deuxième équipement, devis gratuit pour un parc."),
+        ("Quel est le délai d'intervention pour un professionnel ?","Sous 48 h pour une intervention planifiée, plus vite en urgence grâce à l'astreinte 24h/24, 7j/7. Les clients sous contrat d'entretien passent avant les autres demandes. Nos quatre agences (Antibes, Juan-les-Pins, Cagnes-sur-Mer, Le Cannet) couvrent la côte de Mandelieu à Nice et le Var est."),
+        ("Comment se passe la facturation ?","Un devis gratuit avant les travaux, un prix annoncé avant tout dépannage, puis une facture détaillée par site ou par lot, utilisable pour l'assurance, le syndic ou la comptabilité. Un seul interlocuteur suit vos demandes, quel que soit le métier concerné."),
+        ("Êtes-vous assurés pour les chantiers professionnels ?","Oui : responsabilité civile professionnelle et garantie décennale sur les travaux, attestations fournies avec le devis. Entreprise d'Antibes depuis 2015, SIREN 814 736 781, plus de 10 800 interventions réalisées."),
+    ], "Questions des syndics et des professionnels")
+    cibles = "".join(f'<div class="t"><b>{esc(a)}</b><p>{esc(b)}</p></div>' for a,b in [
+        ("Syndics et copropriétés","Colonnes d'eau, chaufferie, éclairage et tableaux des parties communes, serrurerie des halls, volets collectifs, interventions chez les copropriétaires. Rapport d'intervention avec photos pour le conseil syndical."),
+        ("Agences immobilières et gestionnaires","Dépannages entre deux locataires, remises aux normes avant location, états des lieux techniques, résidences secondaires suivies à distance avec compte rendu envoyé au propriétaire."),
+        ("Commerces, bureaux, restaurants","Climatisation tertiaire, électricité, plomberie et chauffe-eau de grande capacité, serrurerie et volets de devanture, contrats d'entretien pour éviter la panne un jour d'ouverture."),
+        ("Résidences de tourisme et conciergeries","Interventions coordonnées avec le gardien ou la conciergerie, clés et accès gérés, entretien des climatisations avant la saison, dépannage pendant les locations."),
+    ])
+    page_simple("professionnels-syndics.html","Syndics, copropriétés & professionnels | Atelier PACA","Artisan multi-métiers pour syndics, copropriétés, agences, commerces et bureaux à Antibes, dans le 06 et le Var est : contrats d'entretien, dépannage 24h/24, un interlocuteur.",
+        "Syndics, copropriétés et professionnels : six métiers, un interlocuteur","Offre professionnelle",
+        f'''<p>Gérer un immeuble, un parc de logements ou un commerce, c'est jongler entre un plombier, un électricien, un chauffagiste, un frigoriste, un serrurier et un volettiste. Atelier PACA réunit les six métiers dans une seule entreprise d'Antibes, avec un seul numéro, un interlocuteur qui suit vos demandes, une facture détaillée par site et une astreinte 24h/24. Quatre agences (Antibes, Juan-les-Pins, Cagnes-sur-Mer, Le Cannet) couvrent les Alpes-Maritimes de Mandelieu à Nice et le Var est.</p>
+<h2>Pour qui</h2>
+<div class="trio" style="grid-template-columns:1fr 1fr">{cibles}</div>
+<h2>Ce que nous apportons aux professionnels</h2>
+<ul class="liste"><li><b>Un interlocuteur unique</b> pour les six métiers : plomberie, chauffage, climatisation, électricité, volets roulants, serrurerie</li><li><b>Dépannage sous 48 h</b>, plus vite en urgence, astreinte 24h/24 et 7j/7, prix annoncé avant le déplacement</li><li><b>Contrats d'entretien multi-équipements et multi-sites</b> : visites programmées, dépannage sous 48 h, 10 % de remise sur les pièces détachées, tarif dégressif</li><li><b>Devis gratuit</b> et facture détaillée par site ou par lot, rapport d'intervention avec photos sur demande</li><li><b>Garantie décennale et responsabilité civile</b>, attestations jointes au devis, matériel de grandes marques</li><li><b>Coordination sur place</b> avec le gardien, la conciergerie ou le locataire ; compte rendu envoyé au gestionnaire absent</li></ul>
+<h2>Les prestations les plus demandées</h2>
+<div class="tarifs">
+<div class="tarif"><div><b>Contrat d'entretien de parc</b><p>Climatisations, chaudières, chauffe-eau sur un ou plusieurs immeubles : calendrier de visites, attestations, dépannage prioritaire.</p></div><div class="px"><b>Sur devis</b><small>gratuit, dégressif</small></div></div>
+<div class="tarif"><div><b>Dépannage parties communes</b><p>Fuite sur colonne, panne d'éclairage ou de tableau des communs, porte de hall, volet ou store collectif bloqué.</p></div><div class="px"><b>dès 110 € HT</b><small>prix annoncé avant</small></div></div>
+<div class="tarif"><div><b>Remise aux normes avant location</b><p>Tableau électrique, prises et mise à la terre, robinetterie et chauffe-eau, serrure, pour louer sans réserve.</p></div><div class="px"><b>Sur devis</b><small>gratuit sous 24 h</small></div></div>
+<div class="tarif"><div><b>Climatisation tertiaire</b><p>Pose, remplacement et entretien de climatisations pour bureaux, commerces et restaurants, avec intervention hors horaires d'ouverture si besoin.</p></div><div class="px"><b>Sur devis</b><small>visite gratuite</small></div></div>
+</div>
+<p class="note">Tarif minimum d'intervention : 110 € HT. TVA à 10 % ou 20 % selon la nature des travaux et l'ancienneté du bâtiment. Devis gratuit, prix définitif communiqué avant toute intervention.</p>
+<h2>Comment ça se passe</h2>
+<div class="etapes"><div class="etape"><span class="n">1</span><b>Vous nous appelez ou écrivez</b><p>{E["tel"]} ou <a href="mailto:{E["email"]}">{E["email"]}</a> : décrivez le site, les équipements et le besoin ; nous répondons sous 2 h en journée.</p></div><div class="etape"><span class="n">2</span><b>Visite et devis gratuits</b><p>Un technicien se déplace, relève les équipements et vous remet un devis clair sous 24 h, attestations d'assurance jointes.</p></div><div class="etape"><span class="n">3</span><b>Intervention coordonnée</b><p>Date fixée avec le gardien, le gestionnaire ou le locataire ; intervention propre, photos avant/après.</p></div><div class="etape"><span class="n">4</span><b>Facture et suivi</b><p>Facture détaillée par site, rapport d'intervention, historique conservé pour l'entretien et les sinistres.</p></div></div>
+{avis_block([a for a in AVIS_GOOGLE if a["auteur"] in ("Foued B.", "Akram B.", "Abdelmoumene D.")], "Ce que disent nos clients sur Google", AGENCES[0])}
+{faq_htm}
+<h2>Demander un devis professionnel</h2>
+<p>Appelez le {E["tel"]}, écrivez à <a href="mailto:{E["email"]}">{E["email"]}</a> ou utilisez le <a href="contact.html#devis">formulaire</a> en précisant « syndic », « agence » ou « professionnel », le nombre de sites et les équipements concernés. Pour un entretien récurrent, voyez aussi la page <a href="contrat-entretien.html">contrats d'entretien</a>.</p>''', ld_extra=[faq_ld], prio="0.8", lead="Un seul numéro pour vos immeubles, vos locaux et vos biens gérés : plomberie, chauffage, climatisation, électricité, volets et serrurerie, contrats d'entretien, dépannage 24h/24, facture détaillée par site.")
+
+    # Avis clients : avis Google réels, regroupés par fiche
+    par_fiche = ""
+    for ag in AGENCES:
+        items = [a for a in AVIS_GOOGLE if a["agence"] == ag["cle"]]
+        if not items: continue
+        par_fiche += f'<h2 id="avis-{ag["cle"]}">Avis Google — fiche {esc(ag["nom"])} ({ag["note"]}/5, {ag["avis"]} avis)</h2><p>{esc(ag["adresse"])}, {ag["cp"]} {esc(ag["ville"])} · <a href="{maps(ag)}" target="_blank" rel="noopener">voir la fiche et tous les avis</a> · <a href="{avis_url(ag)}" target="_blank" rel="noopener">laisser un avis</a></p><div class="avis-wrap c2">' + "".join(avis_card(a) for a in items) + '</div>'
+    avis = par_fiche
+    fiches = "".join(f'<div class="fiche"><b>{a["nom"]}</b><span>{a["adresse"]}, {a["cp"]} {a["ville"]}</span><span>{a["note"]}/5 · {a["avis"]} avis</span><div class="l"><a href="{maps(a)}" target="_blank" rel="noopener">Voir la fiche</a><a href="{avis_url(a)}" target="_blank" rel="noopener">Laisser un avis</a></div></div>' for a in AGENCES)
     page_simple("avis-clients.html","Avis clients Atelier PACA — 4,9/5 sur Google | Antibes","Les avis Google des clients d'Atelier PACA : 4,9/5 sur 178 avis à Antibes et plus de 450 avis sur nos 4 fiches (Antibes, Juan-les-Pins, Cagnes, Le Cannet).",
         f"{E['note']}/5 — ce que disent nos clients","Avis vérifiables sur Google",
-        f'''<p>Nous ne sélectionnons pas les avis et nous n'offrons rien en échange : tout ce qui est écrit sur nos fiches Google est public, daté et vérifiable. Voici quelques-uns des derniers retours, et les liens vers chaque fiche.</p>
-<div class="avis-wrap" style="grid-template-columns:1fr">{avis}</div>
+        f'''<p>Nous n'offrons rien en échange d'un avis : tout ce qui est écrit sur nos fiches Google est public, daté et vérifiable. Voici une sélection d'avis 5 étoiles repris tels quels (texte inchangé, prénom et initiale), fiche par fiche, avec le lien pour lire l'ensemble des avis, bons comme moins bons. Quatre fiches : <a href="#avis-antibes">Antibes</a>, <a href="#avis-juan-les-pins">Juan-les-Pins</a>, <a href="#avis-cagnes-sur-mer">Cagnes-sur-Mer</a>, <a href="#avis-le-cannet">Le Cannet</a>.</p>
+{avis}
 <h2>Nos quatre fiches Google</h2>
 <div class="fiches" style="grid-template-columns:1fr 1fr">{fiches}</div>
 <h2>Vous avez fait appel à nous ?</h2>
@@ -555,10 +642,10 @@ def pages_annexes():
 <div class="t"><b>Fournisseurs locaux</b><p>Stock au siège d'Antibes et partenaires de proximité pour les pièces : la plupart des dépannages se terminent en une visite.</p></div>
 </div>
 <h2>Nos clients : particuliers, copropriétés, professionnels</h2>
-<p>Propriétaires et locataires en appartement ou en villa, résidences secondaires gérées à distance avec un gardien ou une agence, syndics de copropriété pour les colonnes d'eau, la serrurerie des parties communes et les contrats d'entretien, commerces et bureaux pour l'électricité et la climatisation tertiaire. Dans tous les cas : prix annoncé, facture détaillée, rapport d'intervention sur demande.</p>
+<p>Propriétaires et locataires en appartement ou en villa, résidences secondaires gérées à distance avec un gardien ou une agence, syndics de copropriété pour les colonnes d'eau, la serrurerie des parties communes et les contrats d'entretien, commerces et bureaux pour l'électricité et la climatisation tertiaire. Dans tous les cas : prix annoncé, facture détaillée, rapport d'intervention sur demande. Syndics et gestionnaires : voir notre <a href="professionnels-syndics.html">offre professionnelle</a>.</p>
 <h2>Nos agences</h2>
-<div class="fiches" style="grid-template-columns:1fr 1fr">{"".join(f'<div class="fiche"><b>{a["nom"]}</b><span>{a["adresse"]}, {a["cp"]} {a["ville"]}</span><span>{E["note"]}/5 · {a["avis"]} avis</span><div class="l"><a href="{maps(a)}" target="_blank" rel="noopener">Fiche Google</a></div></div>' for a in AGENCES)}</div>
-<h2>Notre plaquette</h2><div class="galerie" style="grid-template-columns:1fr 1fr"><figure><a href="images/plaquette-atelier-paca.jpg" target="_blank" rel="noopener"><img src="images/plaquette-atelier-paca.webp" alt="Plaquette commerciale Atelier PACA : six métiers, installation, entretien, dépannage à Antibes" loading="lazy" width="800" height="1132" style="aspect-ratio:auto"></a><figcaption>Plaquette commerciale — cliquez pour l'ouvrir en grand.</figcaption></figure><figure><img src="images/avis-clients-google.webp" alt="Technicien Atelier PACA et avis clients Google 4,9/5" loading="lazy" width="900" height="520" style="aspect-ratio:auto"><figcaption>Vos avis Google font notre réputation : 4,9/5 sur nos quatre fiches.</figcaption></figure></div><h2>Informations légales</h2>
+<div class="fiches" style="grid-template-columns:1fr 1fr">{"".join(f'<div class="fiche"><b>{a["nom"]}</b><span>{a["adresse"]}, {a["cp"]} {a["ville"]}</span><span>{a["note"]}/5 · {a["avis"]} avis</span><div class="l"><a href="{maps(a)}" target="_blank" rel="noopener">Fiche Google</a></div></div>' for a in AGENCES)}</div>
+<h2>Notre plaquette</h2><div class="galerie" style="grid-template-columns:1fr 1fr"><figure><a href="images/plaquette-atelier-paca.jpg" target="_blank" rel="noopener"><img src="images/plaquette-atelier-paca.webp" alt="Plaquette commerciale Atelier PACA : six métiers, installation, entretien, dépannage à Antibes" loading="lazy" width="800" height="1132" style="aspect-ratio:auto"></a><figcaption>Plaquette commerciale — cliquez pour l'ouvrir en grand.</figcaption></figure><figure><img src="images/avis-clients-google.webp" alt="Technicien Atelier PACA et avis clients Google 4,9/5" loading="lazy" width="900" height="520" style="aspect-ratio:auto"><figcaption>Vos avis Google font notre réputation : plus de 450 avis publics sur nos quatre fiches.</figcaption></figure></div><h2>Informations légales</h2>
 <p>Atelier PACA, SASU — SIREN {E["siren"]} — siège : {E["adresse"]}, {E["cp"]} {E["ville"]}. Assurance responsabilité civile et décennale. <a href="mentions-legales.html">Mentions légales</a>.</p>''', prio="0.6")
 
     # Réalisations
@@ -596,7 +683,7 @@ def pages_annexes():
 
     # Contact
     cp_ld = {"@context":"https://schema.org","@type":"ContactPage","url":SITE+"contact.html","name":"Contact Atelier PACA"}
-    agences = "".join(f'<div class="fiche"><b>{a["nom"]}</b><span>{a["adresse"]}, {a["cp"]} {a["ville"]}</span><span>{E["note"]}/5 · {a["avis"]} avis</span><div class="l"><a href="{maps(a)}" target="_blank" rel="noopener">Itinéraire</a></div></div>' for a in AGENCES)
+    agences = "".join(f'<div class="fiche"><b>{a["nom"]}</b><span>{a["adresse"]}, {a["cp"]} {a["ville"]}</span><span>{a["note"]}/5 · {a["avis"]} avis</span><div class="l"><a href="{maps(a)}" target="_blank" rel="noopener">Itinéraire</a></div></div>' for a in AGENCES)
     c_htm, c_ld = crumb([("Accueil","index.html"),("Contact","contact.html")])
     body = header("contact.html") + f'''<main>
 <section class="hero hero-mini"><div class="wrap">{c_htm}<p class="kicker">Devis gratuit, réponse sous 2 h</p><h1>Contactez Atelier PACA, artisans à Antibes</h1><p class="lead">Pour un dépannage urgent, appelez le {E["tel"]} : un technicien de garde répond 24h/24 et annonce le prix avant de se déplacer. Pour un devis (climatisation, chaudière, électricité, salle de bain, serrurerie, volets), laissez vos coordonnées et nous vous rappelons sous 2 h en journée.</p></div></section>
@@ -645,7 +732,7 @@ def pages_redirections():
             with open(os.path.join(ROOT, fn), "w", encoding="utf-8") as f: f.write(htm)
 
 def page_plan():
-    sec = f'<h2>Pages principales</h2><ul class="liste"><li><a href="index.html">Accueil</a></li>' + "".join(f'<li><a href="{t["page"]}">{t["nom"]}</a></li>' for t in TRADES) + '<li><a href="urgence-depannage-24h.html">Dépannage urgent 24h/24</a></li><li><a href="contrat-entretien.html">Contrats d\'entretien</a></li><li><a href="avis-clients.html">Avis clients</a></li><li><a href="a-propos.html">Qui sommes-nous</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="marques.html">Marques</a></li><li><a href="faq.html">Questions fréquentes</a></li><li><a href="blog.html">Conseils</a></li>' + "".join(f'<li><a href="{a["slug"]}">{esc(a["titre"])}</a></li>' for a in ARTICLES) + '<li><a href="contact.html">Contact</a></li><li><a href="mentions-legales.html">Mentions légales</a></li></ul>'
+    sec = f'<h2>Pages principales</h2><ul class="liste"><li><a href="index.html">Accueil</a></li>' + "".join(f'<li><a href="{t["page"]}">{t["nom"]}</a></li>' for t in TRADES) + '<li><a href="urgence-depannage-24h.html">Dépannage urgent 24h/24</a></li><li><a href="contrat-entretien.html">Contrats d\'entretien</a></li><li><a href="professionnels-syndics.html">Syndics, copropriétés et professionnels</a></li><li><a href="avis-clients.html">Avis clients</a></li><li><a href="a-propos.html">Qui sommes-nous</a></li><li><a href="realisations.html">Réalisations</a></li><li><a href="marques.html">Marques</a></li><li><a href="faq.html">Questions fréquentes</a></li><li><a href="blog.html">Conseils</a></li>' + "".join(f'<li><a href="{a["slug"]}">{esc(a["titre"])}</a></li>' for a in ARTICLES) + '<li><a href="contact.html">Contact</a></li><li><a href="mentions-legales.html">Mentions légales</a></li></ul>'
     sec += '<h2>Villes (toutes prestations)</h2><div class="chips">' + "".join(f'<a href="depannage-{v["slug"]}.html">{v["nom"]}</a>' for v in VILLES) + '</div>'
     for t in TRADES:
         sec += f'<h3>{t["nom"]} par ville</h3><div class="chips">' + "".join(f'<a href="{t["prefix"]}-{v["slug"]}.html">{v["nom"]}</a>' for v in VILLES) + '</div>'

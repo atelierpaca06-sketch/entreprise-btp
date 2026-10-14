@@ -170,7 +170,7 @@ p{max-width:70ch}
 @media(max-width:860px){.offres{grid-template-columns:1fr}.offre{grid-template-columns:1fr}.offre .prix{text-align:left}.offre .prix b{font-size:34px}}
 
 /* ---- Avis ---- */
-.avis-wrap{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.avis-wrap{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}.avis-wrap.c2{grid-template-columns:1fr 1fr}.avis-wrap.c1{grid-template-columns:1fr}
 .avis{padding:24px;border-radius:var(--r);border:1px solid var(--line);background:rgba(255,255,255,.035);display:flex;flex-direction:column;gap:12px}
 .avis .st{color:var(--or);letter-spacing:2px;font-size:16px}
 .avis p{color:#dfe8f7;font-size:15px;line-height:1.65;max-width:none}
@@ -181,7 +181,7 @@ p{max-width:70ch}
 .fiche b{font-family:var(--sora);color:#fff;font-size:15px}
 .fiche span{font-size:13px;color:var(--mut)}
 .fiche .l{display:flex;gap:10px;margin-top:8px;font-size:13px;font-weight:600}
-@media(max-width:900px){.avis-wrap{grid-template-columns:1fr}.fiches{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.avis-wrap,.avis-wrap.c2{grid-template-columns:1fr}.fiches{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){.fiches{grid-template-columns:1fr}}
 
 /* ---- Étapes ---- */
