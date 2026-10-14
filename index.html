@@ -1,431 +1,143 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.web3forms.com; form-action 'self' https://api.web3forms.com; base-uri 'self'; object-src 'none'; upgrade-insecure-requests" />
-<meta name="referrer" content="strict-origin-when-cross-origin" />
-<!-- ===== SEO 2026 ===== -->
-<title>Plombier, Climatisation, &Eacute;lectricien 06 &amp; Var | Atelier PACA</title>
-<meta name="description" content="Atelier PACA : climatisation, plomberie, électricité, chauffage et serrurerie dans le 06 et le Var. Devis gratuit, 4,9/5 sur Google, 24h/24." />
-<meta name="keywords" content="climatisation Alpes-Maritimes, installateur climatisation 06, pose climatisation Antibes, climatisation Nice, climatisation Cannes, dépannage climatisation urgence, technicien clim qualifié, installation split, Atelier PACA, plombier électricien 06" />
-<meta name="robots" content="index, follow" />
-<meta name="author" content="Atelier PACA" />
-<link rel="canonical" href="https://atelierpaca.fr/" />
-<link rel="icon" type="image/svg+xml" href="favicon.svg" />
-<meta property="og:type" content="website" />
-<meta property="og:locale" content="fr_FR" />
-<meta property="og:site_name" content="Atelier PACA" />
-<meta property="og:title" content="Atelier PACA — Plombier, Électricien &amp; Climatisation Alpes-Maritimes" />
-<meta property="og:description" content="Plomberie, électricité, climatisation, chauffage, serrurerie et volets roulants dans les Alpes-Maritimes et le Var. 4,9/5 — 178 avis Google. Devis gratuit, intervention 24h/24." />
-<meta property="og:url" content="https://atelierpaca.fr/" />
-<meta property="og:image" content="https://atelierpaca.fr/images/hero-climatisation.jpg" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Atelier PACA — Artisan Dépannage Alpes-Maritimes" />
-<meta name="twitter:description" content="Plomberie, électricité, climatisation, serrurerie dans les Alpes-Maritimes. 4,9/5 — 178 avis Google. Devis gratuit." />
-<meta name="twitter:image" content="https://atelierpaca.fr/images/hero-climatisation.jpg" />
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://atelierpaca.fr/","name":"Atelier PACA","description":"Spécialiste climatisation, plomberie, électricité, chauffage, serrurerie et volets roulants dans les Alpes-Maritimes.","url":"https://atelierpaca.fr/","telephone":"+33492141414","email":"contact@atelierpaca.fr","image":"https://atelierpaca.fr/images/hero-climatisation.jpg","address":{"@type":"PostalAddress","streetAddress":"48, chemin des Autrichiens","addressLocality":"Antibes","postalCode":"06600","addressRegion":"Alpes-Maritimes","addressCountry":"FR"},"geo":{"@type":"GeoCoordinates","latitude":43.5804,"longitude":7.1282},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"178","bestRating":"5","worstRating":"1"},"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"},"areaServed":[{"@type":"AdministrativeArea","name":"Alpes-Maritimes"},{"@type":"AdministrativeArea","name":"Var"},{"@type":"City","name":"Nice"},{"@type":"City","name":"Antibes"},{"@type":"City","name":"Cannes"},{"@type":"City","name":"Grasse"},{"@type":"City","name":"Toulon"},{"@type":"City","name":"Fréjus"},{"@type":"City","name":"Saint-Raphaël"}],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Services Atelier PACA","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Installation Climatisation Alpes-Maritimes"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Dépannage Climatisation 06"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Plomberie Alpes-Maritimes"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Électricité Alpes-Maritimes"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Chauffage Alpes-Maritimes"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Serrurerie Alpes-Maritimes"}}]}}
-</script>
-<link rel="preload" as="font" type="font/woff2" href="fonts/sora-400-xMQ9uFFYT72X5wkB_18qmnndmSdSnh2BAfO5mnuyOo1lfiQwV6-x.woff2" crossorigin />
-<link rel="preload" as="font" type="font/woff2" href="fonts/inter-400-UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" crossorigin />
-<link href="fonts/fonts.css" rel="stylesheet" />
-<link rel="preload" as="image" href="images/hero-climatisation.jpg" fetchpriority="high" />
-<style>
-  :root{
-    --navy:#0b1220; --rouge:#e23b55; --rouge2:#ff5a72; --bleu:#3d7bd6;
-    --or:#e8c88a; --txt:#eef2f8; --mut:#9fb0c9; --line:rgba(255,255,255,.12);
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{font-family:'Inter',sans-serif;color:var(--txt);background:#0b1220;overflow-x:hidden;line-height:1.5}
-
-  /* ===== FOND MARBRE SOMBRE + HALOS (statiques) ===== */
-  .bg{position:fixed;inset:0;z-index:-3;background:
-      radial-gradient(1200px 700px at 80% -10%, rgba(226,59,85,.20), transparent 60%),
-      radial-gradient(1000px 800px at -5% 105%, rgba(61,123,214,.18), transparent 55%),
-      linear-gradient(160deg,#0e1729 0%,#0a1120 45%,#0b1526 100%);}
-  .marble{position:fixed;inset:0;z-index:-2;opacity:.5;mix-blend-mode:soft-light;pointer-events:none}
-
-  .wrap{max-width:1200px;margin:0 auto;padding:0 34px;position:relative}
-
-  /* ===== DECOR : traits & vagues (fixes) ===== */
-  .deco-lines{position:absolute;top:60px;right:-40px;width:340px;height:300px;z-index:0;opacity:.5;pointer-events:none}
-  .deco-corner{position:absolute;left:-30px;bottom:-10px;width:220px;height:220px;z-index:0;opacity:.35;pointer-events:none}
-  .trait{display:inline-block;width:46px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--rouge),var(--or));vertical-align:middle}
-
-  /* ===== HEADER GLASS ===== */
-  header{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:rgba(11,18,32,.6);border-bottom:1px solid var(--line)}
-  .hd{display:flex;align-items:center;justify-content:space-between;height:70px}
-  .logo{display:inline-flex;align-items:center;text-decoration:none}
-  .logo img{height:56px;width:auto;display:block}
-  nav{display:flex;gap:20px;align-items:center}
-  nav a{font-family:'Poppins';font-size:15px;font-weight:600;letter-spacing:.2px;text-decoration:none;color:#fff;transition:color .2s}
-  nav a:hover{color:#5bb4f7}
-  .tel{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(90deg,var(--rouge),var(--rouge2));color:#fff;font-weight:800;font-size:17px;letter-spacing:.3px;padding:12px 22px;border-radius:12px;text-decoration:none;box-shadow:0 10px 28px rgba(226,59,85,.45)}
-  .tel svg{width:18px;height:18px}
-
-  /* ===== HERO ===== */
-  .hero{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;padding:64px 0 40px}
-  .pill{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.06);border:1px solid var(--line);backdrop-filter:blur(8px);padding:8px 16px;border-radius:30px;font-size:12.5px;font-weight:600;letter-spacing:.4px;color:#fff;margin-bottom:24px}
-  .pill .dot{width:8px;height:8px;border-radius:50%;background:#31d07f;box-shadow:0 0 10px #31d07f}
-  h1{font-family:'Sora';font-weight:800;font-size:clamp(38px,5.6vw,66px);line-height:1.05;letter-spacing:-1.5px}
-  h1 .grad{background:linear-gradient(100deg,var(--rouge),var(--rouge2) 45%,var(--or));-webkit-background-clip:text;background-clip:text;color:transparent}
-  h1 .azur{background:linear-gradient(100deg,#7ed0ff,#3d7bd6);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .sub{font-family:'Poppins';color:var(--mut);font-size:17px;margin:22px auto 30px;max-width:520px;line-height:1.7;text-align:center}
-  .btns{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
-  .cta{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(90deg,var(--rouge),var(--rouge2));color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:17px 32px;border-radius:14px;box-shadow:0 14px 40px rgba(226,59,85,.42)}
-  .ghost{display:inline-flex;align-items:center;gap:9px;color:#fff;text-decoration:none;font-weight:600;font-size:16px;padding:16px 26px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);backdrop-filter:blur(8px)}
-  .rating{display:flex;align-items:center;gap:10px;margin-top:28px;font-size:14px;color:#fff;font-weight:600}
-  .stars{color:var(--or);letter-spacing:2px;font-size:18px;text-shadow:0 0 14px rgba(232,200,138,.5)}
-
-  /* ===== PHOTO (fixe, pas d'animation) ===== */
-  .shot{position:relative;z-index:1}
-  .shot::before{content:"";position:absolute;inset:-26px;background:radial-gradient(circle at 60% 40%,rgba(226,59,85,.3),transparent 62%);filter:blur(18px);z-index:-1}
-  .frame{position:relative;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.18);box-shadow:0 40px 90px rgba(0,0,0,.55)}
-  .frame img{display:block;width:100%;height:500px;object-fit:cover;object-position:center 28%}
-  .frame .glow{position:absolute;inset:0;background:linear-gradient(160deg,transparent 55%,rgba(11,18,32,.55))}
-  .badge{position:absolute;left:-22px;bottom:32px;background:rgba(17,28,51,.78);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:16px;padding:14px 18px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
-  .badge b{font-family:'Sora';font-size:22px;display:block;line-height:1;background:linear-gradient(90deg,var(--rouge2),var(--or));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .badge span{font-size:11px;color:var(--mut)}
-
-  /* ===== SEPARATEUR VAGUE ===== */
-  .wave{display:block;width:100%;height:70px;margin-top:6px}
-
-  /* ===== BANDE STATS GLASS ===== */
-  .stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:6px 0 66px}
-  .stat{background:rgba(255,255,255,.05);border:1px solid var(--line);backdrop-filter:blur(10px);border-radius:16px;padding:22px;text-align:center}
-  .stat b{font-family:'Sora';font-size:30px;display:block;background:linear-gradient(90deg,#fff,var(--or));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .stat span{font-size:12.5px;color:var(--mut)}
-
-  /* ===== SERVICES GLASS ===== */
-  .sec-h{text-align:center;margin:0 0 32px;position:relative;z-index:1}
-  .sec-h .eb{font-size:12px;letter-spacing:3px;color:var(--rouge2);font-weight:700;text-transform:uppercase}
-  .sec-h h2{font-family:'Sora';font-size:clamp(26px,3.4vw,40px);font-weight:800;letter-spacing:-.5px;margin:12px 0 0}
-  .svcs{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-bottom:90px}
-  .card{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:20px;padding:28px}
-  .card .corner{position:absolute;top:-40px;right:-40px;width:150px;height:150px;background:radial-gradient(circle,rgba(226,59,85,.22),transparent 65%)}
-  .ic{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;color:#eef2f8;background:linear-gradient(135deg,rgba(226,59,85,.25),rgba(61,123,214,.18));border:1px solid var(--line);margin-bottom:16px}
-  .ic svg{width:27px;height:27px}
-  .card h3{font-family:'Sora';font-size:20px;font-weight:700}
-  .card p{color:var(--mut);font-size:14px;margin-top:8px}
-
-  .band{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:22px;padding:34px;margin-bottom:74px}
-  .band .glowc{position:absolute;top:-70px;right:-50px;width:280px;height:280px;background:radial-gradient(circle,rgba(226,59,85,.2),transparent 65%);pointer-events:none}
-  .entretien{position:relative;display:grid;grid-template-columns:1.5fr 1fr;gap:30px;align-items:center}
-  .price{font-family:'Sora';font-size:15px;color:var(--mut)}
-  .price b{display:block;font-size:40px;background:linear-gradient(90deg,var(--rouge2),var(--or));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.1}
-  .avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:78px}
-  .avis-c{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:18px;padding:26px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
-  .avis-c .st{color:var(--or);letter-spacing:2px;font-size:17px}
-  .avis-c p{font-family:'Poppins';font-style:italic;color:#dbe3f0;font-size:14px;line-height:1.7;margin:0}
-  .avis-c .who{font-family:'Sora';font-weight:600;font-size:14px;color:#fff}
-  .avis-c .who span{display:block;font-family:'Inter';font-weight:400;color:var(--mut);font-size:12px;margin-top:3px}
-  .zgrid{display:grid;grid-template-columns:1fr 1fr;gap:36px}
-  .zcol h4{font-family:'Sora';font-size:16px;font-weight:700;color:#fff;display:flex;align-items:center;gap:9px;margin-bottom:16px}
-  .zcol h4 svg{width:19px;height:19px;color:var(--rouge2)}
-  .zcol h4 span{color:var(--mut);font-weight:400;font-size:14px}
-  .chips{display:flex;flex-wrap:wrap;gap:9px}
-  .chips a{font-size:13px;color:#dbe3f0;text-decoration:none;white-space:nowrap;background:rgba(255,255,255,.05);border:1px solid var(--line);padding:7px 14px;border-radius:30px;transition:background .2s,border-color .2s,color .2s}
-  .chips a:hover{background:rgba(226,59,85,.18);border-color:rgba(226,59,85,.55);color:#fff}
-  .trust{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px}
-  .cta-final{text-align:center;padding:54px 34px}
-  .cta-final h2{font-family:'Sora';font-size:clamp(26px,3.4vw,38px);font-weight:800;position:relative}
-  .cta-final .row{position:relative;display:flex;gap:16px;justify-content:center;margin-top:22px;flex-wrap:wrap}
-  footer{border-top:1px solid var(--line);margin-top:20px;padding:46px 0 28px;background:rgba(6,10,18,.55)}
-  .fgrid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.3fr;gap:30px}
-  footer h5{font-family:'Sora';font-size:14px;margin-bottom:12px;color:#fff}
-  footer a,footer p{color:var(--mut);font-size:13.5px;text-decoration:none;line-height:1.85;margin:0}
-  footer a{display:block}
-  footer a:hover{color:#5bb4f7}
-  .fbot{border-top:1px solid var(--line);margin-top:26px;padding-top:18px;text-align:center;color:var(--mut);font-size:12.5px}
-  .fbot a{color:#c7d3e6;display:inline}
-  .contact{max-width:720px;margin:0 auto 40px;position:relative;z-index:1}
-  .cform{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:22px;padding:30px}
-  .crow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .cg{margin-bottom:16px;display:flex;flex-direction:column}
-  .cg label{font-size:13px;color:var(--mut);margin-bottom:7px;font-weight:500}
-  .cform input,.cform select,.cform textarea{font-family:'Inter';background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:11px;padding:13px 15px;color:#fff;font-size:15px;outline:none;transition:border-color .2s}
-  .cform input:focus,.cform select:focus,.cform textarea:focus{border-color:rgba(226,59,85,.6)}
-  .cform input::placeholder,.cform textarea::placeholder{color:#7f8da3}
-  .cform textarea{min-height:110px;resize:vertical}
-  .cform option{background:#0e1729;color:#fff}
-  .btn-send{width:100%;background:linear-gradient(90deg,var(--rouge),var(--rouge2));color:#fff;border:none;border-radius:12px;padding:16px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 12px 34px rgba(226,59,85,.4)}
-  @media(max-width:880px){
-    .entretien{grid-template-columns:1fr;gap:20px;text-align:center}
-    .avis-grid{grid-template-columns:1fr}
-    .zgrid{grid-template-columns:1fr}
-    .trust{grid-template-columns:1fr 1fr}
-    .fgrid{grid-template-columns:1fr 1fr}
-    .crow{grid-template-columns:1fr}
-  }
-
-  @media(max-width:880px){
-    .hero{grid-template-columns:1fr;gap:32px;padding:36px 0 20px}
-    .frame img{height:340px}
-    .badge{left:12px}
-    nav{display:none}
-    .deco-lines{display:none}
-    .stats{grid-template-columns:repeat(2,1fr)}
-    .svcs{grid-template-columns:1fr}
-  }
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.web3forms.com; form-action 'self' https://api.web3forms.com; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Plombier, chauffagiste, électricien Antibes | Atelier PACA</title>
+<meta name="description" content="Atelier PACA, Antibes : plomberie, chauffage, clim, électricité, volets et serrurerie dans le 06 et le Var. Un seul numéro, devis gratuit, 4,9/5 sur 178 avis.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Atelier PACA">
+<meta name="geo.region" content="FR-06"><meta name="geo.placename" content="Antibes">
+<link rel="canonical" href="https://atelierpaca.fr/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:type" content="website"><meta property="og:locale" content="fr_FR"><meta property="og:site_name" content="Atelier PACA">
+<meta property="og:title" content="Plombier, chauffagiste, électricien Antibes | Atelier PACA"><meta property="og:description" content="Atelier PACA, Antibes : plomberie, chauffage, clim, électricité, volets et serrurerie dans le 06 et le Var. Un seul numéro, devis gratuit, 4,9/5 sur 178 avis.">
+<meta property="og:url" content="https://atelierpaca.fr/"><meta property="og:image" content="https://atelierpaca.fr/images/og-atelier-paca.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Plombier, chauffagiste, électricien Antibes | Atelier PACA"><meta name="twitter:description" content="Atelier PACA, Antibes : plomberie, chauffage, clim, électricité, volets et serrurerie dans le 06 et le Var. Un seul numéro, devis gratuit, 4,9/5 sur 178 avis."><meta name="twitter:image" content="https://atelierpaca.fr/images/og-atelier-paca.jpg">
+<link rel="preload" as="font" type="font/woff2" href="fonts/sora-400-xMQ9uFFYT72X5wkB_18qmnndmSdSnh2BAfO5mnuyOo1lfiQwV6-x.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/inter-400-UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" crossorigin>
+<link rel="preload" as="image" href="images/hero-nuit.webp" fetchpriority="high">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":["LocalBusiness","Plumber","HVACBusiness","Electrician","Locksmith"],"@id":"https://atelierpaca.fr/#organisation","name":"Atelier PACA","url":"https://atelierpaca.fr/","telephone":"+33492141414","email":"contact@atelierpaca.fr","image":"https://atelierpaca.fr/images/og-atelier-paca.jpg","logo":"https://atelierpaca.fr/images/logo-atelier-paca.svg","foundingDate":"2015","priceRange":"€€","currenciesAccepted":"EUR","paymentAccepted":"Carte bancaire, virement, chèque, espèces","address":{"@type":"PostalAddress","streetAddress":"48 chemin des Autrichiens","addressLocality":"Antibes","postalCode":"06600","addressRegion":"Provence-Alpes-Côte d'Azur","addressCountry":"FR"},"geo":{"@type":"GeoCoordinates","latitude":43.5804,"longitude":7.1282},"hasMap":"https://maps.google.com/?cid=1924635026442992730","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"}],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"178","bestRating":"5","worstRating":"1"},"sameAs":["https://www.facebook.com/profile.php?id=61595032785115","https://www.instagram.com/atelierpaca/","https://maps.google.com/?cid=1924635026442992730","https://maps.google.com/?cid=6209263345142262725","https://maps.google.com/?cid=10961677029958084837","https://maps.google.com/?cid=10969175745018834336"],"areaServed":[{"@type":"AdministrativeArea","name":"Alpes-Maritimes"},{"@type":"AdministrativeArea","name":"Var"},{"@type":"City","name":"Antibes"},{"@type":"City","name":"Cagnes-sur-Mer"},{"@type":"City","name":"Villeneuve-Loubet"},{"@type":"City","name":"Cannes"},{"@type":"City","name":"Mandelieu-la-Napoule"},{"@type":"City","name":"Le Cannet"},{"@type":"City","name":"Nice"},{"@type":"City","name":"Saint-Laurent-du-Var"},{"@type":"City","name":"Vallauris"},{"@type":"City","name":"Mougins"},{"@type":"City","name":"Grasse"},{"@type":"City","name":"Vence"},{"@type":"City","name":"Carros"},{"@type":"City","name":"Menton"},{"@type":"City","name":"Fréjus"},{"@type":"City","name":"Saint-Raphaël"},{"@type":"City","name":"Draguignan"},{"@type":"City","name":"Brignoles"},{"@type":"City","name":"Saint-Maximin-la-Sainte-Baume"},{"@type":"City","name":"Toulon"},{"@type":"City","name":"La Garde"},{"@type":"City","name":"Hyères"},{"@type":"City","name":"La Seyne-sur-Mer"},{"@type":"City","name":"Six-Fours-les-Plages"},{"@type":"City","name":"Sanary-sur-Mer"},{"@type":"City","name":"Bandol"}],"department":[{"@type":"LocalBusiness","name":"Atelier PACA Juan-les-Pins","telephone":"+33492141414","address":{"@type":"PostalAddress","streetAddress":"64 boulevard Raymond Poincaré","addressLocality":"Antibes","postalCode":"06160","addressCountry":"FR"},"hasMap":"https://maps.google.com/?cid=6209263345142262725"},{"@type":"LocalBusiness","name":"Atelier PACA Cagnes-sur-Mer","telephone":"+33492141414","address":{"@type":"PostalAddress","streetAddress":"9 rue Pasteur","addressLocality":"Cagnes-sur-Mer","postalCode":"06800","addressCountry":"FR"},"hasMap":"https://maps.google.com/?cid=10961677029958084837"},{"@type":"LocalBusiness","name":"Atelier PACA Le Cannet","telephone":"+33492141414","address":{"@type":"PostalAddress","streetAddress":"32 chemin de l'Olivet","addressLocality":"Le Cannet","postalCode":"06110","addressCountry":"FR"},"hasMap":"https://maps.google.com/?cid=10969175745018834336"}],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Prestations Atelier PACA","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Climatisation","url":"https://atelierpaca.fr/climatisation.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Plomberie","url":"https://atelierpaca.fr/plomberie.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Électricité","url":"https://atelierpaca.fr/electricite.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Chauffage","url":"https://atelierpaca.fr/chauffage.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Serrurerie","url":"https://atelierpaca.fr/serrurerie.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Volets roulants","url":"https://atelierpaca.fr/volets-roulants.html"}}]}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://atelierpaca.fr/#site","url":"https://atelierpaca.fr/","name":"Atelier PACA","inLanguage":"fr-FR","publisher":{"@id":"https://atelierpaca.fr/#organisation"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Intervenez-vous vraiment pour tous les métiers de la maison ?","acceptedAnswer":{"@type":"Answer","text":"Oui : plomberie, chauffage, climatisation, électricité, volets roulants et serrurerie. Un seul numéro, une seule équipe, une seule facture, y compris quand un chantier mêle plusieurs métiers."}},{"@type":"Question","name":"Sous quel délai intervenez-vous ?","acceptedAnswer":{"@type":"Answer","text":"Sous 48 h pour une intervention classique, plus vite pour une urgence (fuite, panne de chauffage, porte bloquée) grâce à l'astreinte 24h/24 et 7j/7."}},{"@type":"Question","name":"Le devis est-il vraiment gratuit ?","acceptedAnswer":{"@type":"Answer","text":"Oui, le devis et la visite technique sont gratuits et sans engagement. Pour un dépannage, le prix est annoncé avant l'intervention."}},{"@type":"Question","name":"Quelle zone couvrez-vous ?","acceptedAnswer":{"@type":"Answer","text":"Antibes et 20 km autour en priorité (Cagnes-sur-Mer, Villeneuve-Loubet, Cannes, Le Cannet, Mandelieu, Nice, Saint-Laurent-du-Var), et plus largement les Alpes-Maritimes et le Var."}},{"@type":"Question","name":"Vos travaux sont-ils garantis ?","acceptedAnswer":{"@type":"Answer","text":"Oui : garantie décennale sur les travaux, matériel de grandes marques, facture détaillée et équipe joignable après l'intervention."}}]}</script>
 </head>
 <body>
-<div class="bg"></div>
-<svg class="marble" xmlns="http://www.w3.org/2000/svg"><filter id="m"><feTurbulence type="fractalNoise" baseFrequency="0.008 0.02" numOctaves="5" seed="12"/><feColorMatrix values="0 0 0 0 0.9  0 0 0 0 0.92  0 0 0 0 1  0 0 0 0.6 0"/></filter><rect width="100%" height="100%" filter="url(#m)"/></svg>
+<header class="hdr"><div class="wrap">
+<a href="index.html" class="logo" aria-label="Atelier PACA — accueil"><svg viewBox="0 0 330 52" role="img" aria-label="Atelier PACA"><defs><linearGradient id="lgR" x1="0" x2="1"><stop offset="0" stop-color="#ff2e4c"/><stop offset="1" stop-color="#e3202e"/></linearGradient></defs><path d="M5 30 24 10l9 9V12h6v13l5 5" fill="none" stroke="url(#lgR)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 30v12h26V30" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/><text x="56" y="31" font-family="Sora,system-ui,sans-serif" font-weight="800" font-size="24" fill="#fff" letter-spacing="1">ATELIER</text><text x="166" y="31" font-family="Sora,system-ui,sans-serif" font-weight="800" font-size="24" fill="#ff2e4c" letter-spacing="1">PACA</text><text x="57" y="46" font-family="Inter,system-ui,sans-serif" font-weight="600" font-size="9" fill="#a9b8d3" letter-spacing="1.7">INSTALLATION · ENTRETIEN · DÉPANNAGE</text></svg></a>
+<nav class="nav" aria-label="Navigation principale"><a href="climatisation.html">Climatisation</a><a href="plomberie.html">Plomberie</a><a href="electricite.html">Électricité</a><a href="chauffage.html">Chauffage</a><a href="serrurerie.html">Serrurerie</a><a href="volets-roulants.html">Volets</a><a href="depannage-antibes.html">Villes</a><a href="avis-clients.html">Avis</a></nav>
+<div class="hdr-cta"><a href="tel:+33492141414" class="tel-hdr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>04 92 14 14 14</span></a>
+<button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu-m"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
+</div></header>
+<div class="menu-m" id="menu-m"><a href="climatisation.html">Climatisation</a><a href="plomberie.html">Plomberie</a><a href="electricite.html">Électricité</a><a href="chauffage.html">Chauffage</a><a href="serrurerie.html">Serrurerie</a><a href="volets-roulants.html">Volets roulants</a><a href="urgence-depannage-24h.html">Urgence 24h/24</a><a href="contrat-entretien.html">Contrats d'entretien</a><a href="depannage-antibes.html">Villes d'intervention</a><a href="avis-clients.html">Avis clients</a><a href="realisations.html">Réalisations</a><a href="blog.html">Conseils</a><a href="contact.html">Contact</a><p class="sub">04 92 14 14 14 · contact@atelierpaca.fr</p></div>
 
-<header>
-  <div class="wrap hd">
-    <a href="index.html" class="logo"><img src="images/logo-paca-azur.png" alt="Atelier PACA" width="600" height="304" /></a>
-    <nav>
-      <a href="climatisation.html">Climatisation</a><a href="plomberie.html">Plomberie</a><a href="electricite.html">Électricité</a><a href="chauffage.html">Chauffage</a><a href="serrurerie.html">Serrurerie</a><a href="volets-roulants.html">Volets</a>
-      <a href="realisations.html">Réalisations</a><a href="#avis">Avis</a>
-    </nav>
-    <a href="tel:0492141414" class="tel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 04 92 14 14 14</a>
-  </div>
-</header>
-
-<main class="wrap">
-  <!-- decor : traits ondulés (fixes) -->
-  <svg class="deco-lines" viewBox="0 0 340 300" fill="none" aria-hidden="true">
-    <path d="M-10,60 C 90,10 150,120 250,70 S 380,20 430,80" stroke="rgba(226,59,85,.55)" stroke-width="2"/>
-    <path d="M-10,90 C 90,40 150,150 250,100 S 380,50 430,110" stroke="rgba(232,200,138,.4)" stroke-width="1.5"/>
-    <path d="M-10,120 C 90,70 150,180 250,130 S 380,80 430,140" stroke="rgba(61,123,214,.5)" stroke-width="2"/>
-  </svg>
-
-  <section class="hero">
-    <div>
-      <div class="pill"><span class="dot"></span> Climatisation · Été 2026 · Côte d'Azur</div>
-      <h1>C'est l'été sur la <span class="azur">Côte d'Azur</span>,<br/>installez vos climatisations.</h1>
-      <p class="sub">Installation, entretien annuel et dépannage rapide de vos climatisations — par des artisans certifiés, partout dans le 06 et le Var.</p>
-      <div class="btns">
-        <a href="#contact" class="cta">Demander un devis gratuit →</a>
-        <a href="#contact" class="ghost">Entretien de ma clim · dès 90 €/split</a>
-      </div>
-      <div class="rating"><span class="stars">★★★★★</span> 4,9 sur 5 · 178 avis Google vérifiés</div>
-    </div>
-
-    <div class="shot">
-      <div class="frame">
-        <img src="images/hero-climatisation.jpg" alt="Technicien Atelier PACA en intervention climatisation" width="1200" height="1600" fetchpriority="high" decoding="async" />
-        <div class="glow"></div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- separateur vague (fixe) -->
-  <svg class="wave" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,38 C 220,78 420,4 640,34 C 860,64 1010,10 1200,40 L1200,70 L0,70 Z" fill="rgba(255,255,255,.035)"/>
-    <path d="M0,44 C 240,10 430,80 660,46 C 900,12 1030,70 1200,40" fill="none" stroke="rgba(226,59,85,.25)" stroke-width="2"/>
-  </svg>
-
-  <section class="stats">
-    <div class="stat"><b>4,9★</b><span>178 avis Google</span></div>
-    <div class="stat"><b>24/7</b><span>Dépannage urgent</span></div>
-    <div class="stat"><b>+2000</b><span>Interventions</span></div>
-    <div class="stat"><b>100%</b><span>Artisans certifiés</span></div>
-  </section>
-
-  <div class="sec-h">
-    <div class="eb">Nos métiers</div>
-    <h2>Un expert pour chaque besoin</h2>
-    <div style="margin-top:14px"><span class="trait"></span></div>
-  </div>
-  <section class="svcs svc6-grid">
-    <a class="svc6" href="climatisation.html"><span class="ph"><img src="images/service-climatisation.jpg" alt="Installation de climatisation dans le 06 et le Var" loading="lazy" width="800" height="533" /></span><span class="bd"><h3>Climatisation</h3><ul><li>Installation mono &amp; multi-split</li><li>Entretien annuel dès 90 €</li><li>Dépannage urgent en été</li></ul><span class="lnk">Découvrir →</span></span></a>
-    <a class="svc6" href="plomberie.html"><span class="ph"><img src="images/plomberie-salle-de-bain-marbre.jpg" alt="Salle de bain moderne en marbre — plomberie" loading="lazy" width="1000" height="667" /></span><span class="bd"><h3>Plomberie</h3><ul><li>Fuites &amp; débouchage 24 h/24</li><li>Chauffe-eau &amp; sanitaires</li><li>Rénovation de salle de bain</li></ul><span class="lnk">Découvrir →</span></span></a>
-    <a class="svc6" href="electricite.html"><span class="ph"><img src="images/service-electricite.jpg" alt="Électricien professionnel — mise aux normes" loading="lazy" width="800" height="533" /></span><span class="bd"><h3>Électricité</h3><ul><li>Dépannage panne &amp; tableau</li><li>Mise aux normes NF C 15-100</li><li>Rénovation électrique</li></ul><span class="lnk">Découvrir →</span></span></a>
-    <a class="svc6" href="chauffage.html"><span class="ph"><img src="images/service-chauffage.jpg" alt="Chauffagiste — pompe à chaleur et chauffe-eau" loading="lazy" width="800" height="533" /></span><span class="bd"><h3>Chauffage</h3><ul><li>Pompe à chaleur réversible</li><li>Chauffe-eau &amp; ballons</li><li>Entretien &amp; contrats annuels</li></ul><span class="lnk">Découvrir →</span></span></a>
-    <a class="svc6" href="serrurerie.html"><span class="ph"><img src="images/serrurerie-porte-blindee.jpg" alt="Serrure multipoints haute sécurité — serrurier" loading="lazy" width="1000" height="667" /></span><span class="bd"><h3>Serrurerie</h3><ul><li>Ouverture de porte sans casse</li><li>Serrures haute sécurité</li><li>Sécurisation après effraction</li></ul><span class="lnk">Découvrir →</span></span></a>
-    <a class="svc6" href="volets-roulants.html"><span class="ph"><img src="images/volets-cote-azur.jpg" alt="Volets sur façade azuréenne" loading="lazy" width="1000" height="1500" /></span><span class="bd"><h3>Volets roulants</h3><ul><li>Réparation lames &amp; moteurs</li><li>Motorisation de l'existant</li><li>Toutes marques (Somfy…)</li></ul><span class="lnk">Découvrir →</span></span></a>
-  </section>
-  <style>
-  .svc6{display:flex;flex-direction:column;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:20px;overflow:hidden;text-decoration:none;color:inherit;transition:border-color .2s}
-  .svc6:hover{border-color:rgba(91,180,247,.55)}
-  .svc6 .ph{display:block;height:168px;overflow:hidden}
-  .svc6 .ph img{width:100%;height:100%;object-fit:cover}
-  .svc6 .bd{display:flex;flex-direction:column;gap:10px;padding:20px 22px 22px;flex:1}
-  .svc6 h3{font-family:'Sora';font-size:18px;color:#fff}
-  .svc6 ul{list-style:none;margin:0;padding:0;color:var(--mut);font-size:13.5px;line-height:2}
-  .svc6 ul li{display:flex;gap:8px;align-items:baseline}
-  .svc6 ul li::before{content:"";width:6px;height:6px;border-radius:50%;background:#5bb4f7;flex:none;transform:translateY(-2px)}
-  .svc6 .lnk{margin-top:auto;color:#5bb4f7;font-weight:600;font-size:14px}
-  </style>
-
-  <!-- OFFRE ENTRETIEN CLIM -->
-  <section class="band">
-    <div class="glowc"></div>
-    <div class="entretien">
-      <div>
-        <div style="color:var(--rouge2);letter-spacing:3px;font-weight:700;text-transform:uppercase;font-size:12px">Offre été climatisation</div>
-        <h2 style="font-family:'Sora';font-size:clamp(23px,3vw,32px);font-weight:800;margin:12px 0 10px">Pensez à l'entretien de vos climatisations</h2>
-        <p style="color:var(--mut);font-size:15px;max-width:470px;line-height:1.7;margin:0">Par un technicien certifié — intervention propre, rapide et garantie. Prolongez la vie de vos appareils et gardez un air sain tout l'été.</p>
-      </div>
-      <div style="text-align:center">
-        <div class="price">à partir de <b>90 €</b><span>par split</span></div>
-        <a href="#contact" class="cta" style="margin-top:18px">Prendre rendez-vous →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- AVIS -->
-  <div class="sec-h" id="avis"><div class="eb">Ils nous recommandent</div><h2>4,9/5 sur 178 avis Google</h2><div style="margin-top:14px"><span class="trait"></span></div></div>
-  <section class="avis-grid">
-    <div class="avis-c"><div class="st">★★★★★</div><p>« Installation de ma clim split impeccable à Antibes. Technicien ponctuel, soigneux et très professionnel. »</p><div class="who">Marie-Christine T.<span>Antibes · Climatisation</span></div></div>
-    <div class="avis-c"><div class="st">★★★★★</div><p>« Panne de clim en pleine canicule. Appel à 8h, technicien sur place à 11h. Équipe très réactive, bravo ! »</p><div class="who">Jean-Louis M.<span>Nice · Dépannage</span></div></div>
-    <div class="avis-c"><div class="st">★★★★★</div><p>« Devis gratuit en 2h, installation soignée en une journée. Prix honnête et artisans certifiés. Très satisfait. »</p><div class="who">Philippe D.<span>Cannes · Climatisation</span></div></div>
-  </section>
-
-  <!-- ZONES D'INTERVENTION -->
-  <div class="sec-h"><div class="eb">Couverture géographique</div><h2>Nos zones d'intervention</h2><div style="margin-top:14px"><span class="trait"></span></div></div>
-  <section class="band"><div class="glowc" style="left:-50px;right:auto;top:auto;bottom:-70px"></div>
-    <div class="zgrid">
-      <div class="zcol">
-        <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> <span style="white-space:nowrap">Alpes-Maritimes</span> <span>(06)</span></h4>
-        <div class="chips">
-          <a href="climatisation-nice.html">Nice</a><a href="climatisation-cannes.html">Cannes</a><a href="climatisation-antibes.html">Antibes</a><a href="climatisation-grasse.html">Grasse</a><a href="climatisation-cagnes-sur-mer.html">Cagnes-sur-Mer</a><a href="climatisation-le-cannet.html">Le Cannet</a><a href="climatisation-mandelieu-la-napoule.html">Mandelieu-la-Napoule</a><a href="climatisation-menton.html">Menton</a><a href="climatisation-mougins.html">Mougins</a><a href="climatisation-saint-laurent-du-var.html">Saint-Laurent-du-Var</a><a href="climatisation-vallauris.html">Vallauris</a><a href="climatisation-vence.html">Vence</a><a href="climatisation-villeneuve-loubet.html">Villeneuve-Loubet</a><a href="climatisation-carros.html">Carros</a>
-        </div>
-      </div>
-      <div class="zcol">
-        <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Var <span>(83)</span></h4>
-        <div class="chips">
-          <a href="climatisation-toulon.html">Toulon</a><a href="climatisation-frejus.html">Fréjus</a><a href="climatisation-saint-raphael.html">Saint-Raphaël</a><a href="climatisation-hyeres.html">Hyères</a><a href="climatisation-la-garde.html">La Garde</a><a href="climatisation-la-seyne-sur-mer.html">La Seyne-sur-Mer</a><a href="climatisation-six-fours-les-plages.html">Six-Fours-les-Plages</a><a href="climatisation-sanary-sur-mer.html">Sanary-sur-Mer</a><a href="climatisation-bandol.html">Bandol</a><a href="climatisation-brignoles.html">Brignoles</a><a href="climatisation-draguignan.html">Draguignan</a><a href="climatisation-saint-maximin-la-sainte-baume.html">Saint-Maximin-la-Sainte-Baume</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- REASSURANCE -->
-  <div class="sec-h"><div class="eb">Nos engagements</div><h2>Pourquoi choisir Atelier PACA</h2><div style="margin-top:14px"><span class="trait"></span></div></div>
-  <section class="trust">
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg></div><h3 style="font-size:16px">Devis gratuit 24h</h3><p>Sans engagement</p></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg></div><h3 style="font-size:16px">Garantie décennale</h3><p>Travaux garantis 10 ans</p></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3 style="font-size:16px">Astreinte 24h/24</h3><p>Urgences nuit &amp; week-end</p></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><h3 style="font-size:16px">Artisans certifiés</h3><p>Équipe qualifiée</p></div>
-  </section>
-
-  <!-- CAMION -->
-  <div class="sec-h"><div class="eb">Comment ça se passe</div><h2>Votre projet en 4 étapes, sans surprise</h2><div style="margin-top:14px"><span class="trait"></span></div></div>
-  <section class="steps">
-    <div class="step"><span class="sn">1</span><b>Vous nous contactez</b><p>Par téléphone, WhatsApp ou formulaire. Premier retour en 2 h en journée, devis gratuit sous 24 h.</p></div>
-    <div class="step"><span class="sn">2</span><b>Diagnostic &amp; conseil</b><p>Un technicien évalue votre besoin, vous conseille objectivement et fixe un prix ferme — validé avant tout démarrage.</p></div>
-    <div class="step"><span class="sn">3</span><b>Intervention soignée</b><p>Travail propre et dans les règles de l'art, protection des lieux, chantier laissé impeccable.</p></div>
-    <div class="step"><span class="sn">4</span><b>Garantie &amp; suivi</b><p>Facture détaillée, garantie décennale sur les travaux, et une équipe joignable après l'intervention.</p></div>
-  </section>
-  <style>
-  .steps{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:6px 0 80px}
-  @media(max-width:980px){.steps{grid-template-columns:1fr 1fr}}
-  @media(max-width:620px){.steps{grid-template-columns:1fr}}
-  .step{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:16px;padding:26px 22px}
-  .sn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:rgba(91,180,247,.14);border:1px solid rgba(91,180,247,.4);color:#5bb4f7;font-family:'Sora';font-weight:800;font-size:17px;margin-bottom:14px}
-  .step b{display:block;font-family:'Sora';font-size:15.5px;color:#fff;margin-bottom:8px}
-  .step p{color:var(--mut);font-size:13.5px;line-height:1.75}
-  </style>
-
-  <div class="sec-h"><div class="eb">Une équipe mobile</div><h2>Notre camion près de chez vous</h2><div style="margin-top:14px"><span class="trait"></span></div></div>
-  <section style="max-width:1000px;margin:0 auto 74px;position:relative;">
-    <div style="position:absolute;inset:-20px;background:radial-gradient(circle at 60% 40%,rgba(226,59,85,.25),transparent 60%);filter:blur(22px);z-index:0;"></div>
-    <img src="images/camion-fondu.jpg" width="1600" height="1200" decoding="async" alt="Le camion d'intervention Atelier PACA — climatisation, plomberie, électricité dans le 06 et le Var" loading="lazy" style="position:relative;z-index:1;display:block;width:100%;height:340px;object-fit:cover;object-position:center 15%;border-radius:22px;border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 70px rgba(0,0,0,.5);filter:brightness(1.12);" />
-    <p style="text-align:center;color:var(--mut);font-size:14.5px;margin-top:18px;position:relative;z-index:1;">Un camion tout équipé qui sillonne les Alpes-Maritimes et le Var, 7j/7 — une intervention soignée, directement chez vous.</p>
-  </section>
-
-  <!-- APPEL FINAL -->
-  <section class="band cta-final">
-    <div class="glowc" style="left:-60px;right:auto"></div>
-    <h2>Une panne, un projet ? Parlons-en.</h2>
-    <p style="color:var(--mut);margin:10px 0 0;position:relative">Devis gratuit sous 24h — intervention rapide dans le 06 &amp; le Var.</p>
-    <div class="row">
-      <a href="tel:0492141414" class="cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 04 92 14 14 14</a>
-      <a href="#contact" class="ghost">Demander un devis</a>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <div class="sec-h" id="contact"><div class="eb">Contact</div><h2>Demandez un devis gratuit</h2><p style="color:var(--mut);margin-top:10px">Réponse sous 24h — sans engagement — gratuit. Ou écrivez-nous : <a href="mailto:contact@atelierpaca.fr" style="color:var(--rouge2);text-decoration:none;font-weight:600">contact@atelierpaca.fr</a></p><div style="margin-top:14px"><span class="trait"></span></div></div>
-  <section class="contact">
-    <form class="cform" action="https://api.web3forms.com/submit" method="POST" id="devis-form">
-      <input type="hidden" name="access_key" value="c6decf2e-8b5c-4881-b7ef-d0c9e9f87e88" />
-      <input type="hidden" name="subject" value="Nouvelle demande de devis — Atelier PACA" />
-      <input type="hidden" name="from_name" value="Atelier PACA - Site web" />
-      <div class="crow">
-        <div class="cg"><label for="f-prenom">Prénom</label><input id="f-prenom" type="text" name="prenom" placeholder="Votre prénom" autocomplete="given-name" required /></div>
-        <div class="cg"><label for="f-nom">Nom</label><input id="f-nom" type="text" name="nom" placeholder="Votre nom" autocomplete="family-name" required /></div>
-      </div>
-      <div class="crow">
-        <div class="cg"><label for="f-tel">Téléphone</label><input id="f-tel" type="tel" name="tel" placeholder="06 XX XX XX XX" autocomplete="tel" required /></div>
-        <div class="cg"><label for="f-email">Email</label><input id="f-email" type="email" name="email" placeholder="votre@email.fr" autocomplete="email" /></div>
-      </div>
-      <div class="cg"><label for="f-service">Service souhaité</label><select id="f-service" name="service"><option>Climatisation — Installation</option><option>Climatisation — Dépannage / Entretien</option><option>Plomberie</option><option>Électricité</option><option>Chauffage</option><option>Serrurerie</option><option>Volets Roulants</option></select></div>
-      <div class="cg"><label for="f-msg">Message</label><textarea id="f-msg" name="message" placeholder="Décrivez votre besoin..."></textarea></div>
-      <button type="submit" class="btn-send" id="btn-send">Envoyer ma demande — Gratuit et sans engagement</button>
-      <div id="form-result" style="display:none;text-align:center;padding:14px;border-radius:10px;font-weight:600;font-size:15px;margin-top:14px"></div>
-    </form>
-  </section>
-</main>
-
-  <div class="zfoot" aria-label="Toutes nos zones d'intervention par métier">
-    <p class="zfoot-t">Atelier PACA près de chez vous — retrouvez votre ville :</p>
-      <details><summary>Climatisation — 26 villes</summary><div class="zfoot-chips"><a href="climatisation-nice.html">Nice</a><a href="climatisation-antibes.html">Antibes</a><a href="climatisation-cannes.html">Cannes</a><a href="climatisation-grasse.html">Grasse</a><a href="climatisation-cagnes-sur-mer.html">Cagnes-sur-Mer</a><a href="climatisation-le-cannet.html">Le Cannet</a><a href="climatisation-mandelieu-la-napoule.html">Mandelieu-la-Napoule</a><a href="climatisation-menton.html">Menton</a><a href="climatisation-mougins.html">Mougins</a><a href="climatisation-saint-laurent-du-var.html">Saint-Laurent-du-Var</a><a href="climatisation-vallauris.html">Vallauris</a><a href="climatisation-vence.html">Vence</a><a href="climatisation-villeneuve-loubet.html">Villeneuve-Loubet</a><a href="climatisation-carros.html">Carros</a><a href="climatisation-toulon.html">Toulon</a><a href="climatisation-frejus.html">Fréjus</a><a href="climatisation-saint-raphael.html">Saint-Raphaël</a><a href="climatisation-hyeres.html">Hyères</a><a href="climatisation-la-garde.html">La Garde</a><a href="climatisation-la-seyne-sur-mer.html">La Seyne-sur-Mer</a><a href="climatisation-six-fours-les-plages.html">Six-Fours-les-Plages</a><a href="climatisation-sanary-sur-mer.html">Sanary-sur-Mer</a><a href="climatisation-bandol.html">Bandol</a><a href="climatisation-brignoles.html">Brignoles</a><a href="climatisation-draguignan.html">Draguignan</a><a href="climatisation-saint-maximin-la-sainte-baume.html">Saint-Maximin-la-Sainte-Baume</a></div></details>
-      <details><summary>Plombier — 26 villes</summary><div class="zfoot-chips"><a href="plombier-nice.html">Nice</a><a href="plombier-antibes.html">Antibes</a><a href="plombier-cannes.html">Cannes</a><a href="plombier-grasse.html">Grasse</a><a href="plombier-cagnes-sur-mer.html">Cagnes-sur-Mer</a><a href="plombier-le-cannet.html">Le Cannet</a><a href="plombier-mandelieu-la-napoule.html">Mandelieu-la-Napoule</a><a href="plombier-menton.html">Menton</a><a href="plombier-mougins.html">Mougins</a><a href="plombier-saint-laurent-du-var.html">Saint-Laurent-du-Var</a><a href="plombier-vallauris.html">Vallauris</a><a href="plombier-vence.html">Vence</a><a href="plombier-villeneuve-loubet.html">Villeneuve-Loubet</a><a href="plombier-carros.html">Carros</a><a href="plombier-toulon.html">Toulon</a><a href="plombier-frejus.html">Fréjus</a><a href="plombier-saint-raphael.html">Saint-Raphaël</a><a href="plombier-hyeres.html">Hyères</a><a href="plombier-la-garde.html">La Garde</a><a href="plombier-la-seyne-sur-mer.html">La Seyne-sur-Mer</a><a href="plombier-six-fours-les-plages.html">Six-Fours-les-Plages</a><a href="plombier-sanary-sur-mer.html">Sanary-sur-Mer</a><a href="plombier-bandol.html">Bandol</a><a href="plombier-brignoles.html">Brignoles</a><a href="plombier-draguignan.html">Draguignan</a><a href="plombier-saint-maximin-la-sainte-baume.html">Saint-Maximin-la-Sainte-Baume</a></div></details>
-      <details><summary>Électricien — 26 villes</summary><div class="zfoot-chips"><a href="electricien-nice.html">Nice</a><a href="electricien-antibes.html">Antibes</a><a href="electricien-cannes.html">Cannes</a><a href="electricien-grasse.html">Grasse</a><a href="electricien-cagnes-sur-mer.html">Cagnes-sur-Mer</a><a href="electricien-le-cannet.html">Le Cannet</a><a href="electricien-mandelieu-la-napoule.html">Mandelieu-la-Napoule</a><a href="electricien-menton.html">Menton</a><a href="electricien-mougins.html">Mougins</a><a href="electricien-saint-laurent-du-var.html">Saint-Laurent-du-Var</a><a href="electricien-vallauris.html">Vallauris</a><a href="electricien-vence.html">Vence</a><a href="electricien-villeneuve-loubet.html">Villeneuve-Loubet</a><a href="electricien-carros.html">Carros</a><a href="electricien-toulon.html">Toulon</a><a href="electricien-frejus.html">Fréjus</a><a href="electricien-saint-raphael.html">Saint-Raphaël</a><a href="electricien-hyeres.html">Hyères</a><a href="electricien-la-garde.html">La Garde</a><a href="electricien-la-seyne-sur-mer.html">La Seyne-sur-Mer</a><a href="electricien-six-fours-les-plages.html">Six-Fours-les-Plages</a><a href="electricien-sanary-sur-mer.html">Sanary-sur-Mer</a><a href="electricien-bandol.html">Bandol</a><a href="electricien-brignoles.html">Brignoles</a><a href="electricien-draguignan.html">Draguignan</a><a href="electricien-saint-maximin-la-sainte-baume.html">Saint-Maximin-la-Sainte-Baume</a></div></details>
-      <details><summary>Chauffagiste — 26 villes</summary><div class="zfoot-chips"><a href="chauffagiste-nice.html">Nice</a><a href="chauffagiste-antibes.html">Antibes</a><a href="chauffagiste-cannes.html">Cannes</a><a href="chauffagiste-grasse.html">Grasse</a><a href="chauffagiste-cagnes-sur-mer.html">Cagnes-sur-Mer</a><a href="chauffagiste-le-cannet.html">Le Cannet</a><a href="chauffagiste-mandelieu-la-napoule.html">Mandelieu-la-Napoule</a><a href="chauffagiste-menton.html">Menton</a><a href="chauffagiste-mougins.html">Mougins</a><a href="chauffagiste-saint-laurent-du-var.html">Saint-Laurent-du-Var</a><a href="chauffagiste-vallauris.html">Vallauris</a><a href="chauffagiste-vence.html">Vence</a><a href="chauffagiste-villeneuve-loubet.html">Villeneuve-Loubet</a><a href="chauffagiste-carros.html">Carros</a><a href="chauffagiste-toulon.html">Toulon</a><a href="chauffagiste-frejus.html">Fréjus</a><a href="chauffagiste-saint-raphael.html">Saint-Raphaël</a><a href="chauffagiste-hyeres.html">Hyères</a><a href="chauffagiste-la-garde.html">La Garde</a><a href="chauffagiste-la-seyne-sur-mer.html">La Seyne-sur-Mer</a><a href="chauffagiste-six-fours-les-plages.html">Six-Fours-les-Plages</a><a href="chauffagiste-sanary-sur-mer.html">Sanary-sur-Mer</a><a href="chauffagiste-bandol.html">Bandol</a><a href="chauffagiste-brignoles.html">Brignoles</a><a href="chauffagiste-draguignan.html">Draguignan</a><a href="chauffagiste-saint-maximin-la-sainte-baume.html">Saint-Maximin-la-Sainte-Baume</a></div></details>
-      <details><summary>Serrurier — 26 villes</summary><div class="zfoot-chips"><a href="serrurier-nice.html">Nice</a><a href="serrurier-antibes.html">Antibes</a><a href="serrurier-cannes.html">Cannes</a><a href="serrurier-grasse.html">Grasse</a><a href="serrurier-cagnes-sur-mer.html">Cagnes-sur-Mer</a><a href="serrurier-le-cannet.html">Le Cannet</a><a href="serrurier-mandelieu-la-napoule.html">Mandelieu-la-Napoule</a><a href="serrurier-menton.html">Menton</a><a href="serrurier-mougins.html">Mougins</a><a href="serrurier-saint-laurent-du-var.html">Saint-Laurent-du-Var</a><a href="serrurier-vallauris.html">Vallauris</a><a href="serrurier-vence.html">Vence</a><a href="serrurier-villeneuve-loubet.html">Villeneuve-Loubet</a><a href="serrurier-carros.html">Carros</a><a href="serrurier-toulon.html">Toulon</a><a href="serrurier-frejus.html">Fréjus</a><a href="serrurier-saint-raphael.html">Saint-Raphaël</a><a href="serrurier-hyeres.html">Hyères</a><a href="serrurier-la-garde.html">La Garde</a><a href="serrurier-la-seyne-sur-mer.html">La Seyne-sur-Mer</a><a href="serrurier-six-fours-les-plages.html">Six-Fours-les-Plages</a><a href="serrurier-sanary-sur-mer.html">Sanary-sur-Mer</a><a href="serrurier-bandol.html">Bandol</a><a href="serrurier-brignoles.html">Brignoles</a><a href="serrurier-draguignan.html">Draguignan</a><a href="serrurier-saint-maximin-la-sainte-baume.html">Saint-Maximin-la-Sainte-Baume</a></div></details>
-      <details><summary>Volets roulants — 26 villes</summary><div class="zfoot-chips"><a href="volets-roulants-nice.html">Nice</a><a href="volets-roulants-antibes.html">Antibes</a><a href="volets-roulants-cannes.html">Cannes</a><a href="volets-roulants-grasse.html">Grasse</a><a href="volets-roulants-cagnes-sur-mer.html">Cagnes-sur-Mer</a><a href="volets-roulants-le-cannet.html">Le Cannet</a><a href="volets-roulants-mandelieu-la-napoule.html">Mandelieu-la-Napoule</a><a href="volets-roulants-menton.html">Menton</a><a href="volets-roulants-mougins.html">Mougins</a><a href="volets-roulants-saint-laurent-du-var.html">Saint-Laurent-du-Var</a><a href="volets-roulants-vallauris.html">Vallauris</a><a href="volets-roulants-vence.html">Vence</a><a href="volets-roulants-villeneuve-loubet.html">Villeneuve-Loubet</a><a href="volets-roulants-carros.html">Carros</a><a href="volets-roulants-toulon.html">Toulon</a><a href="volets-roulants-frejus.html">Fréjus</a><a href="volets-roulants-saint-raphael.html">Saint-Raphaël</a><a href="volets-roulants-hyeres.html">Hyères</a><a href="volets-roulants-la-garde.html">La Garde</a><a href="volets-roulants-la-seyne-sur-mer.html">La Seyne-sur-Mer</a><a href="volets-roulants-six-fours-les-plages.html">Six-Fours-les-Plages</a><a href="volets-roulants-sanary-sur-mer.html">Sanary-sur-Mer</a><a href="volets-roulants-bandol.html">Bandol</a><a href="volets-roulants-brignoles.html">Brignoles</a><a href="volets-roulants-draguignan.html">Draguignan</a><a href="volets-roulants-saint-maximin-la-sainte-baume.html">Saint-Maximin-la-Sainte-Baume</a></div></details>
-    <p class="zfoot-b"><a href="plan-du-site.html">Voir le plan du site complet</a></p>
-  </div>
-  <style>
-  .zfoot{max-width:1150px;margin:0 auto;padding:34px 5vw 26px;border-top:1px solid var(--line)}
-  .zfoot-t{color:var(--mut);font-size:13px;margin-bottom:12px}
-  .zfoot details{border-bottom:1px solid rgba(255,255,255,.06)}
-  .zfoot summary{cursor:pointer;padding:10px 2px;font-size:13px;color:#aab8cf;list-style:none;position:relative;padding-right:30px}
-  .zfoot summary:hover{color:#fff}
-  .zfoot summary::-webkit-details-marker{display:none}
-  .zfoot summary::after{content:"+";position:absolute;right:8px;top:50%;transform:translateY(-50%);color:var(--mut);font-size:15px}
-  .zfoot details[open] summary::after{content:"\2212"}
-  .zfoot-chips{padding:4px 0 14px}
-  .zfoot-chips a{display:inline-block;font-size:12.5px;color:#93a1b8;text-decoration:none;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:5px 12px;margin:0 6px 8px 0}
-  .zfoot-chips a:hover{color:#fff;border-color:rgba(226,59,85,.5)}
-  .zfoot-b{margin-top:14px;font-size:13px}
-  .zfoot-b a{color:#8fbef0;text-decoration:none}
-  </style>
-
-<footer>
-  <div class="wrap">
-    <div class="fgrid">
-      <div style="text-align:center">
-        <img src="images/logo-paca-azur.png" alt="Atelier PACA" width="600" height="304" style="height:54px;width:auto;display:inline-block" loading="lazy" />
-        <p style="margin:16px auto 0;max-width:360px;line-height:1.95">Artisans du bâtiment<br/>dans les <span style="white-space:nowrap">Alpes-Maritimes</span> et le Var.<br/>Climatisation · Plomberie · Électricité.<br/>4,9/5 sur 178 avis Google.</p>
-      </div>
-      <div><h5>Services</h5><a href="climatisation.html">Climatisation</a><a href="plomberie.html">Plomberie</a><a href="electricite.html">Électricité</a><a href="chauffage.html">Chauffage</a><a href="serrurerie.html">Serrurerie</a><a href="volets-roulants.html">Volets roulants</a></div>
-      <div><h5>Villes</h5><a href="climatisation-nice.html">Nice</a><a href="climatisation-cannes.html">Cannes</a><a href="climatisation-antibes.html">Antibes</a><a href="climatisation-grasse.html">Grasse</a><a href="climatisation-toulon.html">Toulon</a><a href="climatisation-frejus.html">Fréjus</a></div>
-      <div><h5>Contact</h5><p>04 92 14 14 14</p><p>contact@atelierpaca.fr</p><p>48, chemin des Autrichiens<br/>06600 Antibes</p></div>
-    </div>
-    <div class="fbot">© 2026 Atelier PACA — Tous droits réservés · <a href="mentions-legales.html">Mentions légales</a> · <a href="plan-du-site.html">Plan du site</a></div>
-  </div>
-</footer>
-
-
-<script>
-document.getElementById('devis-form').addEventListener('submit', async function(e){
-  e.preventDefault();
-  var btn=document.getElementById('btn-send'), result=document.getElementById('form-result');
-  btn.disabled=true; btn.textContent='Envoi en cours…';
-  try{
-    var res=await fetch('https://api.web3forms.com/submit',{method:'POST',body:new FormData(this)});
-    var json=await res.json();
-    if(json.success){ result.style.display='block'; result.style.background='#0f5132'; result.style.color='#d1fae5'; result.textContent='Merci ! Votre demande a bien été envoyée. Nous vous recontactons sous 2h.'; this.reset(); }
-    else { throw new Error(); }
-  }catch(err){ result.style.display='block'; result.style.background='#5b1a1a'; result.style.color='#fecaca'; result.textContent='Erreur lors de l\'envoi. Appelez-nous directement au 04 92 14 14 14.'; }
-  btn.disabled=false; btn.textContent='Envoyer ma demande — Gratuit et sans engagement';
-});
-</script>
-
-<div id="float-contact" style="position:fixed;right:16px;bottom:18px;z-index:1000;display:flex;flex-direction:column;gap:12px;">
-<a href="https://wa.me/33677203752?text=Bonjour%2C%20je%20souhaite%20un%20devis%20gratuit%20(ou%20un%20rappel)%20Atelier%20PACA" target="_blank" rel="noopener noreferrer" aria-label="Contacter Atelier PACA sur WhatsApp" style="width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.4);"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 01-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 01-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 012.89 6.99c0 5.45-4.44 9.88-9.89 9.88M20.46 3.49A11.82 11.82 0 0012.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 005.69 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.49-8.42"/></svg></a>
-<a href="tel:0492141414" aria-label="Appeler Atelier PACA" style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#e23b55,#ff5a72);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(226,59,85,.5);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+<main>
+<section class="hero"><div class="wrap">
+<div>
+<span class="badge247"><i></i> Astreinte 24h/24 · 7j/7 — Antibes et Côte d'Azur</span>
+<h1>Un seul numéro pour <span class="neon">toute votre maison</span>.</h1>
+<p class="lead">Plomberie, chauffage, climatisation, électricité, volets roulants et serrurerie : une équipe locale basée à Antibes qui dépanne, entretient et installe dans les Alpes-Maritimes et le Var. Intervention sous 48 h, plus vite en urgence.</p>
+<div class="btns"><a href="tel:+33492141414" class="btn btn-rouge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 04 92 14 14 14</a><a href="contact.html#devis" class="btn btn-bleu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg> Devis gratuit</a></div>
+<div class="proof"><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><b>4,9/5</b> — 178 avis Google</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg><b>Garantie décennale</b></span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><b>Prix annoncé</b> avant intervention</span></div>
 </div>
-<style>.btn-appel-fixe{display:none!important}</style>
+<div style="position:relative"><div class="frame"><img src="images/hero-nuit.webp" srcset="images/hero-nuit-480.webp 480w, images/hero-nuit.webp 529w" sizes="(max-width:900px) 100vw, 480px" alt="Technicien Atelier PACA en intervention de nuit sur une climatisation, Côte d'Azur" width="529" height="774" fetchpriority="high" decoding="async"></div>
+<div class="float f1"><div class="ic r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div><b>Intervention sous 48 h</b><span>plus vite en urgence</span></div></div>
+<div class="float f2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></div><div><b>6 métiers, 1 équipe</b><span>une seule facture</span></div></div></div>
+</div></section>
+
+<section class="wrap"><div class="chiffres">
+<div class="chiffre"><b>10 800+</b><span>interventions réalisées depuis 2015</span></div>
+<div class="chiffre"><b>4,9/5</b><span>sur 178 avis Google vérifiés</span></div>
+<div class="chiffre"><b>48 h</b><span>délai d'intervention, moins en urgence</span></div>
+<div class="chiffre"><b>10 ans</b><span>de garantie décennale sur les travaux</span></div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+<div class="sec-h"><p class="kicker">Nos métiers</p><h2>Six métiers, une seule équipe</h2><p>Chaque technicien est spécialisé dans son métier. Ensemble, ils couvrent tout ce qui peut tomber en panne chez vous, sans que vous ayez à coordonner trois artisans.</p></div>
+<div class="metiers"><a class="metier" href="climatisation.html"><img src="images/climatisation-480.webp" srcset="images/climatisation-480.webp 480w, images/climatisation.webp 900w" sizes="(max-width:560px) 100vw, (max-width:900px) 50vw, 380px" alt="Climaticien Atelier PACA en intervention" loading="lazy" width="743" height="586">
+<div class="in"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M4.9 6.5l14.2 11M4.9 17.5l14.2-11"/><path d="m9 4 3 2 3-2M9 20l3-2 3 2M3.5 9l3.3 1-1 3.3M20.5 15l-3.3-1 1-3.3M20.5 9l-3.3 1 1 3.3M3.5 15l3.3-1-1-3.3"/></svg></div><h3>Climatisation</h3><p>Mono-split, multi-split, gainable. Entretien annuel dès 110 € HT/split et dépannage toutes marques.</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="metier" href="plomberie.html"><img src="images/plomberie-480.webp" srcset="images/plomberie-480.webp 480w, images/plomberie.webp 900w" sizes="(max-width:560px) 100vw, (max-width:900px) 50vw, 380px" alt="Plombier Atelier PACA en intervention" loading="lazy" width="743" height="586">
+<div class="in"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4"/><path d="M8 7h8"/><path d="M6 11h12v3a3 3 0 0 1-3 3h-2v4"/><path d="M18 11v2h3"/><path d="M6 11v2H3"/></svg></div><h3>Plomberie</h3><p>Fuite d'eau, débouchage, chauffe-eau, robinetterie et rénovation de salle de bain. Urgences 24h/24.</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="metier" href="electricite.html"><img src="images/electricite-480.webp" srcset="images/electricite-480.webp 480w, images/electricite.webp 900w" sizes="(max-width:560px) 100vw, (max-width:900px) 50vw, 380px" alt="Électricien Atelier PACA en intervention" loading="lazy" width="743" height="586">
+<div class="in"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div><h3>Électricité</h3><p>Panne, tableau électrique, mise aux normes NF C 15-100, prises et éclairage. Électriciens habilités.</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="metier" href="chauffage.html"><img src="images/chauffage-480.webp" srcset="images/chauffage-480.webp 480w, images/chauffage.webp 900w" sizes="(max-width:560px) 100vw, (max-width:900px) 50vw, 380px" alt="Chauffagiste Atelier PACA en intervention" loading="lazy" width="743" height="586">
+<div class="in"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c4 0 7-3 7-7 0-3-2-5-3-7-1 2-2 3-3 3 0-3-1-6-4-8 0 4-4 6-4 11a7 7 0 0 0 7 8z"/></svg></div><h3>Chauffage</h3><p>Dépannage et entretien de chaudière, pompe à chaleur, radiateurs et ballons d'eau chaude. Attestation fournie.</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="metier" href="serrurerie.html"><img src="images/serrurerie-480.webp" srcset="images/serrurerie-480.webp 480w, images/serrurerie.webp 900w" sizes="(max-width:560px) 100vw, (max-width:900px) 50vw, 380px" alt="Serrurier Atelier PACA en intervention" loading="lazy" width="743" height="586">
+<div class="in"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="16" r="1.5"/></svg></div><h3>Serrurerie</h3><p>Porte claquée, serrure bloquée, effraction : ouverture fine, remplacement et blindage. Prix annoncé au téléphone.</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="metier" href="volets-roulants.html"><img src="images/volets-roulants-480.webp" srcset="images/volets-roulants-480.webp 480w, images/volets-roulants.webp 900w" sizes="(max-width:560px) 100vw, (max-width:900px) 50vw, 380px" alt="Technicien volets roulants Atelier PACA en intervention" loading="lazy" width="743" height="586">
+<div class="in"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 8h18M3 12h18M3 16h18"/></svg></div><h3>Volets roulants</h3><p>Volet bloqué, moteur HS, lames cassées, motorisation d'un volet manuel. Toutes marques (Somfy, Bubendorff…).</p></div><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
+</div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap"><div class="offres">
+<div class="offre r"><div><span class="tag">Avant l'hiver</span><h3>Entretien de chaudière avec attestation</h3><p>Nettoyage, réglage, contrôle sécurité et CO. Obligatoire chaque année pour le gaz, et la meilleure assurance contre la panne du premier soir froid.</p></div><div class="prix"><b>110 € HT</b><small>à partir de</small><a href="chauffage.html" class="btn btn-rouge btn-sm">Programmer l'entretien</a></div></div>
+<div class="offre b"><div><span class="tag">Toute l'année</span><h3>Contrat d'entretien clim ou chaudière</h3><p>Visite annuelle programmée, dépannage sous 48 h, 10 % de remise sur les pièces détachées. Vous n'y pensez plus, on s'en occupe.</p></div><div class="prix"><b>1 visite</b><small>par an, programmée</small><a href="contrat-entretien.html" class="btn btn-bleu btn-sm">Voir les contrats</a></div></div>
+</div></div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap"><div class="pourquoi">
+<div><div class="sec-h"><p class="kicker">Pourquoi Atelier PACA</p><h2>Ce qui change par rapport à un dépanneur classique</h2></div>
+<div class="raisons">
+<div class="raison"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></div><div><b>Un numéro, six métiers</b><p>Fuite, panne de chauffage, clim, tableau électrique, volet bloqué, porte claquée : le même numéro, la même équipe, et une seule facture quand plusieurs métiers sont nécessaires.</p></div></div>
+<div class="raison"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6a7 7 0 0 0-11 5 7 7 0 0 0 11 7"/><path d="M4 10h9M4 14h9"/></svg></div><div><b>Le prix avant, pas après</b><p>Tarif annoncé au téléphone ou sur devis avant toute intervention, nuit et week-end compris. Pas de surprise à la fin.</p></div></div>
+<div class="raison"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><b>Une entreprise d'ici</b><p>Siège à Antibes, agences à Juan-les-Pins, Cagnes-sur-Mer et Le Cannet : nos techniciens connaissent les copropriétés, les villas et les contraintes de la côte.</p></div></div>
+<div class="raison"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg></div><div><b>Garantie décennale et grandes marques</b><p>Daikin, Mitsubishi Electric, Atlantic, Somfy, Legrand, Schneider : du matériel qui dure, posé par des techniciens formés, et garanti 10 ans.</p></div></div>
+</div></div>
+<div><div class="frame auto"><img src="images/equipe-camion.webp" srcset="images/equipe-camion-480.webp 480w, images/equipe-camion.webp 904w" sizes="(max-width:900px) 100vw, 520px" alt="Technicien Atelier PACA devant le camion d'intervention, baie de Cannes" loading="lazy" width="904" height="459" style="aspect-ratio:auto"></div></div>
+</div></div></section>
+
+<section class="sec" id="avis" style="padding-top:0"><div class="wrap">
+<div class="sec-h c"><p class="kicker" style="justify-content:center">Avis clients</p><h2>4,9/5 sur 178 avis Google</h2><p>Quatre fiches Google, plus de 450 avis au total. Les avis sont publics et vérifiables sur chaque fiche.</p></div>
+<div class="avis-wrap"><div class="avis"><div class="st">★★★★★</div><p>« Installation de ma clim split impeccable à Antibes. Technicien ponctuel, soigneux et très professionnel. »</p><div class="qui">Marie-Christine T.<span>Antibes — climatisation</span></div></div><div class="avis"><div class="st">★★★★★</div><p>« Panne de clim en pleine canicule. Appel à 8h, technicien sur place à 11h. Équipe très réactive, bravo ! »</p><div class="qui">Jean-Louis M.<span>Nice — dépannage</span></div></div><div class="avis"><div class="st">★★★★★</div><p>« Devis gratuit en 2h, installation soignée en une journée. Prix honnête et artisans certifiés. Très satisfait. »</p><div class="qui">Philippe D.<span>Cannes — climatisation</span></div></div></div>
+<div class="fiches"><div class="fiche"><b>Antibes — siège</b><span>48 chemin des Autrichiens, 06600 Antibes</span><span>4,9/5 · 178 avis</span><div class="l"><a href="https://maps.google.com/?cid=1924635026442992730" target="_blank" rel="noopener">Voir la fiche</a><a href="https://search.google.com/local/writereview?placeid=ChIJjZm4dLnVzRIRWrxoAVyttRo" target="_blank" rel="noopener">Laisser un avis</a></div></div><div class="fiche"><b>Juan-les-Pins</b><span>64 boulevard Raymond Poincaré, 06160 Antibes</span><span>4,9/5 · 79 avis</span><div class="l"><a href="https://maps.google.com/?cid=6209263345142262725" target="_blank" rel="noopener">Voir la fiche</a><a href="https://search.google.com/local/writereview?placeid=ChIJ___7GV_VzRIRxesORB28K1Y" target="_blank" rel="noopener">Laisser un avis</a></div></div><div class="fiche"><b>Cagnes-sur-Mer</b><span>9 rue Pasteur, 06800 Cagnes-sur-Mer</span><span>4,9/5 · 126 avis</span><div class="l"><a href="https://maps.google.com/?cid=10961677029958084837" target="_blank" rel="noopener">Voir la fiche</a><a href="https://search.google.com/local/writereview?placeid=ChIJS8XHvpbTzRIR5eg1aS6zH5g" target="_blank" rel="noopener">Laisser un avis</a></div></div><div class="fiche"><b>Le Cannet</b><span>32 chemin de l'Olivet, 06110 Le Cannet</span><span>4,9/5 · 68 avis</span><div class="l"><a href="https://maps.google.com/?cid=10969175745018834336" target="_blank" rel="noopener">Voir la fiche</a><a href="https://search.google.com/local/writereview?placeid=ChIJebsYAgaCzhIRoK2tEDlXOpg" target="_blank" rel="noopener">Laisser un avis</a></div></div></div>
+</div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap">
+<div class="sec-h"><p class="kicker">Comment ça se passe</p><h2>Votre intervention en quatre étapes</h2></div>
+<div class="etapes">
+<div class="etape"><span class="n">1</span><b>Vous appelez ou écrivez</b><p>Téléphone, WhatsApp ou formulaire. Premier retour sous 2 h en journée, immédiat pour les urgences.</p></div>
+<div class="etape"><span class="n">2</span><b>Diagnostic et prix</b><p>Un technicien évalue le besoin et fixe un prix ferme, validé avant de commencer. Devis gratuit pour les travaux.</p></div>
+<div class="etape"><span class="n">3</span><b>Intervention soignée</b><p>Protection des lieux, travail dans les règles de l'art, chantier laissé propre.</p></div>
+<div class="etape"><span class="n">4</span><b>Facture et garantie</b><p>Facture détaillée, garantie décennale, et une équipe joignable après l'intervention.</p></div>
+</div></div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap">
+<div class="sec-h"><p class="kicker">Zone d'intervention</p><h2>Antibes, 20 km autour, et toute la côte</h2><p>Notre zone prioritaire va de Mandelieu à Nice. Nous couvrons aussi l'est du département et le Var pour les installations, rénovations et contrats d'entretien.</p></div>
+<div class="villes"><div><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg> Alpes-Maritimes <small>(06)</small></h3><div class="chips"><a href="depannage-antibes.html">Antibes</a><a href="depannage-cagnes-sur-mer.html">Cagnes-sur-Mer</a><a href="depannage-villeneuve-loubet.html">Villeneuve-Loubet</a><a href="depannage-cannes.html">Cannes</a><a href="depannage-mandelieu-la-napoule.html">Mandelieu-la-Napoule</a><a href="depannage-le-cannet.html">Le Cannet</a><a href="depannage-nice.html">Nice</a><a href="depannage-saint-laurent-du-var.html">Saint-Laurent-du-Var</a><a href="depannage-vallauris.html">Vallauris</a><a href="depannage-mougins.html">Mougins</a><a href="depannage-grasse.html">Grasse</a><a href="depannage-vence.html">Vence</a><a href="depannage-carros.html">Carros</a><a href="depannage-menton.html">Menton</a></div></div><div><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg> Var <small>(83)</small></h3><div class="chips"><a href="depannage-frejus.html">Fréjus</a><a href="depannage-saint-raphael.html">Saint-Raphaël</a><a href="depannage-draguignan.html">Draguignan</a><a href="depannage-brignoles.html">Brignoles</a><a href="depannage-saint-maximin-la-sainte-baume.html">Saint-Maximin-la-Sainte-Baume</a><a href="depannage-toulon.html">Toulon</a><a href="depannage-la-garde.html">La Garde</a><a href="depannage-hyeres.html">Hyères</a><a href="depannage-la-seyne-sur-mer.html">La Seyne-sur-Mer</a><a href="depannage-six-fours-les-plages.html">Six-Fours-les-Plages</a><a href="depannage-sanary-sur-mer.html">Sanary-sur-Mer</a><a href="depannage-bandol.html">Bandol</a></div></div></div>
+</div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap"><h2>Questions fréquentes</h2><div class="faq"><details><summary>Intervenez-vous vraiment pour tous les métiers de la maison ?</summary><div class="a"><p>Oui : plomberie, chauffage, climatisation, électricité, volets roulants et serrurerie. Un seul numéro, une seule équipe, une seule facture, y compris quand un chantier mêle plusieurs métiers.</p></div></details><details><summary>Sous quel délai intervenez-vous ?</summary><div class="a"><p>Sous 48 h pour une intervention classique, plus vite pour une urgence (fuite, panne de chauffage, porte bloquée) grâce à l&#x27;astreinte 24h/24 et 7j/7.</p></div></details><details><summary>Le devis est-il vraiment gratuit ?</summary><div class="a"><p>Oui, le devis et la visite technique sont gratuits et sans engagement. Pour un dépannage, le prix est annoncé avant l&#x27;intervention.</p></div></details><details><summary>Quelle zone couvrez-vous ?</summary><div class="a"><p>Antibes et 20 km autour en priorité (Cagnes-sur-Mer, Villeneuve-Loubet, Cannes, Le Cannet, Mandelieu, Nice, Saint-Laurent-du-Var), et plus largement les Alpes-Maritimes et le Var.</p></div></details><details><summary>Vos travaux sont-ils garantis ?</summary><div class="a"><p>Oui : garantie décennale sur les travaux, matériel de grandes marques, facture détaillée et équipe joignable après l&#x27;intervention.</p></div></details></div></div></section>
+
+<section class="sec" id="devis" style="padding-top:0"><div class="wrap">
+<div class="sec-h"><p class="kicker">Contact</p><h2>Demandez un devis gratuit</h2><p>Réponse sous 2 h en journée. Pour une urgence, appelez directement : 04 92 14 14 14.</p></div>
+<div class="contact"><div class="coord">
+<div class="c"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><b>Téléphone — 24h/24</b><a href="tel:+33492141414">04 92 14 14 14</a><a href="https://wa.me/33677203752?text=Bonjour%2C%20je%20souhaite%20un%20devis%20gratuit%20Atelier%20PACA" target="_blank" rel="noopener">WhatsApp 06 77 20 37 52</a></div></div>
+<div class="c"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg></div><div><b>E-mail</b><a href="mailto:contact@atelierpaca.fr">contact@atelierpaca.fr</a></div></div>
+<div class="c"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><b>Siège — Antibes</b><span>48 chemin des Autrichiens, 06600 Antibes</span><a href="https://maps.google.com/?cid=1924635026442992730" target="_blank" rel="noopener">Itinéraire et avis Google</a></div></div>
+<div class="c"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div><b>Horaires</b><span>Astreinte 7 j/7, 24 h/24 pour les urgences. Devis et rendez-vous du lundi au samedi.</span></div></div>
+</div><form class="form" id="devis-form" action="https://api.web3forms.com/submit" method="POST">
+<input type="hidden" name="access_key" value="c6decf2e-8b5c-4881-b7ef-d0c9e9f87e88"><input type="hidden" name="subject" value="Nouvelle demande de devis — atelierpaca.fr"><input type="hidden" name="from_name" value="Site atelierpaca.fr">
+<input type="checkbox" name="botcheck" class="hp" tabindex="-1" aria-hidden="true">
+<div class="row"><div class="g"><label for="f-nom">Nom</label><input id="f-nom" name="nom" type="text" autocomplete="name" required placeholder="Votre nom"></div>
+<div class="g"><label for="f-tel">Téléphone</label><input id="f-tel" name="telephone" type="tel" autocomplete="tel" required placeholder="06 00 00 00 00"></div></div>
+<div class="row"><div class="g"><label for="f-ville">Ville</label><input id="f-ville" name="ville" type="text" autocomplete="address-level2" placeholder="Antibes, Cagnes-sur-Mer…"></div>
+<div class="g"><label for="f-service">Prestation</label><select id="f-service" name="prestation"><option>Climatisation</option><option>Plomberie</option><option>Électricité</option><option>Chauffage</option><option>Serrurerie</option><option>Volets roulants</option><option>Contrat d’entretien</option><option>Autre / plusieurs métiers</option></select></div></div>
+<div class="g"><label for="f-msg">Votre besoin</label><textarea id="f-msg" name="message" placeholder="Décrivez la panne ou le projet, et le meilleur moment pour vous rappeler."></textarea></div>
+<button type="submit" class="btn btn-rouge">Recevoir mon devis gratuit</button>
+<div class="res" role="status" aria-live="polite"></div>
+<p style="font-size:12.5px;color:var(--mut2);margin-top:12px;max-width:none">Réponse sous 2 h en journée. Vos coordonnées servent uniquement à vous rappeler.</p>
+</form></div>
+</div></section>
+</main>
+<footer class="ftr"><div class="wrap">
+<div class="g">
+<div><a href="index.html" class="logo" aria-label="Atelier PACA"><svg viewBox="0 0 330 52" role="img" aria-label="Atelier PACA"><defs><linearGradient id="lgR" x1="0" x2="1"><stop offset="0" stop-color="#ff2e4c"/><stop offset="1" stop-color="#e3202e"/></linearGradient></defs><path d="M5 30 24 10l9 9V12h6v13l5 5" fill="none" stroke="url(#lgR)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 30v12h26V30" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/><text x="56" y="31" font-family="Sora,system-ui,sans-serif" font-weight="800" font-size="24" fill="#fff" letter-spacing="1">ATELIER</text><text x="166" y="31" font-family="Sora,system-ui,sans-serif" font-weight="800" font-size="24" fill="#ff2e4c" letter-spacing="1">PACA</text><text x="57" y="46" font-family="Inter,system-ui,sans-serif" font-weight="600" font-size="9" fill="#a9b8d3" letter-spacing="1.7">INSTALLATION · ENTRETIEN · DÉPANNAGE</text></svg></a>
+<p style="margin-top:14px;max-width:360px">Plomberie, chauffage, climatisation, électricité, volets roulants et serrurerie dans les Alpes-Maritimes et le Var, depuis 2015. Un seul numéro pour toute la maison.</p>
+<p><strong>4,9/5</strong> sur 178 avis Google · garantie décennale · astreinte 24h/24</p>
+<div class="soc"><a href="https://www.facebook.com/profile.php?id=61595032785115" target="_blank" rel="noopener" aria-label="Facebook Atelier PACA"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h3l1-3h-4v-2c0-.6.4-1 1-1z"/></svg></a><a href="https://www.instagram.com/atelierpaca/" target="_blank" rel="noopener" aria-label="Instagram Atelier PACA"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a><a href="https://maps.google.com/?cid=1924635026442992730" target="_blank" rel="noopener" aria-label="Fiche Google Atelier PACA"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.7h5.4c-.2 1.2-.9 2.3-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.3z"/><path d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6C4.8 19.8 8.2 22 12 22z"/><path d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1C2.4 8.8 2 10.4 2 12s.4 3.2 1.1 4.6L6.4 14z"/><path d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.9-2.9C17 2.9 14.7 2 12 2 8.2 2 4.8 4.2 3.1 7.4L6.4 10c.8-2.3 3-4.1 5.6-4.1z"/></svg></a></div></div>
+<div><h4>Nos métiers</h4><a href="climatisation.html">Climatisation</a><a href="plomberie.html">Plomberie</a><a href="electricite.html">Électricité</a><a href="chauffage.html">Chauffage</a><a href="serrurerie.html">Serrurerie</a><a href="volets-roulants.html">Volets roulants</a><a href="urgence-depannage-24h.html">Urgence 24h/24</a><a href="contrat-entretien.html">Contrats d'entretien</a></div>
+<div><h4>Atelier PACA</h4><a href="a-propos.html">Qui sommes-nous</a><a href="avis-clients.html">Avis clients</a><a href="realisations.html">Réalisations</a><a href="marques.html">Marques installées</a><a href="blog.html">Conseils d'artisans</a><a href="faq.html">Questions fréquentes</a><a href="contact.html">Contact et devis</a></div>
+<div><h4>Nos agences</h4><a href="https://maps.google.com/?cid=1924635026442992730" target="_blank" rel="noopener">Antibes — siège — 48 chemin des Autrichiens, 06600 Antibes</a><a href="https://maps.google.com/?cid=6209263345142262725" target="_blank" rel="noopener">Juan-les-Pins — 64 boulevard Raymond Poincaré, 06160 Antibes</a><a href="https://maps.google.com/?cid=10961677029958084837" target="_blank" rel="noopener">Cagnes-sur-Mer — 9 rue Pasteur, 06800 Cagnes-sur-Mer</a><a href="https://maps.google.com/?cid=10969175745018834336" target="_blank" rel="noopener">Le Cannet — 32 chemin de l'Olivet, 06110 Le Cannet</a><p style="margin-top:10px"><a href="tel:+33492141414"><strong>04 92 14 14 14</strong></a><a href="mailto:contact@atelierpaca.fr">contact@atelierpaca.fr</a></p></div>
+</div>
+<div class="villes-f"><p style="margin-bottom:8px">Atelier PACA près de chez vous :</p><details><summary>Climatisation — 26 villes</summary><div class="chips"><a href="climatisation-antibes.html">Antibes</a><a href="climatisation-cagnes-sur-mer.html">Cagnes-sur-Mer</a><a href="climatisation-villeneuve-loubet.html">Villeneuve-Loubet</a><a href="climatisation-cannes.html">Cannes</a><a href="climatisation-mandelieu-la-napoule.html">Mandelieu-la-Napoule</a><a href="climatisation-le-cannet.html">Le Cannet</a><a href="climatisation-nice.html">Nice</a><a href="climatisation-saint-laurent-du-var.html">Saint-Laurent-du-Var</a><a href="climatisation-vallauris.html">Vallauris</a><a href="climatisation-mougins.html">Mougins</a><a href="climatisation-grasse.html">Grasse</a><a href="climatisation-vence.html">Vence</a><a href="climatisation-carros.html">Carros</a><a href="climatisation-menton.html">Menton</a><a href="climatisation-frejus.html">Fréjus</a><a href="climatisation-saint-raphael.html">Saint-Raphaël</a><a href="climatisation-draguignan.html">Draguignan</a><a href="climatisation-brignoles.html">Brignoles</a><a href="climatisation-saint-maximin-la-sainte-baume.html">Saint-Maximin-la-Sainte-Baume</a><a href="climatisation-toulon.html">Toulon</a><a href="climatisation-la-garde.html">La Garde</a><a href="climatisation-hyeres.html">Hyères</a><a href="climatisation-la-seyne-sur-mer.html">La Seyne-sur-Mer</a><a href="climatisation-six-fours-les-plages.html">Six-Fours-les-Plages</a><a href="climatisation-sanary-sur-mer.html">Sanary-sur-Mer</a><a href="climatisation-bandol.html">Bandol</a></div></details><details><summary>Plomberie — 26 villes</summary><div class="chips"><a href="plombier-antibes.html">Antibes</a><a href="plombier-cagnes-sur-mer.html">Cagnes-sur-Mer</a><a href="plombier-villeneuve-loubet.html">Villeneuve-Loubet</a><a href="plombier-cannes.html">Cannes</a><a href="plombier-mandelieu-la-napoule.html">Mandelieu-la-Napoule</a><a href="plombier-le-cannet.html">Le Cannet</a><a href="plombier-nice.html">Nice</a><a href="plombier-saint-laurent-du-var.html">Saint-Laurent-du-Var</a><a href="plombier-vallauris.html">Vallauris</a><a href="plombier-mougins.html">Mougins</a><a href="plombier-grasse.html">Grasse</a><a href="plombier-vence.html">Vence</a><a href="plombier-carros.html">Carros</a><a href="plombier-menton.html">Menton</a><a href="plombier-frejus.html">Fréjus</a><a href="plombier-saint-raphael.html">Saint-Raphaël</a><a href="plombier-draguignan.html">Draguignan</a><a href="plombier-brignoles.html">Brignoles</a><a href="plombier-saint-maximin-la-sainte-baume.html">Saint-Maximin-la-Sainte-Baume</a><a href="plombier-toulon.html">Toulon</a><a href="plombier-la-garde.html">La Garde</a><a href="plombier-hyeres.html">Hyères</a><a href="plombier-la-seyne-sur-mer.html">La Seyne-sur-Mer</a><a href="plombier-six-fours-les-plages.html">Six-Fours-les-Plages</a><a href="plombier-sanary-sur-mer.html">Sanary-sur-Mer</a><a href="plombier-bandol.html">Bandol</a></div></details><details><summary>Électricité — 26 villes</summary><div class="chips"><a href="electricien-antibes.html">Antibes</a><a href="electricien-cagnes-sur-mer.html">Cagnes-sur-Mer</a><a href="electricien-villeneuve-loubet.html">Villeneuve-Loubet</a><a href="electricien-cannes.html">Cannes</a><a href="electricien-mandelieu-la-napoule.html">Mandelieu-la-Napoule</a><a href="electricien-le-cannet.html">Le Cannet</a><a href="electricien-nice.html">Nice</a><a href="electricien-saint-laurent-du-var.html">Saint-Laurent-du-Var</a><a href="electricien-vallauris.html">Vallauris</a><a href="electricien-mougins.html">Mougins</a><a href="electricien-grasse.html">Grasse</a><a href="electricien-vence.html">Vence</a><a href="electricien-carros.html">Carros</a><a href="electricien-menton.html">Menton</a><a href="electricien-frejus.html">Fréjus</a><a href="electricien-saint-raphael.html">Saint-Raphaël</a><a href="electricien-draguignan.html">Draguignan</a><a href="electricien-brignoles.html">Brignoles</a><a href="electricien-saint-maximin-la-sainte-baume.html">Saint-Maximin-la-Sainte-Baume</a><a href="electricien-toulon.html">Toulon</a><a href="electricien-la-garde.html">La Garde</a><a href="electricien-hyeres.html">Hyères</a><a href="electricien-la-seyne-sur-mer.html">La Seyne-sur-Mer</a><a href="electricien-six-fours-les-plages.html">Six-Fours-les-Plages</a><a href="electricien-sanary-sur-mer.html">Sanary-sur-Mer</a><a href="electricien-bandol.html">Bandol</a></div></details><details><summary>Chauffage — 26 villes</summary><div class="chips"><a href="chauffagiste-antibes.html">Antibes</a><a href="chauffagiste-cagnes-sur-mer.html">Cagnes-sur-Mer</a><a href="chauffagiste-villeneuve-loubet.html">Villeneuve-Loubet</a><a href="chauffagiste-cannes.html">Cannes</a><a href="chauffagiste-mandelieu-la-napoule.html">Mandelieu-la-Napoule</a><a href="chauffagiste-le-cannet.html">Le Cannet</a><a href="chauffagiste-nice.html">Nice</a><a href="chauffagiste-saint-laurent-du-var.html">Saint-Laurent-du-Var</a><a href="chauffagiste-vallauris.html">Vallauris</a><a href="chauffagiste-mougins.html">Mougins</a><a href="chauffagiste-grasse.html">Grasse</a><a href="chauffagiste-vence.html">Vence</a><a href="chauffagiste-carros.html">Carros</a><a href="chauffagiste-menton.html">Menton</a><a href="chauffagiste-frejus.html">Fréjus</a><a href="chauffagiste-saint-raphael.html">Saint-Raphaël</a><a href="chauffagiste-draguignan.html">Draguignan</a><a href="chauffagiste-brignoles.html">Brignoles</a><a href="chauffagiste-saint-maximin-la-sainte-baume.html">Saint-Maximin-la-Sainte-Baume</a><a href="chauffagiste-toulon.html">Toulon</a><a href="chauffagiste-la-garde.html">La Garde</a><a href="chauffagiste-hyeres.html">Hyères</a><a href="chauffagiste-la-seyne-sur-mer.html">La Seyne-sur-Mer</a><a href="chauffagiste-six-fours-les-plages.html">Six-Fours-les-Plages</a><a href="chauffagiste-sanary-sur-mer.html">Sanary-sur-Mer</a><a href="chauffagiste-bandol.html">Bandol</a></div></details><details><summary>Serrurerie — 26 villes</summary><div class="chips"><a href="serrurier-antibes.html">Antibes</a><a href="serrurier-cagnes-sur-mer.html">Cagnes-sur-Mer</a><a href="serrurier-villeneuve-loubet.html">Villeneuve-Loubet</a><a href="serrurier-cannes.html">Cannes</a><a href="serrurier-mandelieu-la-napoule.html">Mandelieu-la-Napoule</a><a href="serrurier-le-cannet.html">Le Cannet</a><a href="serrurier-nice.html">Nice</a><a href="serrurier-saint-laurent-du-var.html">Saint-Laurent-du-Var</a><a href="serrurier-vallauris.html">Vallauris</a><a href="serrurier-mougins.html">Mougins</a><a href="serrurier-grasse.html">Grasse</a><a href="serrurier-vence.html">Vence</a><a href="serrurier-carros.html">Carros</a><a href="serrurier-menton.html">Menton</a><a href="serrurier-frejus.html">Fréjus</a><a href="serrurier-saint-raphael.html">Saint-Raphaël</a><a href="serrurier-draguignan.html">Draguignan</a><a href="serrurier-brignoles.html">Brignoles</a><a href="serrurier-saint-maximin-la-sainte-baume.html">Saint-Maximin-la-Sainte-Baume</a><a href="serrurier-toulon.html">Toulon</a><a href="serrurier-la-garde.html">La Garde</a><a href="serrurier-hyeres.html">Hyères</a><a href="serrurier-la-seyne-sur-mer.html">La Seyne-sur-Mer</a><a href="serrurier-six-fours-les-plages.html">Six-Fours-les-Plages</a><a href="serrurier-sanary-sur-mer.html">Sanary-sur-Mer</a><a href="serrurier-bandol.html">Bandol</a></div></details><details><summary>Volets roulants — 26 villes</summary><div class="chips"><a href="volets-roulants-antibes.html">Antibes</a><a href="volets-roulants-cagnes-sur-mer.html">Cagnes-sur-Mer</a><a href="volets-roulants-villeneuve-loubet.html">Villeneuve-Loubet</a><a href="volets-roulants-cannes.html">Cannes</a><a href="volets-roulants-mandelieu-la-napoule.html">Mandelieu-la-Napoule</a><a href="volets-roulants-le-cannet.html">Le Cannet</a><a href="volets-roulants-nice.html">Nice</a><a href="volets-roulants-saint-laurent-du-var.html">Saint-Laurent-du-Var</a><a href="volets-roulants-vallauris.html">Vallauris</a><a href="volets-roulants-mougins.html">Mougins</a><a href="volets-roulants-grasse.html">Grasse</a><a href="volets-roulants-vence.html">Vence</a><a href="volets-roulants-carros.html">Carros</a><a href="volets-roulants-menton.html">Menton</a><a href="volets-roulants-frejus.html">Fréjus</a><a href="volets-roulants-saint-raphael.html">Saint-Raphaël</a><a href="volets-roulants-draguignan.html">Draguignan</a><a href="volets-roulants-brignoles.html">Brignoles</a><a href="volets-roulants-saint-maximin-la-sainte-baume.html">Saint-Maximin-la-Sainte-Baume</a><a href="volets-roulants-toulon.html">Toulon</a><a href="volets-roulants-la-garde.html">La Garde</a><a href="volets-roulants-hyeres.html">Hyères</a><a href="volets-roulants-la-seyne-sur-mer.html">La Seyne-sur-Mer</a><a href="volets-roulants-six-fours-les-plages.html">Six-Fours-les-Plages</a><a href="volets-roulants-sanary-sur-mer.html">Sanary-sur-Mer</a><a href="volets-roulants-bandol.html">Bandol</a></div></details><details><summary>Dépannage toutes prestations — 26 villes</summary><div class="chips"><a href="depannage-antibes.html">Antibes</a><a href="depannage-cagnes-sur-mer.html">Cagnes-sur-Mer</a><a href="depannage-villeneuve-loubet.html">Villeneuve-Loubet</a><a href="depannage-cannes.html">Cannes</a><a href="depannage-mandelieu-la-napoule.html">Mandelieu-la-Napoule</a><a href="depannage-le-cannet.html">Le Cannet</a><a href="depannage-nice.html">Nice</a><a href="depannage-saint-laurent-du-var.html">Saint-Laurent-du-Var</a><a href="depannage-vallauris.html">Vallauris</a><a href="depannage-mougins.html">Mougins</a><a href="depannage-grasse.html">Grasse</a><a href="depannage-vence.html">Vence</a><a href="depannage-carros.html">Carros</a><a href="depannage-menton.html">Menton</a><a href="depannage-frejus.html">Fréjus</a><a href="depannage-saint-raphael.html">Saint-Raphaël</a><a href="depannage-draguignan.html">Draguignan</a><a href="depannage-brignoles.html">Brignoles</a><a href="depannage-saint-maximin-la-sainte-baume.html">Saint-Maximin-la-Sainte-Baume</a><a href="depannage-toulon.html">Toulon</a><a href="depannage-la-garde.html">La Garde</a><a href="depannage-hyeres.html">Hyères</a><a href="depannage-la-seyne-sur-mer.html">La Seyne-sur-Mer</a><a href="depannage-six-fours-les-plages.html">Six-Fours-les-Plages</a><a href="depannage-sanary-sur-mer.html">Sanary-sur-Mer</a><a href="depannage-bandol.html">Bandol</a></div></details></div>
+<div class="bas"><span>© 2026 Atelier PACA (SASU) — SIREN 814 736 781 — Tous droits réservés</span><span><a href="mentions-legales.html">Mentions légales</a> · <a href="plan-du-site.html">Plan du site</a></span></div>
+</div></footer>
+<div class="bar-m"><div class="in"><a href="tel:+33492141414" class="a1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Appeler</a><a href="https://wa.me/33677203752?text=Bonjour%2C%20je%20souhaite%20un%20devis%20gratuit%20Atelier%20PACA" class="a2" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88M20.46 3.49A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.69 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.49-8.42"/></svg> WhatsApp</a><a href="contact.html#devis" class="a3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg> Devis</a></div></div>
+<div class="flot"><a href="https://wa.me/33677203752?text=Bonjour%2C%20je%20souhaite%20un%20devis%20gratuit%20Atelier%20PACA" class="wa" target="_blank" rel="noopener" aria-label="WhatsApp Atelier PACA"><span style="color:#fff;display:contents"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88M20.46 3.49A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.69 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.49-8.42"/></svg></span></a><a href="tel:+33492141414" class="tel" aria-label="Appeler Atelier PACA"><span style="color:#fff;display:contents"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span></a></div>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

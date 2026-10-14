@@ -1,8 +1,4 @@
-.claude/
-index-v2.html
-propositions-hero.html
-preview-logo.html
-generate-villes.ps1
-images/_*.png
-images/*_old.*
-maquette-2026.html
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

@@ -1,4 +1,4 @@
-Contact: mailto:atelierpaca.06@gmail.com
+Contact: mailto:contact@atelierpaca.fr
 Preferred-Languages: fr
 Canonical: https://atelierpaca.fr/.well-known/security.txt
-Expires: 2027-07-20T00:00:00.000Z
+Expires: 2027-10-14T00:00:00.000Z

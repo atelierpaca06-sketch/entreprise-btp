@@ -1,31 +1,10 @@
-# CLAUDE.md
+# CLAUDE.md — atelierpaca.fr
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Site statique GitHub Pages, généré par `build/generer.py` à partir de `build/donnees.py`. Français partout (code, commits, docs).
 
-## Project Overview
-
-**entreprise-btp** — outils fichiers pour l'entreprise du bâtiment (file tools for a construction company).
-
-This repository is in its early stages. No build system, framework, or language stack has been established yet.
-
-## Language
-
-The project is French-language: comments, variable names, documentation, and commit messages should be written in French unless a specific technical standard dictates otherwise.
-
-
-## ⚠️ TÂCHE URGENTE — À faire dès que atelierpaca.fr est actif
-
-**Remplacer toutes les URLs `laurasbn.github.io/entreprise-btp/` par `atelierpaca.fr`** dans TOUS les fichiers HTML du repo (index.html + 42 pages SEO).
-
-Concerne les balises suivantes dans chaque fichier :
-- `<link rel="canonical" href="...">`
-- - `<meta property="og:url" content="...">`
-  - - `<meta property="og:image" content="...">`
-    - - `<meta name="twitter:image" content="...">`
-      - - JSON-LD : champs `"url"`, `"@id"` et `"image"`
-       
-        - **Commande terminal à exécuter (depuis le dossier du repo) :**
-        - ```
-          sed -i 's|https://laurasbn.github.io/entreprise-btp/|https://atelierpaca.fr/|g' *.html
-          ```
-          Puis : `git add . && git commit -m "Fix URLs : laurasbn -> atelierpaca.fr" && git push`
+Règles :
+- Ne jamais éditer les pages HTML à la main : modifier `build/donnees.py` (ou `assets/site.css`), puis `python3 build/generer.py`.
+- Conserver les URLs existantes (`<metier>-<ville>.html`, `depannage-<ville>.html`).
+- NAP de référence : Atelier PACA, 04 92 14 14 14, 48 chemin des Autrichiens, 06600 Antibes, contact@atelierpaca.fr.
+- Titres ≤ 60 caractères, descriptions ≤ 160, un seul H1 par page (vérifié par le générateur).
+- Tarif minimum affiché : 110 € HT. Nombre d'avis : champ `avis` dans `donnees.py`.
