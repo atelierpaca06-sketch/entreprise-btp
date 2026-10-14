@@ -220,9 +220,7 @@ def page_index():
 <div class="btns"><a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]} {E["tel"]}</a><a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]} Devis gratuit</a></div>
 <div class="proof"><span>{ICO["star"]}<b>{E["note"]}/5</b> — {E["avis"]} avis Google</span><span>{ICO["shield"]}<b>Garantie décennale</b></span><span>{ICO["clock"]}<b>Prix annoncé</b> avant intervention</span></div>
 </div>
-<div style="position:relative"><div class="frame"><img src="images/hero-nuit.webp" srcset="images/hero-nuit-480.webp 480w, images/hero-nuit.webp 529w" sizes="(max-width:900px) 100vw, 480px" alt="Technicien Atelier PACA en intervention de nuit sur une climatisation, Côte d'Azur" width="529" height="774" fetchpriority="high" decoding="async"></div>
-<div class="float f1"><div class="ic r">{ICO["clock"]}</div><div><b>Intervention sous 48 h</b><span>plus vite en urgence</span></div></div>
-<div class="float f2"><div class="ic">{ICO["one"]}</div><div><b>6 métiers, 1 équipe</b><span>une seule facture</span></div></div></div>
+<div style="position:relative"><div class="frame auto"><img src="images/hero-equipe.webp" srcset="images/hero-equipe-480.webp 480w, images/hero-equipe.webp 936w" sizes="(max-width:900px) 100vw, 540px" alt="Technicien Atelier PACA devant le camion d'intervention, baie de Cannes" width="936" height="638" fetchpriority="high" decoding="async"></div></div>
 </div></section>
 
 <section class="wrap"><div class="chiffres">
@@ -250,7 +248,7 @@ def page_index():
 <div class="raison"><div class="ic">{ICO["pin"]}</div><div><b>Une entreprise d'ici</b><p>Siège à Antibes, agences à Juan-les-Pins, Cagnes-sur-Mer et Le Cannet : nos techniciens connaissent les copropriétés, les villas et les contraintes de la côte.</p></div></div>
 <div class="raison"><div class="ic">{ICO["shield"]}</div><div><b>Garantie décennale et grandes marques</b><p>Daikin, Mitsubishi Electric, Atlantic, Somfy, Legrand, Schneider : du matériel qui dure, posé par des techniciens formés, et garanti 10 ans.</p></div></div>
 </div></div>
-<div><div class="frame auto"><img src="images/equipe-camion.webp" srcset="images/equipe-camion-480.webp 480w, images/equipe-camion.webp 904w" sizes="(max-width:900px) 100vw, 520px" alt="Technicien Atelier PACA devant le camion d'intervention, baie de Cannes" loading="lazy" width="904" height="459" style="aspect-ratio:auto"></div></div>
+<div><div class="frame auto"><img src="images/hero-nuit.webp" srcset="images/hero-nuit-480.webp 480w, images/hero-nuit.webp 529w" sizes="(max-width:900px) 100vw, 520px" alt="Technicien Atelier PACA en intervention de nuit sur une climatisation" loading="lazy" width="529" height="774" style="max-height:560px;object-fit:cover"></div></div>
 </div></div></section>
 
 <section class="sec" id="avis" style="padding-top:0"><div class="wrap">
@@ -283,7 +281,7 @@ def page_index():
 ''' + footer()
     write("index.html", head("Plombier, chauffagiste, électricien Antibes | Atelier PACA",
           "Atelier PACA, Antibes : plomberie, chauffage, clim, électricité, volets et serrurerie dans le 06 et le Var. Un seul numéro, devis gratuit, 4,9/5 sur 178 avis.",
-          "", ld, preload="images/hero-nuit.webp") + body, "1.0", "weekly")
+          "", ld, preload="images/hero-equipe.webp") + body, "1.0", "weekly")
 
 # ---------------------------------------------------------------- PAGES MÉTIER
 def page_metier(t):

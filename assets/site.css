@@ -103,13 +103,13 @@ p{max-width:70ch}
 .float .ico{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(47,176,255,.15);color:var(--neon2);flex:none}
 .float .ico.r{background:rgba(255,46,76,.15);color:var(--rouge2)}
 .float svg{width:20px;height:20px}
-.f1{left:-18px;bottom:56px}.f2{right:-14px;top:40px}
+.f1{left:-18px;bottom:40px}.f2{left:-18px;top:34px}
 .hero-mini{padding:48px 0 28px}
 .hero-mini .wrap{display:block}
 .hero-mini h1{margin:10px 0 14px}
 .crumb{font-size:13px;color:var(--mut2);display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:6px}
 .crumb a{color:var(--mut)}
-@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:30px}.hero .frame img{max-height:420px;aspect-ratio:4/3}.f1{left:10px;bottom:14px}.f2{right:10px;top:14px}.hero{padding:34px 0 30px}}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:30px}.hero .frame img{max-height:420px;aspect-ratio:4/3}.f1{left:10px;bottom:14px}.f2{left:10px;top:14px}.hero{padding:34px 0 30px}}
 
 /* ---- Bande chiffres (néon) ---- */
 .chiffres{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0 0}
