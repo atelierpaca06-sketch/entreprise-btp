@@ -220,7 +220,7 @@ def page_index():
 <div class="btns"><a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]} {E["tel"]}</a><a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]} Devis gratuit</a></div>
 <div class="proof"><span>{ICO["star"]}<b>{E["note"]}/5</b> — {E["avis"]} avis Google</span><span>{ICO["shield"]}<b>Garantie décennale</b></span><span>{ICO["clock"]}<b>Prix annoncé</b> avant intervention</span></div>
 </div>
-<div style="position:relative"><div class="frame auto"><img src="images/hero-equipe.webp" srcset="images/hero-equipe-480.webp 480w, images/hero-equipe.webp 936w" sizes="(max-width:900px) 100vw, 540px" alt="Technicien Atelier PACA devant le camion d'intervention, baie de Cannes" width="936" height="638" fetchpriority="high" decoding="async"></div></div>
+<div style="position:relative"><div class="frame auto"><img src="images/hero-equipe.webp" srcset="images/hero-equipe-480.webp 480w, images/hero-equipe.webp 936w" sizes="(max-width:900px) 100vw, 540px" alt="Technicien Atelier PACA devant le camion d'intervention, baie de Cannes" width="936" height="638" fetchpriority="high" decoding="async"><div class="hero-pictos" aria-hidden="true"><span><i>{ICO_METIER["plomberie"]}</i>Plomberie</span><span><i>{ICO_METIER["chauffage"]}</i>Chauffage</span><span><i>{ICO_METIER["climatisation"]}</i>Climatisation</span><span><i>{ICO_METIER["electricite"]}</i>Électricité</span><span><i>{ICO_METIER["volets"]}</i>Volets</span><span><i>{ICO_METIER["serrurerie"]}</i>Serrurerie</span></div></div></div>
 </div></section>
 
 <section class="wrap"><div class="chiffres">
