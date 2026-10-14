@@ -100,13 +100,10 @@ def header(cur=""):
 '''
 
 def villes_footer():
-    out = []
-    for t in TRADES:
-        links = "".join(f'<a href="{t["prefix"]}-{v["slug"]}.html">{v["nom"]}</a>' for v in VILLES)
-        out.append(f'<details><summary>{t["nom"]} — {len(VILLES)} villes</summary><div class="chips">{links}</div></details>')
-    hubs = "".join(f'<a href="depannage-{v["slug"]}.html">{v["nom"]}</a>' for v in VILLES)
-    out.append(f'<details><summary>Dépannage toutes prestations — {len(VILLES)} villes</summary><div class="chips">{hubs}</div></details>')
-    return "".join(out)
+    """Pied de page : uniquement les pages hub par ville (les pages métier × ville sont reliées depuis les pages métier et les hubs)."""
+    def grp(vs, titre):
+        return f'<details><summary>{titre} — {len(vs)} villes</summary><div class="chips">' + "".join(f'<a href="depannage-{v["slug"]}.html">{v["nom"]}</a>' for v in vs) + '</div></details>'
+    return grp(VILLES_06, "Alpes-Maritimes (06)") + grp(VILLES_83, "Var est (83)") + '<p style="margin-top:10px"><a href="plan-du-site.html">Toutes les pages métier par ville</a></p>'
 
 def footer():
     return f'''<footer class="ftr"><div class="wrap">
@@ -272,7 +269,7 @@ def page_index():
 </div></div></section>
 
 <section class="sec" style="padding-top:0"><div class="wrap">
-<div class="sec-h"><p class="kicker">Zone d'intervention</p><h2>Nos villes d'intervention dans les Alpes-Maritimes et le Var</h2><p>D'Antibes à Nice, de Cannes à Grasse, et dans le Var de Fréjus à Fayence : une équipe mobile basée à Antibes, avec des agences à Juan-les-Pins, Cagnes-sur-Mer et Le Cannet. Cliquez sur votre ville.</p></div>
+<div class="sec-h"><p class="kicker">Zone d'intervention</p><h2>Nos villes d'intervention dans les Alpes-Maritimes et le Var</h2><p>Dépannage, entretien et installation dans toutes les communes ci-dessous, avec le même numéro et les mêmes tarifs. Choisissez votre ville pour voir nos délais et nos prestations sur place.</p></div>
 <div class="villes"><div><h3>{ICO["pin"]} Alpes-Maritimes <small>(06)</small></h3><div class="chips">{hubs06}</div></div><div><h3>{ICO["pin"]} Var est <small>(83)</small></h3><div class="chips">{hubs83}</div></div></div>
 </div></section>
 
@@ -321,7 +318,7 @@ def page_metier(t):
 <div class="encart"><div><b>Besoin d'un autre métier sur le même chantier ?</b><span>Nos plombiers, électriciens, chauffagistes et frigoristes travaillent ensemble : un interlocuteur, une facture.</span></div><a href="contact.html#devis" class="btn btn-rouge btn-sm">Demander un devis</a></div>
 {faq_htm}
 <h2>{t["nom"]} ville par ville</h2>
-<p>Retrouvez nos délais, nos tarifs et nos conseils adaptés à votre commune.</p>
+<p>Retrouvez nos délais, nos tarifs et nos conseils adaptés à votre commune : plus de 50 villes dans les Alpes-Maritimes et le proche Var.</p>
 {chips_villes(t["prefix"])}
 </div>
 <aside class="side">
