@@ -355,7 +355,7 @@ def page_metier(t):
 {cta_final(f"Un projet ou une panne en {t['nom'].lower()} ?")}
 </main>
 ''' + footer()
-    write(t["page"], head(t["title"], t["meta"], t["page"], ld) + body, "0.9", "monthly")
+    write(t["page"], head(t["title"], t["meta"], t["page"], ld, og_img=f"images/og-{t['img']}.jpg") + body, "0.9", "monthly")
 
 # ---------------------------------------------------------------- PAGES MÉTIER × VILLE
 def page_metier_ville(t, v):
@@ -417,7 +417,7 @@ def page_metier_ville(t, v):
 ''' + footer()
     tt = t["title_ville"].format(**ctx)
     if len(tt) > 60: tt = t["title_court"].format(**ctx)
-    write(fn, head(tt, t["meta_ville"].format(**ctx), fn, ld) + body, "0.8" if v["prio"] else "0.6", "monthly")
+    write(fn, head(tt, t["meta_ville"].format(**ctx), fn, ld, og_img=f"images/og-{t['img']}.jpg") + body, "0.8" if v["prio"] else "0.6", "monthly")
 
 # ---------------------------------------------------------------- HUB VILLE
 def page_hub(v):
@@ -558,7 +558,7 @@ def pages_annexes():
 <p>Propriétaires et locataires en appartement ou en villa, résidences secondaires gérées à distance avec un gardien ou une agence, syndics de copropriété pour les colonnes d'eau, la serrurerie des parties communes et les contrats d'entretien, commerces et bureaux pour l'électricité et la climatisation tertiaire. Dans tous les cas : prix annoncé, facture détaillée, rapport d'intervention sur demande.</p>
 <h2>Nos agences</h2>
 <div class="fiches" style="grid-template-columns:1fr 1fr">{"".join(f'<div class="fiche"><b>{a["nom"]}</b><span>{a["adresse"]}, {a["cp"]} {a["ville"]}</span><span>{E["note"]}/5 · {a["avis"]} avis</span><div class="l"><a href="{maps(a)}" target="_blank" rel="noopener">Fiche Google</a></div></div>' for a in AGENCES)}</div>
-<h2>Informations légales</h2>
+<h2>Notre plaquette</h2><div class="galerie" style="grid-template-columns:1fr 1fr"><figure><a href="images/plaquette-atelier-paca.jpg" target="_blank" rel="noopener"><img src="images/plaquette-atelier-paca.webp" alt="Plaquette commerciale Atelier PACA : six métiers, installation, entretien, dépannage à Antibes" loading="lazy" width="800" height="1132" style="aspect-ratio:auto"></a><figcaption>Plaquette commerciale — cliquez pour l'ouvrir en grand.</figcaption></figure><figure><img src="images/avis-clients-google.webp" alt="Technicien Atelier PACA et avis clients Google 4,9/5" loading="lazy" width="900" height="520" style="aspect-ratio:auto"><figcaption>Vos avis Google font notre réputation : 4,9/5 sur nos quatre fiches.</figcaption></figure></div><h2>Informations légales</h2>
 <p>Atelier PACA, SASU — SIREN {E["siren"]} — siège : {E["adresse"]}, {E["cp"]} {E["ville"]}. Assurance responsabilité civile et décennale. <a href="mentions-legales.html">Mentions légales</a>.</p>''', prio="0.6")
 
     # Réalisations
