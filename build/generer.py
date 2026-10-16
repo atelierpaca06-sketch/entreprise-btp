@@ -181,7 +181,7 @@ def coord_block():
 <div class="c"><div class="ic">{ICO["tel"]}</div><div><b>Téléphone — 24h/24</b><a href="{E["tel_href"]}">{E["tel"]}</a><a href="{E["wa"]}" target="_blank" rel="noopener">WhatsApp {E["mobile"]}</a></div></div>
 <div class="c"><div class="ic">{ICO["mail"]}</div><div><b>E-mail</b><a href="mailto:{E["email"]}">{E["email"]}</a></div></div>
 <div class="c"><div class="ic">{ICO["pin"]}</div><div><b>Siège — Antibes</b><span>{E["adresse"]}, {E["cp"]} {E["ville"]}</span><a href="{maps(AGENCES[0])}" target="_blank" rel="noopener">Itinéraire et avis Google</a></div></div>
-<div class="c"><div class="ic">{ICO["clock"]}</div><div><b>Horaires</b><span>Astreinte 7 j/7, 24 h/24 pour les urgences. Devis et rendez-vous du lundi au samedi.</span></div></div>
+<div class="c"><div class="ic">{ICO["clock"]}</div><div><b>Horaires</b><span>Astreinte 7 j/7, 24 h/24 pour les urgences. Devis et rendez-vous du lundi au vendredi.</span></div></div>
 </div>'''
 
 def write(fn, content, prio="0.6", freq="monthly"):
