@@ -818,6 +818,54 @@ def llms():
     os.makedirs(os.path.join(ROOT,".well-known"),exist_ok=True)
     with open(os.path.join(ROOT,".well-known","security.txt"),"w",encoding="utf-8") as f: f.write(f"Contact: mailto:{E['email']}\nPreferred-Languages: fr\nCanonical: {SITE}.well-known/security.txt\nExpires: 2027-10-14T00:00:00.000Z\n")
 
+def page_liens():
+    """Page « lien en bio » pour Instagram / Facebook : appel en un clic + accès direct aux 6 métiers.
+    Non indexée (noindex) et hors sitemap : c'est une page de passage, pas une page de référencement."""
+    titre = "Atelier PACA — Appeler, devis, nos 6 métiers"
+    desc = "Atelier PACA, artisan à Antibes : appelez en un clic, demandez un devis gratuit ou choisissez votre métier (plomberie, chauffage, clim, électricité, volets, serrurerie)."
+    htm = head(titre, desc, "liens.html").replace('<meta name="robots" content="index,follow,max-image-preview:large">', '<meta name="robots" content="noindex,follow">')
+    css = """<style>
+.lb{max-width:520px;margin:0 auto;padding:34px 18px 60px;text-align:center}
+.lb .logo svg{width:250px;height:auto}
+.lb .acc{color:var(--mut);margin:10px 0 6px;font-size:15px}
+.lb .note{border:0;padding:0;background:none;display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--or);margin-bottom:22px}
+.lb .note svg{width:16px;height:16px}
+.lb .btn{width:100%;margin-bottom:12px;font-size:18px;padding:18px 20px}
+.lb .btn small{display:block;font-family:var(--inter);font-weight:500;font-size:13px;opacity:.85}
+.lb h2{font-family:var(--sora);font-size:16px;letter-spacing:.5px;text-transform:uppercase;color:var(--mut);margin:26px 0 12px}
+.lb .m{display:flex;align-items:center;gap:14px;text-align:left;padding:14px 16px;margin-bottom:10px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.04);color:var(--txt);text-decoration:none}
+.lb .m:hover{border-color:var(--line2);background:rgba(47,176,255,.08)}
+.lb .m .ic{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(255,46,76,.12);color:var(--rouge2)}
+.lb .m .ic svg{width:22px;height:22px}
+.lb .m b{display:block;font-family:var(--sora);font-size:16px}
+.lb .m span span{display:block;font-size:13px;color:var(--mut)}
+.lb .m .fl{margin-left:auto;width:18px;height:18px;color:var(--mut2)}
+.lb .pied{margin-top:28px;font-size:13px;color:var(--mut2)}
+.lb .pied a{color:var(--mut)}
+</style>"""
+    metiers = "".join(f'<a class="m" href="{t["page"]}"><span class="ic">{ICO_METIER[t["cle"]]}</span><span><b>{t["nom"]}</b><span>{t["accroche"]}</span></span><span class="fl">{ICO["arrow"]}</span></a>' for t in TRADES)
+    plus = (f'<a class="m" href="contrat-entretien.html"><span class="ic">{ICO["shield"]}</span><span><b>Contrat d&#39;entretien</b><span>Dépannage sous 48 h + 10 % sur les pièces</span></span><span class="fl">{ICO["arrow"]}</span></a>'
+            f'<a class="m" href="avis-clients.html"><span class="ic">{ICO["star"]}</span><span><b>Avis clients</b><span>{E["note"]}/5 sur {E["avis"]} avis Google</span></span><span class="fl">{ICO["arrow"]}</span></a>'
+            f'<a class="m" href="index.html"><span class="ic">{ICO["one"]}</span><span><b>Notre site</b><span>Villes d&#39;intervention, réalisations, conseils</span></span><span class="fl">{ICO["arrow"]}</span></a>')
+    body = f'''<main class="lb">
+<a href="index.html" class="logo" aria-label="Atelier PACA — accueil">{LOGO_SVG}</a>
+<h1 class="acc">Plombier, chauffagiste, climatisation, électricien, volets et serrurier — Antibes, Alpes-Maritimes et Var est</h1>
+<p class="note">{ICO["star"]}{ICO["star"]}{ICO["star"]}{ICO["star"]}{ICO["star"]} {E["note"]}/5 · {E["avis"]} avis Google</p>
+<a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]}<span>Appeler {E["tel"]}<small>Devis gratuit · intervention sous 48 h</small></span></a>
+<a href="{E["wa"]}" class="btn btn-wa" target="_blank" rel="noopener">{ICO["wa"]}<span>WhatsApp {E["mobile"]}<small>Envoyez une photo de la panne</small></span></a>
+<a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]}<span>Demander un devis en ligne</span></a>
+<h2>Nos 6 métiers</h2>
+{metiers}
+<h2>Aussi</h2>
+{plus}
+<p class="pied">{E["nom"]} · {E["adresse"]}, {E["cp"]} {E["ville"]}<br><a href="mailto:{E["email"]}">{E["email"]}</a></p>
+</main>
+<script src="assets/site.js" defer></script>
+</body>
+</html>
+'''
+    with open(os.path.join(ROOT, "liens.html"), "w", encoding="utf-8") as f: f.write(htm.replace("</head>", css + "\n</head>") + body)
+
 if __name__ == "__main__":
     page_index()
     for t in TRADES: page_metier(t)
@@ -827,5 +875,6 @@ if __name__ == "__main__":
     pages_annexes()
     page_plan()
     pages_redirections()
+    page_liens()
     sitemap()
     print(f"{len(PAGES)} pages générées (+ 404).")
