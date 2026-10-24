@@ -56,12 +56,18 @@ def fit(desc):
 def head(title, desc, canon, extra_ld=None, og_img="images/og-atelier-paca.jpg", preload=None):
     ld = "".join(f'<script type="application/ld+json">{jd(o)}</script>' for o in (extra_ld or []))
     pre = f'<link rel="preload" as="image" href="{preload}" fetchpriority="high">' if preload else ""
+    ga = E.get("ga4", "")
+    # GA4 chargé uniquement après consentement (site.js) ; la CSP n'autorise Google que si un ID est renseigné.
+    csp_s = " https://www.googletagmanager.com" if ga else ""
+    csp_c = " https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com" if ga else ""
+    csp_i = " https://www.googletagmanager.com https://*.google-analytics.com" if ga else ""
+    attr_ga = f' data-ga4="{ga}"' if ga else ""
     return f'''<!DOCTYPE html>
-<html lang="fr">
+<html lang="fr"{attr_ga}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.web3forms.com; form-action 'self' https://api.web3forms.com; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'{csp_s}; style-src 'self' 'unsafe-inline'; img-src 'self' data:{csp_i}; font-src 'self'; connect-src 'self' https://api.web3forms.com{csp_c}; form-action 'self' https://api.web3forms.com; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(fit(desc))}">
@@ -121,10 +127,18 @@ def footer():
 </div></footer>
 <div class="bar-m"><div class="in"><a href="{E["tel_href"]}" class="a1">{ICO["tel"]} Appeler</a><a href="{E["wa"]}" class="a2" target="_blank" rel="noopener">{ICO["wa"]} WhatsApp</a><a href="contact.html#devis" class="a3">{ICO["doc"]} Devis</a></div></div>
 <div class="flot"><a href="{E["wa"]}" class="wa" target="_blank" rel="noopener" aria-label="WhatsApp Atelier PACA"><span style="color:#fff;display:contents">{ICO["wa"]}</span></a><a href="{E["tel_href"]}" class="tel" aria-label="Appeler Atelier PACA"><span style="color:#fff;display:contents">{ICO["tel"]}</span></a></div>
-<script src="assets/site.js" defer></script>
+{cookie_banner()}<script src="assets/site.js" defer></script>
 </body>
 </html>
 '''
+
+def cookie_banner():
+    """Bandeau de consentement affiché par site.js uniquement si un ID GA4 est renseigné et qu'aucun choix n'est enregistré."""
+    if not E.get("ga4"): return ""
+    return ('<div class="cookie" id="cookie" role="dialog" aria-live="polite" aria-label="Cookies de mesure d’audience">'
+            '<p>Nous utilisons Google Analytics pour mesurer la fréquentation du site (pages vues, appels, demandes de devis). Aucune publicité. '
+            '<a href="mentions-legales.html#cookies">En savoir plus</a>.</p>'
+            '<div class="b"><button type="button" class="ok" id="ck-ok">Accepter</button><button type="button" id="ck-no">Refuser</button></div></div>')
 
 def crumb(items):
     ld = {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":i+1,"name":n,"item":SITE+h} for i,(n,h) in enumerate(items)]}
@@ -499,7 +513,7 @@ def page_hub(v):
 </div></section>
 <section class="sec" style="padding-top:28px"><div class="wrap"><div class="page">
 <div class="main">
-<div class="photo-p"><img src="images/equipe-camion.webp" srcset="images/equipe-camion-480.webp 480w, images/equipe-camion.webp 904w" sizes="(max-width:960px) 100vw, 780px" alt="Équipe Atelier PACA et camion d'intervention : dépannage plomberie, chauffage, climatisation et électricité à {esc(v["nom"])}" width="904" height="459" loading="eager" decoding="async"></div>
+<div class="photo-p auto"><img src="images/equipe-camion.webp" srcset="images/equipe-camion-480.webp 480w, images/equipe-camion.webp 904w" sizes="(max-width:960px) 100vw, 780px" alt="Équipe Atelier PACA et camion d'intervention : dépannage plomberie, chauffage, climatisation et électricité à {esc(v["nom"])}" width="904" height="459" loading="eager" decoding="async"></div>
 <h2>Dépannage à {v["nom"]} : choisissez votre métier</h2>
 <p>Fuite d'eau, chaudière en panne, clim qui ne refroidit plus, panne de courant, volet bloqué, porte claquée : un seul numéro, {E["tel"]}, et le prix annoncé avant le déplacement.</p>
 <div class="hub">{hub}</div>
@@ -639,7 +653,7 @@ def pages_annexes():
     # À propos
     page_simple("a-propos.html","Artisans à Antibes depuis 2015 | Atelier PACA","Atelier PACA, entreprise artisanale d'Antibes depuis 2015 : plombiers, chauffagistes, électriciens, serruriers, garantie décennale, 10 800 interventions, 4,9/5.",
         "Atelier PACA : une entreprise d'artisans à Antibes, six métiers, depuis 2015","Qui sommes-nous",
-        f'''<div class="photo-p"><img src="images/equipe-camion.webp" alt="Technicien Atelier PACA et camion d'intervention équipé pour six métiers, Antibes" width="904" height="459" loading="eager"></div>
+        f'''<div class="photo-p auto"><img src="images/equipe-camion.webp" alt="Technicien Atelier PACA et camion d'intervention équipé pour six métiers, Antibes" width="904" height="459" loading="eager"></div>
 <p>Atelier PACA est née à Antibes en {E["depuis"]} avec une idée simple : les habitants de la côte n'ont pas envie de chercher un plombier, puis un électricien, puis un frigoriste. Ils veulent un numéro, un interlocuteur qui connaît leur logement, et une facture claire. C'est devenu notre promesse : un seul numéro pour toute votre maison.</p>
 <p>Dix ans plus tard, l'équipe a réalisé plus de {E["interventions"]} interventions dans les Alpes-Maritimes et le Var est, de Juan-les-Pins à Nice et de Cannes à Grasse, et quatre fiches Google (Antibes, Juan-les-Pins, Cagnes-sur-Mer, Le Cannet) cumulent plus de 450 avis à {E["note"]}/5. Le siège, le stock de pièces et l'atelier sont toujours chemin des Autrichiens, à Antibes.</p>
 <h2>Ce qui nous distingue d'un dépanneur classique</h2>
@@ -726,7 +740,7 @@ def pages_annexes():
 <h2>Hébergement</h2><p>Le site est hébergé par GitHub, Inc. (GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
 <h2>Propriété intellectuelle</h2><p>L'ensemble des éléments de ce site (textes, logo, images, mise en page) est la propriété d'Atelier PACA, sauf mention contraire. Toute reproduction sans autorisation écrite est interdite.</p>
 <h2>Données personnelles</h2><p>Les informations transmises via le formulaire (nom, téléphone, ville, message) servent uniquement à répondre à votre demande. Elles ne sont ni vendues ni cédées. Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression : écrivez à {E["email"]}.</p>
-<h2>Cookies</h2><p>Ce site n'utilise ni cookies publicitaires ni traceurs. Aucun cookie n'est déposé par le site lui-même.</p>
+<h2 id="cookies">Cookies</h2><p>Ce site n'utilise aucun cookie publicitaire. Avec votre accord (bandeau affiché à la première visite), Google Analytics 4 mesure la fréquentation du site : pages vues, clics sur le téléphone, WhatsApp et le formulaire de devis. Les adresses IP sont anonymisées et les données sont conservées 14 mois. Vous pouvez refuser sans aucune conséquence sur la navigation, et changer d'avis à tout moment en effaçant les données du site dans votre navigateur. Le refus est mémorisé 6 mois.</p>
 <h2>Tarifs</h2><p>Les tarifs affichés sont indicatifs (TTC, 2026) et peuvent être modifiés à tout moment. Le tarif définitif est communiqué avant toute intervention.</p>
 <h2>Droit applicable</h2><p>Les présentes mentions sont régies par le droit français. En cas de litige, les tribunaux du ressort du siège social d'Atelier PACA sont compétents.</p>''', cta=False, prio="0.2")
 

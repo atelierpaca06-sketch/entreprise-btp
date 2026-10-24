@@ -18,6 +18,7 @@ ENTREPRISE = {
     "facebook": "https://www.facebook.com/profile.php?id=61595032785115",
     "instagram": "https://www.instagram.com/atelierpaca/",
     "web3forms": "c6decf2e-8b5c-4881-b7ef-d0c9e9f87e88",
+    "ga4": "",  # ID de mesure Google Analytics 4 (G-XXXXXXXXXX). Vide = aucun script, aucun bandeau.
 }
 
 # Les 4 fiches Google (NAP identiques aux fiches)
