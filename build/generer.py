@@ -380,7 +380,7 @@ def page_metier(t):
     c_htm, c_ld = crumb([("Accueil","index.html"),(t["nom"],t["page"])])
     faq_htm, faq_ld = faq_block(t["faq"], f"Questions fréquentes — {t['nom'].lower()}")
     svc_ld = {"@context":"https://schema.org","@type":"Service","name":f"{t['nom']} — Atelier PACA","serviceType":t["nom"],"provider":{"@id":SITE+"#organisation"},"areaServed":[{"@type":"AdministrativeArea","name":"Alpes-Maritimes"},{"@type":"AdministrativeArea","name":"Var"}],"url":SITE+t["page"],
-              "offers":[{"@type":"Offer","name":n,"priceCurrency":"EUR","price":p.replace(" €","").replace(" ","").replace("Surdevis","0"),"description":d} for _,n,d,p,u in t["prestations"] if "€" in p]}
+              "offers":[{"@type":"Offer","name":n,"priceCurrency":"EUR","price":p.replace(" €","").replace(" ","").replace("HT","").replace("Surdevis","0"),"description":d} for _,n,d,p,u in t["prestations"] if "€" in p]}
     ld = [ld_business(t["schema"]), svc_ld, c_ld, faq_ld]
     services = "".join(f'<li>{esc(s)}</li>' for s in t["services"])
     exp = "".join(f'<div class="t"><b>{esc(a)}</b><p>{esc(b)}</p></div>' for a,b in t["expertise"])
@@ -434,7 +434,7 @@ def page_metier_ville(t, v):
     c_htm, c_ld = crumb([("Accueil","index.html"),(t["nom"],t["page"]),(v["nom"],fn)])
     faq_htm, faq_ld = faq_block(t["faq_ville"], f"Questions fréquentes — {t['nom'].lower()} à {v['nom']}", ctx)
     svc_ld = {"@context":"https://schema.org","@type":"Service","name":f"{t['nom']} à {v['nom']}","serviceType":t["nom"],"provider":{"@id":SITE+"#organisation"},"areaServed":{"@type":"City","name":v["nom"],"postalCode":v["cp"]},"url":SITE+fn,
-              "offers":[{"@type":"Offer","name":n,"priceCurrency":"EUR","price":p.replace(" €","").replace(" ","").replace("Surdevis","0"),"description":d,"areaServed":{"@type":"City","name":v["nom"]}} for _,n,d,p,u in t["prestations"] if "€" in p]}
+              "offers":[{"@type":"Offer","name":n,"priceCurrency":"EUR","price":p.replace(" €","").replace(" ","").replace("HT","").replace("Surdevis","0"),"description":d,"areaServed":{"@type":"City","name":v["nom"]}} for _,n,d,p,u in t["prestations"] if "€" in p]}
     ld = [ld_business(t["schema"], agence), svc_ld, c_ld, faq_ld]
     quartiers = ", ".join(v["quartiers"])
     services = "".join(f'<li>{esc(s)}</li>' for s in t["services"])
