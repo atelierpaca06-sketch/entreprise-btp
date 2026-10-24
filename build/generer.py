@@ -91,9 +91,9 @@ def header(cur=""):
     nav = "".join(a(t["page"], "Volets" if t["cle"]=="volets" else t["nom"]) for t in TRADES) + a("depannage-antibes.html", "Villes") + a("avis-clients.html", "Avis")
     menu = "".join(f'<a href="{t["page"]}">{t["nom"]}</a>' for t in TRADES)
     return f'''<header class="hdr"><div class="wrap">
-<a href="index.html" class="logo" aria-label="Atelier PACA — accueil">{LOGO_SVG}</a>
+<a href="index.html" class="logo" aria-label="Atelier PACA, installation entretien dépannage — accueil">{LOGO_SVG}</a>
 <nav class="nav" aria-label="Navigation principale">{nav}</nav>
-<div class="hdr-cta"><a href="{E["tel_href"]}" class="tel-hdr">{ICO["tel"]}<span>{E["tel"]}</span></a>
+<div class="hdr-cta"><a href="{E["tel_href"]}" class="tel-hdr" aria-label="Appeler Atelier PACA au {E["tel"]}">{ICO["tel"]}<span>{E["tel"]}</span></a>
 <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu-m">{ICO["menu"]}</button></div>
 </div></header>
 <div class="menu-m" id="menu-m">{menu}<a href="urgence-depannage-24h.html">Urgence 24h/24</a><a href="contrat-entretien.html">Contrats d'entretien</a><a href="professionnels-syndics.html">Syndics et professionnels</a><a href="depannage-antibes.html">Villes d'intervention</a><a href="avis-clients.html">Avis clients</a><a href="realisations.html">Réalisations</a><a href="blog.html">Conseils</a><a href="contact.html">Contact</a><p class="sub">{E["tel"]} · {E["email"]}</p></div>
@@ -108,13 +108,13 @@ def villes_footer():
 def footer():
     return f'''<footer class="ftr"><div class="wrap">
 <div class="g">
-<div><a href="index.html" class="logo" aria-label="Atelier PACA">{LOGO_SVG}</a>
+<div><a href="index.html" class="logo" aria-label="Atelier PACA, installation entretien dépannage — accueil">{LOGO_SVG}</a>
 <p style="margin-top:14px;max-width:360px">Plomberie, chauffage, climatisation, électricité, volets roulants et serrurerie dans les Alpes-Maritimes et le Var, depuis {E["depuis"]}. Un seul numéro pour toute la maison.</p>
 <p><strong>{E["note"]}/5</strong> sur {E["avis"]} avis Google · garantie décennale · astreinte 24h/24</p>
 <div class="soc"><a href="{E["facebook"]}" target="_blank" rel="noopener" aria-label="Facebook Atelier PACA">{ICO["fb"]}</a><a href="{E["instagram"]}" target="_blank" rel="noopener" aria-label="Instagram Atelier PACA">{ICO["ig"]}</a><a href="{maps(AGENCES[0])}" target="_blank" rel="noopener" aria-label="Fiche Google Atelier PACA">{ICO["g"]}</a></div></div>
-<div><h4>Nos métiers</h4>{"".join(f'<a href="{t["page"]}">{t["nom"]}</a>' for t in TRADES)}<a href="urgence-depannage-24h.html">Urgence 24h/24</a><a href="contrat-entretien.html">Contrats d'entretien</a><a href="professionnels-syndics.html">Syndics et professionnels</a></div>
-<div><h4>Atelier PACA</h4><a href="a-propos.html">Qui sommes-nous</a><a href="avis-clients.html">Avis clients</a><a href="realisations.html">Réalisations</a><a href="marques.html">Marques installées</a><a href="blog.html">Conseils d'artisans</a><a href="faq.html">Questions fréquentes</a><a href="contact.html">Contact et devis</a></div>
-<div><h4>Nos agences</h4>{"".join(f'<a href="{maps(a)}" target="_blank" rel="noopener">{a["nom"]} — {a["adresse"]}, {a["cp"]} {a["ville"]}</a>' for a in AGENCES)}<p style="margin-top:10px"><a href="{E["tel_href"]}"><strong>{E["tel"]}</strong></a><a href="mailto:{E["email"]}">{E["email"]}</a></p></div>
+<div><h3>Nos métiers</h3>{"".join(f'<a href="{t["page"]}">{t["nom"]}</a>' for t in TRADES)}<a href="urgence-depannage-24h.html">Urgence 24h/24</a><a href="contrat-entretien.html">Contrats d'entretien</a><a href="professionnels-syndics.html">Syndics et professionnels</a></div>
+<div><h3>Atelier PACA</h3><a href="a-propos.html">Qui sommes-nous</a><a href="avis-clients.html">Avis clients</a><a href="realisations.html">Réalisations</a><a href="marques.html">Marques installées</a><a href="blog.html">Conseils d'artisans</a><a href="faq.html">Questions fréquentes</a><a href="contact.html">Contact et devis</a></div>
+<div><h3>Nos agences</h3>{"".join(f'<a href="{maps(a)}" target="_blank" rel="noopener">{a["nom"]} — {a["adresse"]}, {a["cp"]} {a["ville"]}</a>' for a in AGENCES)}<p style="margin-top:10px"><a href="{E["tel_href"]}"><strong>{E["tel"]}</strong></a><a href="mailto:{E["email"]}">{E["email"]}</a></p></div>
 </div>
 <div class="villes-f"><p style="margin-bottom:8px">Atelier PACA près de chez vous :</p>{villes_footer()}</div>
 <div class="bas"><span>© 2026 Atelier PACA (SASU) — SIREN {E["siren"]} — Tous droits réservés</span><span><a href="mentions-legales.html">Mentions légales</a> · <a href="plan-du-site.html">Plan du site</a></span></div>
@@ -131,9 +131,9 @@ def crumb(items):
     htm = '<nav class="crumb" aria-label="Fil d’Ariane">' + " › ".join(f'<a href="{h}">{n}</a>' if i < len(items)-1 else f'<span>{n}</span>' for i,(n,h) in enumerate(items)) + '</nav>'
     return htm, ld
 
-def faq_block(items, titre="Questions fréquentes", ctx=None):
+def faq_block(items, titre="Questions fréquentes", ctx=None, cls=""):
     items = [(q.format(**ctx) if ctx else q, a.format(**ctx) if ctx else a) for q,a in items]
-    htm = f'<h2>{titre}</h2><div class="faq">' + "".join(f'<details><summary>{esc(q)}</summary><div class="a"><p>{esc(a)}</p></div></details>' for q,a in items) + '</div>'
+    htm = f'<h2>{titre}</h2><div class="faq{(" " + cls) if cls else ""}">' + "".join(f'<details><summary>{esc(q)}</summary><div class="a"><p>{esc(a)}</p></div></details>' for q,a in items) + '</div>'
     ld = {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in items]}
     return htm, ld
 
@@ -271,7 +271,7 @@ def page_index():
         ("Le devis est-il vraiment gratuit ?","Oui, le devis et la visite technique sont gratuits et sans engagement, pour une climatisation, une pompe à chaleur, un tableau électrique ou une salle de bain. Pour un dépannage, le prix est annoncé avant l'intervention, majoration de nuit ou de week-end comprise."),
         ("Combien coûte une intervention Atelier PACA ?","Le tarif minimum d'intervention est de 110 € HT (dépannage simple, pose de prise, entretien de clim ou de chaudière). Les autres prix sont indicatifs et affichés sur chaque page métier ; le tarif définitif est toujours communiqué avant de commencer."),
         ("Vos travaux sont-ils garantis ?","Oui : garantie décennale sur les travaux, matériel de grandes marques (Daikin, Mitsubishi Electric, Atlantic, Somfy, Legrand), facture détaillée utilisable pour votre assurance et une équipe joignable après l'intervention."),
-    ])
+    ], cls="g2")
     ld = [ld_business(), {"@context":"https://schema.org","@type":"WebSite","@id":SITE+"#site","url":SITE,"name":"Atelier PACA","inLanguage":"fr-FR","publisher":{"@id":SITE+"#organisation"}}, faq_ld]
     metiers = "".join(f'''<a class="metier" href="{t["page"]}"><img src="images/{t["img"]}-480.webp" srcset="images/{t["img"]}-480.webp 480w, images/{t["img"]}.webp 900w" sizes="(max-width:560px) 100vw, (max-width:900px) 50vw, 380px" alt="{esc(t["alt"])}" loading="lazy" width="743" height="586">
 <div class="in"><div class="ic">{ICO_METIER[t["cle"]]}</div><h3>{t["nom"]}</h3><p>{t["desc_court"]}</p></div><span class="go">{ICO["arrow"]}</span></a>''' for t in TRADES)
@@ -295,11 +295,11 @@ def page_index():
 <div>
 <span class="badge247"><i></i> Dépannage 24h/24 · 7j/7 — Antibes, Alpes-Maritimes et Var est</span>
 <h1><span class="pre">Plombier, chauffagiste, électricien à Antibes</span><span class="neon">Un seul numéro</span> pour toute votre maison.</h1>
-<p class="lead">Plomberie, chauffage, climatisation, électricité, volets roulants et serrurerie : une équipe locale basée à Antibes, avec des agences à Juan-les-Pins, Cagnes-sur-Mer et Le Cannet, qui dépanne, entretient et installe dans les Alpes-Maritimes et le Var est. Intervention sous 48 h, urgences 24h/24, devis gratuit.</p>
+<p class="lead">Plomberie, chauffage, climatisation, électricité, volets roulants et serrurerie : une équipe locale basée à Antibes<span class="plus">, avec des agences à Juan-les-Pins, Cagnes-sur-Mer et Le Cannet, qui dépanne, entretient et installe dans les Alpes-Maritimes et le Var est</span>. Intervention sous 48 h, urgences 24h/24, devis gratuit.</p>
 <div class="btns"><a href="{E["tel_href"]}" class="btn btn-rouge">{ICO["tel"]} {E["tel"]}</a><a href="contact.html#devis" class="btn btn-bleu">{ICO["doc"]} Devis gratuit</a></div>
 <div class="proof"><span>{ICO["star"]}<b>{E["note"]}/5</b> — {E["avis"]} avis Google</span><span>{ICO["shield"]}<b>Garantie décennale</b></span><span>{ICO["clock"]}<b>Prix annoncé</b> avant intervention</span></div>
 </div>
-<div style="position:relative"><div class="frame auto"><img src="images/hero-equipe.webp" srcset="images/hero-equipe-480.webp 480w, images/hero-equipe.webp 936w" sizes="(max-width:900px) 100vw, 540px" alt="Technicien Atelier PACA devant le camion d'intervention, baie de Cannes" width="936" height="638" fetchpriority="high" decoding="async"><div class="hero-pictos" aria-hidden="true"><span><i>{ICO_METIER["plomberie"]}</i>Plomberie</span><span><i>{ICO_METIER["chauffage"]}</i>Chauffage</span><span><i>{ICO_METIER["climatisation"]}</i>Climatisation</span><span><i>{ICO_METIER["electricite"]}</i>Électricité</span><span><i>{ICO_METIER["volets"]}</i>Volets</span><span><i>{ICO_METIER["serrurerie"]}</i>Serrurerie</span></div></div></div>
+<div style="position:relative"><div class="frame auto"><img src="images/hero-equipe.webp" srcset="images/hero-equipe-480.webp 480w, images/hero-equipe.webp 936w" sizes="(max-width:900px) 100vw, 540px" alt="Technicien Atelier PACA devant le camion d'intervention, baie de Cannes" width="936" height="638" fetchpriority="high" decoding="sync"><div class="hero-pictos" aria-hidden="true"><span><i>{ICO_METIER["plomberie"]}</i>Plomberie</span><span><i>{ICO_METIER["chauffage"]}</i>Chauffage</span><span><i>{ICO_METIER["climatisation"]}</i>Climatisation</span><span><i>{ICO_METIER["electricite"]}</i>Électricité</span><span><i>{ICO_METIER["volets"]}</i>Volets</span><span><i>{ICO_METIER["serrurerie"]}</i>Serrurerie</span></div></div></div>
 </div></section>
 
 <section class="wrap"><div class="chiffres">
@@ -332,14 +332,11 @@ def page_index():
 <div><div class="frame auto"><img src="images/hero-nuit.webp" srcset="images/hero-nuit-480.webp 480w, images/hero-nuit.webp 529w" sizes="(max-width:900px) 100vw, 520px" alt="Technicien Atelier PACA en dépannage de nuit sur une climatisation, astreinte 24h/24 à Antibes" loading="lazy" width="529" height="774" style="max-height:560px;object-fit:cover"></div></div>
 </div></div></section>
 
-<section class="sec" id="avis" style="padding-top:0"><div class="wrap">
+<section class="sec clair" id="avis"><div class="wrap">
 <div class="sec-h c"><p class="kicker" style="justify-content:center">Avis clients</p><h2>{E["note"]}/5 sur {E["avis"]} avis Google</h2><p>Quatre fiches Google, plus de 450 avis au total, repris tels quels. Les avis sont publics et vérifiables sur chaque fiche. <a href="avis-clients.html">Voir nos avis par agence</a>.</p></div>
 <div class="avis-wrap">{avis}</div>
 <div class="fiches">{fiches}</div>
-</div></section>
-
-<section class="sec" style="padding-top:0"><div class="wrap">
-<div class="sec-h"><p class="kicker">Comment ça se passe</p><h2>Votre dépannage ou vos travaux en quatre étapes</h2></div>
+<div class="sec-h" style="margin-top:56px"><p class="kicker">Comment ça se passe</p><h2>Votre dépannage ou vos travaux en quatre étapes</h2></div>
 <div class="etapes">
 <div class="etape"><span class="n">1</span><b>Vous appelez ou écrivez</b><p>Téléphone, WhatsApp ou formulaire. Un technicien vous répond sous 2 h en journée, immédiatement pour une urgence, et vous donne les premiers gestes à faire.</p></div>
 <div class="etape"><span class="n">2</span><b>Diagnostic et prix annoncé</b><p>Le technicien évalue le besoin et fixe un prix ferme, validé avant de commencer. Pour les travaux, visite technique et devis gratuits sous 24 h.</p></div>
@@ -347,12 +344,12 @@ def page_index():
 <div class="etape"><span class="n">4</span><b>Facture et garantie</b><p>Facture détaillée pour votre assurance ou votre syndic, garantie décennale, et une équipe joignable après l'intervention.</p></div>
 </div></div></section>
 
-<section class="sec" style="padding-top:0"><div class="wrap">
+<section class="sec"><div class="wrap">
 <div class="sec-h"><p class="kicker">Zone d'intervention</p><h2>Dépannage à Antibes, Cagnes-sur-Mer, Cannes, Nice et dans tout le 06</h2><p>Plombier, chauffagiste, électricien, climatisation, volets et serrurier dans toutes les communes ci-dessous, avec le même numéro et les mêmes tarifs, de Mandelieu à Menton et jusqu'au Var est. Choisissez votre ville pour voir nos délais et nos prestations sur place.</p></div>
 <div class="villes"><div><h3>{ICO["pin"]} Alpes-Maritimes <small>(06)</small></h3><div class="chips">{hubs06}</div></div><div><h3>{ICO["pin"]} Var est <small>(83)</small></h3><div class="chips">{hubs83}</div></div></div>
 </div></section>
 
-<section class="sec" style="padding-top:0"><div class="wrap">{faq_htm}</div></section>
+<section class="sec" style="padding-top:0"><div class="wrap"><p class="kicker">Vos questions</p>{faq_htm}</div></section>
 
 <section class="sec" id="devis" style="padding-top:0"><div class="wrap">
 <div class="sec-h"><p class="kicker">Contact</p><h2>Demandez un devis gratuit à Antibes ou près de chez vous</h2><p>Réponse sous 2 h en journée, visite technique gratuite. Pour un dépannage urgent, appelez directement : {E["tel"]}.</p></div>
@@ -422,7 +419,8 @@ def page_metier_ville(t, v):
     agence = next((a for a in AGENCES if a["cle"] == v.get("agence")), None)
     c_htm, c_ld = crumb([("Accueil","index.html"),(t["nom"],t["page"]),(v["nom"],fn)])
     faq_htm, faq_ld = faq_block(t["faq_ville"], f"Questions fréquentes — {t['nom'].lower()} à {v['nom']}", ctx)
-    svc_ld = {"@context":"https://schema.org","@type":"Service","name":f"{t['nom']} à {v['nom']}","serviceType":t["nom"],"provider":{"@id":SITE+"#organisation"},"areaServed":{"@type":"City","name":v["nom"],"postalCode":v["cp"]},"url":SITE+fn}
+    svc_ld = {"@context":"https://schema.org","@type":"Service","name":f"{t['nom']} à {v['nom']}","serviceType":t["nom"],"provider":{"@id":SITE+"#organisation"},"areaServed":{"@type":"City","name":v["nom"],"postalCode":v["cp"]},"url":SITE+fn,
+              "offers":[{"@type":"Offer","name":n,"priceCurrency":"EUR","price":p.replace(" €","").replace(" ","").replace("Surdevis","0"),"description":d,"areaServed":{"@type":"City","name":v["nom"]}} for _,n,d,p,u in t["prestations"] if "€" in p]}
     ld = [ld_business(t["schema"], agence), svc_ld, c_ld, faq_ld]
     quartiers = ", ".join(v["quartiers"])
     services = "".join(f'<li>{esc(s)}</li>' for s in t["services"])
@@ -501,6 +499,7 @@ def page_hub(v):
 </div></section>
 <section class="sec" style="padding-top:28px"><div class="wrap"><div class="page">
 <div class="main">
+<div class="photo-p"><img src="images/equipe-camion.webp" srcset="images/equipe-camion-480.webp 480w, images/equipe-camion.webp 904w" sizes="(max-width:960px) 100vw, 780px" alt="Équipe Atelier PACA et camion d'intervention : dépannage plomberie, chauffage, climatisation et électricité à {esc(v["nom"])}" width="904" height="459" loading="eager" decoding="async"></div>
 <h2>Dépannage à {v["nom"]} : choisissez votre métier</h2>
 <p>Fuite d'eau, chaudière en panne, clim qui ne refroidit plus, panne de courant, volet bloqué, porte claquée : un seul numéro, {E["tel"]}, et le prix annoncé avant le déplacement.</p>
 <div class="hub">{hub}</div>
