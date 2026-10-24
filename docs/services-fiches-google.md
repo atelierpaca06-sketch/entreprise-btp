@@ -11,7 +11,7 @@ Quelle fiche reçoit quoi : **siège Antibes = tout** (32 services). Juan-les-Pi
 **Recherche et réparation de fuite d'eau** — À partir de 132 €
 Fuite visible ou cachée, sous carrelage ou dans un mur : localisation précise sans casser, puis réparation immédiate pour limiter le dégât des eaux. Intervention 24h/24 à Antibes et dans tout le 06, rapport d'intervention fourni pour votre assurance. Prix annoncé avant le déplacement.
 
-**Débouchage de canalisation** — À partir de 132 €
+**Débouchage de canalisation** — À partir de 150 €
 Évier, WC, douche, baignoire ou colonne d'immeuble bouchés : débouchage au furet électrique ou par hydrocurage haute pression selon la situation. Intervention sous 48 h, le jour même en urgence. Devis gratuit pour le curage complet de réseaux en copropriété.
 
 **Dépannage et remplacement de chauffe-eau** — À partir de 350 €
@@ -33,7 +33,7 @@ Canalisations anciennes en plomb ou acier, pression irrégulière, eau colorée 
 **Dépannage de chaudière** — À partir de 132 €
 Chaudière en sécurité, plus de chauffage ni d'eau chaude, code erreur : diagnostic et réparation toutes marques (Vaillant, Saunier Duval, Chaffoteaux, Viessmann, Frisquet, De Dietrich). Pièces courantes en stock pour finir en une visite. Intervention prioritaire en hiver.
 
-**Entretien annuel de chaudière avec attestation** — À partir de 132 €
+**Entretien annuel de chaudière avec attestation** — À partir de 121 €
 Nettoyage du corps de chauffe et du brûleur, réglage de la combustion, contrôle de sécurité et de CO, attestation d'entretien remise sur place. Obligatoire chaque année pour les chaudières gaz. Contrat d'entretien possible avec dépannage prioritaire sous 48 h et 10 % sur les pièces.
 
 **Installation de chaudière gaz à condensation** — Devis gratuit
@@ -55,19 +55,19 @@ Pose d'un thermostat connecté (Netatmo, Tado, Honeywell) ou d'une régulation p
 **Dépannage de climatisation** — À partir de 132 €
 Clim qui ne refroidit plus, fuite d'eau, bruit anormal, code erreur, télécommande inactive : diagnostic sur place et réparation toutes marques (Daikin, Mitsubishi Electric, Toshiba, Atlantic, LG). Intervention sous 48 h, 7j/7 en été.
 
-**Entretien annuel de climatisation** — À partir de 132 € par unité
+**Entretien annuel de climatisation** — À partir de 121 € par unité
 Nettoyage et désinfection des filtres et des unités, contrôle du circuit frigorifique et des pressions, vérification des performances. Air sain, consommation maîtrisée, garantie fabricant conservée. Contrat d'entretien avec dépannage prioritaire et 10 % sur les pièces.
 
-**Installation de climatisation mono-split** — À partir de 1 200 €
+**Installation de climatisation mono-split** — À partir de 1 500 €
 Pose complète d'un climatiseur mural réversible : unité intérieure et extérieure, liaison frigorifique, condensats, mise en service. Daikin, Mitsubishi Electric, Atlantic. Fourni et posé, visite technique et devis gratuits, garantie décennale.
 
-**Installation de climatisation multi-split** — À partir de 2 500 €
+**Installation de climatisation multi-split** — À partir de 3 200 €
 Climatiser 2 à 4 pièces avec une seule unité extérieure : étude des besoins, choix des unités, pose, mise en service. La solution pour toute une maison ou un appartement. Devis gratuit, TVA réduite si le logement est éligible.
 
 **Climatisation gainable et console** — Devis gratuit
 Climatisation invisible par gaines dans les faux plafonds pour villas et bureaux, ou consoles basses pour les pièces sans mur disponible. Étude thermique, devis détaillé, pose par des techniciens frigoristes.
 
-**Recherche de fuite et recharge de fluide frigorigène** — À partir de 132 €
+**Recherche de fuite et recharge de fluide frigorigène** — À partir de 150 €
 Perte de froid progressive : recherche de fuite au détecteur, réparation, tirage au vide et recharge en fluide par un technicien habilité. Contrôle d'étanchéité réglementaire pour les installations concernées.
 
 ---
@@ -96,10 +96,10 @@ Volets, éclairage, chauffage et portail pilotés depuis votre téléphone : ins
 
 ## Catégorie : Serrurier / Service de serrurerie d'urgence
 
-**Ouverture de porte claquée** — À partir de 132 €
+**Ouverture de porte claquée** — À partir de 121 €
 Porte claquée sans les clés : ouverture fine sans dégât dans la grande majorité des cas, 24h/24 et 7j/7 à Antibes, Cannes, Cagnes-sur-Mer et alentours. Prix annoncé au téléphone avant le déplacement.
 
-**Ouverture de porte fermée à clé** — À partir de 140 €
+**Ouverture de porte fermée à clé** — À partir de 150 €
 Clés perdues ou volées, serrure bloquée, clé cassée dans le cylindre : ouverture sans détérioration sur les serrures standard, remplacement du cylindre si nécessaire. Intervention rapide, facture pour l'assurance.
 
 **Changement de serrure ou de cylindre** — À partir de 150 €
